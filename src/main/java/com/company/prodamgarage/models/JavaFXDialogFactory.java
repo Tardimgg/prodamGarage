@@ -1,6 +1,6 @@
 package com.company.prodamgarage.models;
 
-public class JavaFXEventFactory implements EventFactory {
+public class JavaFXDialogFactory implements DialogFactory {
 
     @Override
     public Dialog createDialog() {
