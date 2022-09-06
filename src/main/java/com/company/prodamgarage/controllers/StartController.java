@@ -9,6 +9,6 @@ public class StartController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        welcomeText.setText("nikita gay");
     }
 }
