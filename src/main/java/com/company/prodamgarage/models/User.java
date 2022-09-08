@@ -1,13 +1,14 @@
 package com.company.prodamgarage.models;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.*;
 import java.util.Arrays;
 
-public class User implements Serializable{
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public String territoriesInfo;
-    private String resourcesInfo;
+    private static String serializationPath = "src/main/resources/saves/testSave.ser";
 
     private int age;
     private String name;
@@ -17,74 +18,99 @@ public class User implements Serializable{
     private int mapPosition;
     private String imagePath = "src/main/resources/images/image1.png";
 
-    public User(String filePath) throws IOException, ClassNotFoundException {
-        try{
+    private static volatile User instance;
+
+    @Nonnull
+    public static User getInstance() throws IOException {
+        if (instance == null) {
+            reload(serializationPath);
+        }
+        return instance;
+    }
+
+    private User() {}
+
+    private static void reload(String filePath) throws IOException {
+        try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            User copy = (User) objectInputStream.readObject();
-            this.territoriesInfo = copy.territoriesInfo;
-        } catch (FileNotFoundException e){
-            System.out.println("Save does not exist");
+            instance = (User) objectInputStream.readObject();
+
+        } catch (FileNotFoundException e) {
+            instance = new User();
+            instance.save();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
-    public User() throws IOException, ClassNotFoundException {
-        try{
-            FileInputStream fileInputStream = new FileInputStream("src/main/resources/saves/testSave.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            User copy = (User) objectInputStream.readObject();
-            this.territoriesInfo = copy.territoriesInfo;
-        } catch (FileNotFoundException e){
-            System.out.println("Save does not exist");
-        }
+
+    public static void reload() throws IOException {
+        reload(serializationPath);
     }
-    public void serialization(String filePath) throws IOException{
+
+    public void save(String filePath) throws IOException {
         FileOutputStream outputStream = new FileOutputStream(filePath);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.writeObject(this);
         objectOutputStream.close();
     }
-    public void serialization() throws IOException {
-        this.serialization("src/main/resources/saves/testSave.ser");
+
+    public void save() throws IOException {
+        instance.save(serializationPath);
     }
+
     public int getCash() {
         return cash;
     }
+
     public void setCash(int cash) {
         this.cash = cash;
     }
+
     public int getAge() {
         return age;
     }
+
     public void setAge(int age) {
         this.age = age;
     }
+
     public int getCredit() {
         return credit;
     }
+
     public void setCredit(int credit) {
         this.credit = credit;
     }
+
     public int getMoneyFlow() {
         return moneyFlow;
     }
+
     public void setMoneyFlow(int moneyFlow) {
         this.moneyFlow = moneyFlow;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getImagePath() {
         return imagePath;
     }
+
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
     public int getMapPosition() {
         return mapPosition;
     }
+
     public void setMapPosition(int mapPosition) {
         this.mapPosition = mapPosition;
     }
