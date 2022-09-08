@@ -2,6 +2,7 @@ module com.company.prodamgarage {
     requires javafx.controls;
     requires javafx.fxml;
     requires jsr305;
+    requires rxjava;
 
 
     opens com.company.prodamgarage to javafx.fxml;

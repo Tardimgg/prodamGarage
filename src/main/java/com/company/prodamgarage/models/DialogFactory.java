@@ -1,6 +1,6 @@
 package com.company.prodamgarage.models;
 
-public interface EventFactory {
+public interface DialogFactory {
 
     Dialog createDialog();
 }

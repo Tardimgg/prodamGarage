@@ -1,6 +1,5 @@
 package com.company.prodamgarage.models;
 
-
 import javax.annotation.Nullable;
 import java.io.IOException;
 
@@ -13,9 +12,9 @@ public class Game {
         return instance;
     }
 
-    private final EventFactory eventFactory;
+    private final DialogFactory eventFactory;
 
-    public Game(EventFactory eventFactory) {
+    public Game(DialogFactory eventFactory) {
         this.eventFactory = eventFactory;
         instance = this;
     }
@@ -30,6 +29,8 @@ public class Game {
     }
 
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
+
+//    public Dialog getNext() {} // Получение следующего события
 
 
 }

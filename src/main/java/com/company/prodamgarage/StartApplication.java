@@ -1,9 +1,10 @@
 package com.company.prodamgarage;
 
-import com.company.prodamgarage.models.EventFactory;
+import com.company.prodamgarage.models.DialogFactory;
 import com.company.prodamgarage.models.Game;
 import com.company.prodamgarage.models.JavaFXEventFactory;
 import com.company.prodamgarage.models.User;
+import com.company.prodamgarage.models.JavaFXDialogFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,8 +27,8 @@ public class StartApplication extends Application {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        EventFactory eventFactory = new JavaFXEventFactory();
-        Game game = new Game(eventFactory);
+        DialogFactory eventFactory = new JavaFXDialogFactory();
+        new Game(eventFactory);
 
         launch();
     }
