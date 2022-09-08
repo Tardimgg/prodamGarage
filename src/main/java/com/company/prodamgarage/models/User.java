@@ -4,11 +4,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static String serializationPath = "src/main/resources/saves/testSave.ser";
+    private static final String serializationPath = "src/main/resources/saves/testSave.ser";
 
     private int age;
     private String name;
@@ -16,7 +17,9 @@ public class User implements Serializable {
     private int credit;
     private int moneyFlow;
     private int mapPosition;
-    private String imagePath = "src/main/resources/images/image1.png";
+    private static String imagePath = "src/main/resources/images/image1.png";
+
+    private String customImagePath = null;
 
     private static volatile User instance;
 
@@ -30,17 +33,21 @@ public class User implements Serializable {
 
     private User() {}
 
-    private static void reload(String filePath) throws IOException {
+    public static void reload(String filePath) throws IOException {
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             instance = (User) objectInputStream.readObject();
-
         } catch (FileNotFoundException e) {
             instance = new User();
             instance.save();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+        if (!filePath.equals(User.imagePath)) {
+            instance.customImagePath = filePath;
+        } else {
+            instance.customImagePath = null;
         }
     }
 
@@ -56,7 +63,7 @@ public class User implements Serializable {
     }
 
     public void save() throws IOException {
-        instance.save(serializationPath);
+        instance.save(Objects.requireNonNullElse(instance.customImagePath, serializationPath));
     }
 
     public int getCash() {

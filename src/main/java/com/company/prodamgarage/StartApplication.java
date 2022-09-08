@@ -2,17 +2,13 @@ package com.company.prodamgarage;
 
 import com.company.prodamgarage.models.DialogFactory;
 import com.company.prodamgarage.models.Game;
-import com.company.prodamgarage.models.JavaFXEventFactory;
-import com.company.prodamgarage.models.User;
 import com.company.prodamgarage.models.JavaFXDialogFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 
 public class StartApplication extends Application {
     @Override
@@ -25,7 +21,7 @@ public class StartApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) {
 
         DialogFactory eventFactory = new JavaFXDialogFactory();
         new Game(eventFactory);
