@@ -1,8 +1,10 @@
 package com.company.prodamgarage;
 
 import com.company.prodamgarage.models.DialogFactory;
+import com.company.prodamgarage.models.EventReader;
 import com.company.prodamgarage.models.Game;
 import com.company.prodamgarage.models.JavaFXDialogFactory;
+import com.company.prodamgarage.models.eventModels.GoodEventsRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,8 +25,11 @@ public class StartApplication extends Application {
 
     public static void main(String[] args) {
 
-        DialogFactory eventFactory = new JavaFXDialogFactory();
-        new Game(eventFactory);
+        //DialogFactory eventFactory = new JavaFXDialogFactory();
+        //new Game(eventFactory);
+        EventReader er = new EventReader();
+        GoodEventsRepository ger = er.getGoodEventsRepository();
+        System.out.println(ger.goodEventList.getFirst());
 
         launch();
     }

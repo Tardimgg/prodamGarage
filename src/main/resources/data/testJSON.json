@@ -1,0 +1,13 @@
+{
+  "goodEventList": [
+      {
+        "name" : "testName0",
+        "text": "testText0",
+        "moneyBonus": "testMoneyBonus0"
+      },{
+        "name" : "testName1",
+        "text": "testText1",
+        "moneyBonus": "testMoneyBonus1"
+      }
+  ]
+}
