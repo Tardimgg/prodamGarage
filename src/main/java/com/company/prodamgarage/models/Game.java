@@ -23,7 +23,7 @@ public class Game {
         try {
             user = User.getInstance();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error " + e.toString());
         }
     }
 

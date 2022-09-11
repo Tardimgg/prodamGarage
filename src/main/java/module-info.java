@@ -4,6 +4,7 @@ module com.company.prodamgarage {
     requires jsr305;
     requires rxjava;
     requires com.google.gson;
+    requires json.simple;
 
 
     opens com.company.prodamgarage to javafx.fxml;

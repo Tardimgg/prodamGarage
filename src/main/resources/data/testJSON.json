@@ -9,5 +9,16 @@
         "text": "testText1",
         "moneyBonus": "testMoneyBonus1"
       }
+  ],
+  "badEventList": [
+    {
+      "name" : "testName2",
+      "text": "testText2",
+      "moneyBonus": "testMoneyBonus2"
+    },{
+      "name" : "testName3",
+      "text": "testText3",
+      "moneyBonus": "testMoneyBonus3"
+    }
   ]
 }

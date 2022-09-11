@@ -9,7 +9,7 @@ import java.util.Objects;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static final String serializationPath = "src/main/resources/saves/testSave.ser";
+    private static final String serializationPath = "src/main/resources/data/testSave.ser";
 
     private int age;
     private String name;
