@@ -1,5 +1,9 @@
 package com.company.prodamgarage.models;
 
+import com.company.prodamgarage.models.eventModels.BadEvent;
+import com.company.prodamgarage.models.eventModels.EventsRepository;
+import com.company.prodamgarage.models.eventModels.GoodEvent;
+
 import javax.annotation.Nullable;
 import java.io.IOException;
 
@@ -22,8 +26,16 @@ public class Game {
 
         try {
             user = User.getInstance();
+
+            EventReader reader = new EventReader();
+            EventsRepository rep = reader.getEventsRepository(new JavaFXDialogFactory());
+
+            for (GoodEvent goodEvent : rep.getGoodEventList()) {
+                System.out.println(goodEvent.name + " " + goodEvent.moneyBonus);
+            }
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error " + e.toString());
         }
     }
 

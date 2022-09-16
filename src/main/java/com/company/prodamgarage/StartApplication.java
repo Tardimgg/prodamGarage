@@ -1,8 +1,10 @@
 package com.company.prodamgarage;
 
 import com.company.prodamgarage.models.DialogFactory;
+import com.company.prodamgarage.models.EventReader;
 import com.company.prodamgarage.models.Game;
 import com.company.prodamgarage.models.JavaFXDialogFactory;
+import com.company.prodamgarage.models.eventModels.EventsRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
