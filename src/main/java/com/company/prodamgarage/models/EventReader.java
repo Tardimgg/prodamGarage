@@ -9,21 +9,28 @@ import com.google.gson.*;
 import javax.annotation.Nullable;
 import java.io.FileReader;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventReader {
 
-    private static EventsRepository eventsRepository;
+    //    private static EventsRepository eventsRepository;
+    private static String defaultPath = "src/main/resources/data/testJSON.json";
+    private static HashMap<String, EventsRepository> data = new HashMap<>();
 
     @Nullable
     public EventsRepository getEventsRepository(DialogFactory dialogFactory){
-        if(eventsRepository == null){
-            JsonParser parser = new JsonParser();
-            try(FileReader reader = new FileReader("src/main/resources/data/testJSON.json")){
+        return getEventsRepository(dialogFactory, defaultPath);
+    }
 
-                eventsRepository = new EventsRepository();
+    @Nullable
+    public EventsRepository getEventsRepository(DialogFactory dialogFactory, String path) {
+        if(!data.containsKey(path)){
+            JsonParser parser = new JsonParser();
+            try(FileReader reader = new FileReader(path)){
+
+                EventsRepository eventsRepository = new EventsRepository();
                 JsonObject jsonObj = (JsonObject) parser.parse(reader);
 
                 List<GoodEvent> goodTarget = new ArrayList<>();
@@ -45,13 +52,15 @@ public class EventReader {
                 eventsRepository.setGoodEventList(goodTarget);
                 eventsRepository.setBadEventList(badTarget);
 
+                data.put(path, eventsRepository);
+
                 return eventsRepository;
             } catch (Exception e){
                 System.out.println("Parsing Error " + e);
             }
             return null;
         } else {
-            return eventsRepository;
+            return data.get(path);
         }
     }
 
