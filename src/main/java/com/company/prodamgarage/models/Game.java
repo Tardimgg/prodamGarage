@@ -28,7 +28,7 @@ public class Game {
             user = User.getInstance();
 
             EventReader reader = new EventReader();
-            EventsRepository rep = reader.getEventsRepository(new JavaFXDialogFactory());
+            EventsRepository rep = reader.getEventsRepository(eventFactory);
 
             for (GoodEvent goodEvent : rep.getGoodEventList()) {
                 System.out.println(goodEvent.name + " " + goodEvent.moneyBonus);

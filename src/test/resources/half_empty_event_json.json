@@ -1,0 +1,10 @@
+{
+  "goodEventList": [
+    {
+      "name" : "\n",
+      "text": "\t",
+      "moneyBonus": -2
+    }
+  ],
+  "badEventList": []
+}

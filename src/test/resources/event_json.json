@@ -1,0 +1,24 @@
+{
+  "goodEventList": [
+      {
+        "name" : "goodName",
+        "text": "text",
+        "moneyBonus": 5
+      },{
+        "name" : "goodName2",
+        "text": "",
+        "moneyBonus": 132
+      }
+  ],
+  "badEventList": [
+    {
+      "name" : "badName1",
+      "text": "12wef",
+      "moneyBonus": 4234
+    },{
+      "name" : "badName2",
+      "text": "12",
+      "moneyBonus": 234
+    }
+  ]
+}
