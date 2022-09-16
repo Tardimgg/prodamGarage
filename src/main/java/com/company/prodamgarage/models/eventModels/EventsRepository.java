@@ -1,27 +1,32 @@
 package com.company.prodamgarage.models.eventModels;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class EventsRepository {
-    private ArrayList<GoodEvent> goodEventList;
-    private ArrayList<BadEvent> badEventList;
+    private List<GoodEvent> goodEventList;
+    private List<BadEvent> badEventList;
 
-    public ArrayList<GoodEvent> getGoodEventList() {
+    public List<GoodEvent> getGoodEventList() {
         return goodEventList;
     }
-    public void setGoodEventList(ArrayList<GoodEvent> goodEventList) {
+
+    public void setGoodEventList(List<GoodEvent> goodEventList) {
         this.goodEventList = goodEventList;
     }
-    public ArrayList<BadEvent> getBadEventList() {
+
+    public List<BadEvent> getBadEventList() {
         return badEventList;
     }
-    public void setBadEventList(ArrayList<BadEvent> badEventList) {
+
+    public void setBadEventList(List<BadEvent> badEventList) {
         this.badEventList = badEventList;
     }
-    public Object getRandomGoodEvent(){
-        return (goodEventList.get( (int) ( Math.random() * goodEventList.size() )));
+
+    public GoodEvent getRandomGoodEvent() {
+        return (goodEventList.get((int) (Math.random() * goodEventList.size())));
     }
-    public Object getRandomBadEvent(){
-        return (badEventList.get( (int) ( Math.random() * badEventList.size() )));
+
+    public BadEvent getRandomBadEvent() {
+        return (badEventList.get((int) (Math.random() * badEventList.size())));
     }
 }

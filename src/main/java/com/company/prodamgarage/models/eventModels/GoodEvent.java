@@ -7,6 +7,7 @@ import com.company.prodamgarage.models.Event;
 public class GoodEvent extends Event {
 
     public String name;
+
     public String text;
     public int moneyBonus;
 
@@ -14,6 +15,7 @@ public class GoodEvent extends Event {
     public GoodEvent(DialogFactory dialogFactory) {
         super(dialogFactory);
     }
+
 
     @Override
     public DialogBuilder dialogBuilder() {
