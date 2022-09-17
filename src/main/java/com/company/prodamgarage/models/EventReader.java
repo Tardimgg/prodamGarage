@@ -4,6 +4,9 @@ import com.company.prodamgarage.models.eventModels.BadEvent;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
 import com.company.prodamgarage.models.eventModels.GoodEvent;
 import com.google.gson.*;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 
 import javax.annotation.Nullable;
@@ -19,49 +22,51 @@ public class EventReader {
     private static String defaultPath = "src/main/resources/data/testJSON.json";
     private static HashMap<String, EventsRepository> data = new HashMap<>();
 
-    @Nullable
-    public EventsRepository getEventsRepository(DialogFactory dialogFactory){
+    public static Single<EventsRepository> getEventsRepository(DialogFactory dialogFactory){
         return getEventsRepository(dialogFactory, defaultPath);
     }
 
-    @Nullable
-    public EventsRepository getEventsRepository(DialogFactory dialogFactory, String path) {
-        if(!data.containsKey(path)){
-            JsonParser parser = new JsonParser();
-            try(FileReader reader = new FileReader(path)){
+    public static Single<EventsRepository> getEventsRepository(DialogFactory dialogFactory, String path) {
+        return Single.create((singleSubscriber) -> {
+            if (!data.containsKey(path)) {
+                JsonParser parser = new JsonParser();
+                try (FileReader reader = new FileReader(path)) {
 
-                EventsRepository eventsRepository = new EventsRepository();
-                JsonObject jsonObj = (JsonObject) parser.parse(reader);
+                    EventsRepository eventsRepository = new EventsRepository();
+                    JsonObject jsonObj = (JsonObject) parser.parse(reader);
 
-                List<GoodEvent> goodTarget = new ArrayList<>();
-                List<BadEvent> badTarget = new ArrayList<>();
+                    List<GoodEvent> goodTarget = new ArrayList<>();
+                    List<BadEvent> badTarget = new ArrayList<>();
 
-                JsonArray good_arr = (JsonArray) jsonObj.get("goodEventList");
-                for (int i = 0; i < good_arr.size(); ++i) {
-                    goodTarget.add(new GoodEvent(dialogFactory));
+                    JsonArray good_arr = (JsonArray) jsonObj.get("goodEventList");
+                    for (int i = 0; i < good_arr.size(); ++i) {
+                        goodTarget.add(new GoodEvent(dialogFactory));
+                    }
+
+                    JsonArray bad_arr = (JsonArray) jsonObj.get("badEventList");
+                    for (int i = 0; i < bad_arr.size(); ++i) {
+                        badTarget.add(new BadEvent(dialogFactory));
+                    }
+
+                    parseListJson(good_arr, GoodEvent.class, goodTarget);
+                    parseListJson(bad_arr, BadEvent.class, badTarget);
+
+                    eventsRepository.setGoodEventList(goodTarget);
+                    eventsRepository.setBadEventList(badTarget);
+
+                    data.put(path, eventsRepository);
+
+                    singleSubscriber.onSuccess(eventsRepository);
+//                    return eventsRepository;
+                } catch (Exception e) {
+                    singleSubscriber.onError(new Throwable("parsing error" + e));
                 }
-
-                JsonArray bad_arr = (JsonArray) jsonObj.get("badEventList");
-                for (int i = 0; i < bad_arr.size(); ++i) {
-                    badTarget.add(new BadEvent(dialogFactory));
-                }
-
-                parseListJson(good_arr, GoodEvent.class, goodTarget);
-                parseListJson(bad_arr, BadEvent.class, badTarget);
-
-                eventsRepository.setGoodEventList(goodTarget);
-                eventsRepository.setBadEventList(badTarget);
-
-                data.put(path, eventsRepository);
-
-                return eventsRepository;
-            } catch (Exception e){
-                System.out.println("Parsing Error " + e);
+//                return null;
+            } else {
+                singleSubscriber.onSuccess(data.get(path));
+//                return data.get(path);
             }
-            return null;
-        } else {
-            return data.get(path);
-        }
+        });
     }
 
     private static <T> void parseListJson(JsonArray source, Class<T> tClass, List<T> target) throws NoSuchFieldException {

@@ -1,10 +1,10 @@
 package com.company.prodamgarage;
 
-import com.company.prodamgarage.models.DialogFactory;
-import com.company.prodamgarage.models.EventReader;
-import com.company.prodamgarage.models.Game;
-import com.company.prodamgarage.models.JavaFXDialogFactory;
+import com.company.prodamgarage.models.*;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.internal.observers.BiConsumerSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,7 +26,12 @@ public class StartApplication extends Application {
     public static void main(String[] args) {
 
         DialogFactory eventFactory = new JavaFXDialogFactory();
-        new Game(eventFactory);
+        Game game = new Game(eventFactory);
+        game.getNext()
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BiConsumerSingleObserver<>((dialog, throwable) -> {
+
+                }));
 
         launch();
     }

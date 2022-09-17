@@ -3,6 +3,9 @@ package com.company.prodamgarage.models;
 import com.company.prodamgarage.models.eventModels.BadEvent;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
 import com.company.prodamgarage.models.eventModels.GoodEvent;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.internal.observers.BiConsumerSingleObserver;
+import io.reactivex.schedulers.Schedulers;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,8 +16,7 @@ class EventReaderTest {
 
     @Test
     void getEventsRepositoryDefaultTest() {
-        EventReader reader = new EventReader();
-        EventsRepository rep = reader.getEventsRepository(null, "src/test/resources/event_json.json");
+        EventsRepository rep = EventReader.getEventsRepository(null, "src/test/resources/event_json.json").blockingGet();
 
         assertNotNull(rep);
         List<GoodEvent> listOfGoodEvent = rep.getGoodEventList();
@@ -45,9 +47,17 @@ class EventReaderTest {
     }
 
     @Test
+    void getEventsRepositoryFromNonExistentFile() {
+        EventReader.getEventsRepository(null, "src/test/resources/lwwefobwef.json")
+                .subscribe(new BiConsumerSingleObserver<>((eventsRepository, throwable) -> {
+                    assertNull(eventsRepository);
+                    assertNotNull(throwable);
+                }));
+    }
+
+    @Test
     void getEventsRepository() {
-        EventReader reader = new EventReader();
-        EventsRepository rep = reader.getEventsRepository(null, "src/test/resources/half_empty_event_json.json");
+        EventsRepository rep = EventReader.getEventsRepository(null, "src/test/resources/half_empty_event_json.json").blockingGet();
 
         assertNotNull(rep);
         List<GoodEvent> listOfGoodEvent = rep.getGoodEventList();
