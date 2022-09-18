@@ -1,9 +1,6 @@
 package com.company.prodamgarage;
 
-import com.company.prodamgarage.models.DialogFactory;
-import com.company.prodamgarage.models.EventReader;
-import com.company.prodamgarage.models.Game;
-import com.company.prodamgarage.models.JavaFXDialogFactory;
+import com.company.prodamgarage.models.*;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +24,7 @@ public class StartApplication extends Application {
 
         DialogFactory eventFactory = new JavaFXDialogFactory();
         new Game(eventFactory);
+
 
         launch();
     }
