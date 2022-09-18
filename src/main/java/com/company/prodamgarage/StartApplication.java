@@ -24,14 +24,8 @@ public class StartApplication extends Application {
     }
 
     public static void main(String[] args) {
-
         DialogFactory eventFactory = new JavaFXDialogFactory();
-        Game game = new Game(eventFactory);
-        game.getNext()
-                .subscribeOn(Schedulers.io())
-                .subscribe(new BiConsumerSingleObserver<>((dialog, throwable) -> {
-
-                }));
+        new Game(eventFactory);
 
         launch();
     }
