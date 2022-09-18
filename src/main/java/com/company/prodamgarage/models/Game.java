@@ -1,12 +1,6 @@
 package com.company.prodamgarage.models;
 
-import com.company.prodamgarage.models.eventModels.BadEvent;
-import com.company.prodamgarage.models.eventModels.EventsRepository;
-import com.company.prodamgarage.models.eventModels.GoodEvent;
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiConsumer;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -37,8 +31,8 @@ public class Game {
                     .subscribeOn(Schedulers.io())
                     .subscribe(new BiConsumerSingleObserver<>((eventsRepository, throwable) -> {
 
-                        for (GoodEvent goodEvent : eventsRepository.getGoodEventList()) {
-                           System.out.println(goodEvent.name + " " + goodEvent.moneyBonus);
+                        for (Event goodEvent : eventsRepository.getGoodEventList()) {
+//                           System.out.println(goodEvent. + " " + goodEvent.moneyBonus);
                         }
 
                     }));

@@ -1,20 +1,22 @@
 package com.company.prodamgarage.models;
 
-import com.company.prodamgarage.models.eventModels.BadEvent;
+import com.company.prodamgarage.models.eventModels.NotificationEvent;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
-import com.company.prodamgarage.models.eventModels.GoodEvent;
+import com.company.prodamgarage.models.eventModels.SelectionEvent;
 import com.google.gson.*;
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
+import javafx.util.Pair;
 
 
-import javax.annotation.Nullable;
 import java.io.FileReader;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EventReader {
 
@@ -35,65 +37,109 @@ public class EventReader {
                     EventsRepository eventsRepository = new EventsRepository();
                     JsonObject jsonObj = (JsonObject) parser.parse(reader);
 
-                    List<GoodEvent> goodTarget = new ArrayList<>();
-                    List<BadEvent> badTarget = new ArrayList<>();
-
                     JsonArray good_arr = (JsonArray) jsonObj.get("goodEventList");
-                    for (int i = 0; i < good_arr.size(); ++i) {
-                        goodTarget.add(new GoodEvent(dialogFactory));
-                    }
-
                     JsonArray bad_arr = (JsonArray) jsonObj.get("badEventList");
-                    for (int i = 0; i < bad_arr.size(); ++i) {
-                        badTarget.add(new BadEvent(dialogFactory));
-                    }
 
-                    parseListJson(good_arr, GoodEvent.class, goodTarget);
-                    parseListJson(bad_arr, BadEvent.class, badTarget);
+                    List<Pair<Class<? extends Event>, List<Pair<Class<?>, ?>>>> typesEvents = Arrays.asList(
+                            new Pair<>(NotificationEvent.class, List.of(new Pair<>(DialogFactory.class, dialogFactory))),
+                            new Pair<>(SelectionEvent.class, List.of(new Pair<>(DialogFactory.class, dialogFactory)))
+                    );
 
-                    eventsRepository.setGoodEventList(goodTarget);
-                    eventsRepository.setBadEventList(badTarget);
+                    List<Event> goodEvents = parseListJson(good_arr, typesEvents, Event.class);
+                    List<Event> badEvents = parseListJson(bad_arr, typesEvents, Event.class);
+
+                    eventsRepository.setGoodEventList(goodEvents);
+                    eventsRepository.setBadEventList(badEvents);
 
                     data.put(path, eventsRepository);
 
                     singleSubscriber.onSuccess(eventsRepository);
-//                    return eventsRepository;
                 } catch (Exception e) {
                     singleSubscriber.onError(new Throwable("parsing error" + e));
                 }
-//                return null;
             } else {
                 singleSubscriber.onSuccess(data.get(path));
-//                return data.get(path);
             }
         });
     }
 
-    private static <T> void parseListJson(JsonArray source, Class<T> tClass, List<T> target) throws NoSuchFieldException {
-        if (target.size() < source.size()) {
-            throw new IndexOutOfBoundsException("storage is too small");
-        }
+    //  types: list of pair
+    //      key: types of possible events
+    //      value: list of pair
+    //          key: type of the constructor parameter of the current event
+    //          value: the value of this parameter of the current event
+
+    private static <T> List<T> parseListJson(JsonArray source, List<Pair<Class<? extends Event>,
+            List<Pair<Class<?>, ?>>>> types, Class<T> target) throws NoSuchFieldException, NoSuchMethodException {
+
+        List<T> ans = new ArrayList<>();
         for (int i = 0; i < source.size(); ++i) {
             JsonObject elemObj = (JsonObject) source.get(i);
-            parseJson(elemObj, tClass, target.get(i));
+            ans.add(parseJson(elemObj, types, target));
         }
+
+        return ans;
     }
 
-    private static <T> void parseJson(JsonObject source, Class<T> tClass, T target) throws NoSuchFieldException {
+
+    private static <T> T parseJson(JsonObject source, List<Pair<Class<? extends Event>,
+            List<Pair<Class<?>, ?>>>> types, Class<T> castTarget) throws NoSuchFieldException, NoSuchMethodException {
+
+        if (!source.has("eventType")) {
+            throw new NoSuchFieldException("eventType field is required");
+        }
+
+        String eventType = source.get("eventType").getAsString();
+        var targetPair = types.stream().filter((v) -> {
+            int indexLastDot = v.getKey().getName().lastIndexOf('.');
+            return v.getKey().getName().substring(indexLastDot + 1).equals(eventType);
+        }).findFirst().orElseThrow(() -> new NoSuchFieldException("the required class was not found"));
+
+        List<Class<?>> constructParams = targetPair.getValue().stream().map(Pair::getKey).collect(Collectors.toList());
+
+        Constructor<? extends Event> ansConstructor;
+
+        try {
+            ansConstructor = targetPair.getKey().getConstructor(constructParams.toArray(Class<?>[]::new));
+        } catch (NoSuchMethodException e) {
+            throw new NoSuchFieldException("the required class constructor was not found");
+        }
+
+        List<Object> constructParamsObj = targetPair.getValue().stream().map(Pair::getValue).collect(Collectors.toList());
+
+        T ans;
+        try {
+            ans = (T) ansConstructor.newInstance(constructParamsObj.toArray(Object[]::new));
+        } catch (Exception e) {
+            throw new NoSuchMethodException("invalid data provided for constructor");
+        }
+
         for (String key: source.keySet()) {
-            Field field = tClass.getField(key);
+
+            if (key.equals("eventType")) {
+                continue;
+            }
+
+            if (key.equals("userChanges")) {
+                // add implementation userChanges parsing
+                continue;
+            }
+
+            Field field = targetPair.getKey().getField(key);
 
             try {
                 JsonElement elem = source.get(key);
                 if (field.getType().equals(String.class)) {
-                    field.set(target, elem.getAsString());
+                    field.set(ans, elem.getAsString());
 
                 } else if (field.getType().equals(Integer.TYPE)) {
-                    field.set(target, elem.getAsInt());
+                    field.set(ans, elem.getAsInt());
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
+
+        return ans;
     }
 }

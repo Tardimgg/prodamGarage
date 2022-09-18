@@ -1,24 +1,30 @@
 {
   "goodEventList": [
       {
-        "name" : "goodName",
+        "title" : "goodName",
         "text": "text",
-        "moneyBonus": 5
+        "userChanges" : {
+            "deltaMoneyFlow": 5,
+            "deltaAge": 1
+        },
+        "eventType": "NotificationEvent"
       },{
         "name" : "goodName2",
         "text": "",
-        "moneyBonus": 132
+        "moneyBonus": 132,
+        "eventType": "SelectionEvent"
       }
   ],
   "badEventList": [
     {
       "name" : "badName1",
       "text": "12wef",
-      "moneyBonus": 4234
+      "moneyBonus": 4234,
+      "eventType": "SelectionEvent"
     },{
-      "name" : "badName2",
+      "title" : "badName2",
       "text": "12",
-      "moneyBonus": 234
+      "eventType": "NotificationEvent"
     }
   ]
 }

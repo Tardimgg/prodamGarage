@@ -1,24 +1,27 @@
 {
   "goodEventList": [
       {
-        "name" : "testName0",
+        "title" : "testName0",
         "text": "testText0",
-        "moneyBonus": 5
+        "eventType": "NotificationEvent"
       },{
         "name" : "testName1",
         "text": "testText1",
-        "moneyBonus": 132
+        "moneyBonus": 132,
+        "eventType": "SelectionEvent"
       }
   ],
   "badEventList": [
     {
       "name" : "testName2",
       "text": "testText2",
-      "moneyBonus": 4234
+      "moneyBonus": 4234,
+      "eventType": "SelectionEvent"
     },{
-      "name" : "testName3",
+      "title" : "testName3",
       "text": "testText3",
-      "moneyBonus": 234
+      "eventType": "NotificationEvent"
+
     }
   ]
 }

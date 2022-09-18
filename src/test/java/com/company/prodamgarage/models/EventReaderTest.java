@@ -1,11 +1,9 @@
 package com.company.prodamgarage.models;
 
-import com.company.prodamgarage.models.eventModels.BadEvent;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
-import com.company.prodamgarage.models.eventModels.GoodEvent;
-import io.reactivex.functions.BiConsumer;
+import com.company.prodamgarage.models.eventModels.NotificationEvent;
+import com.company.prodamgarage.models.eventModels.SelectionEvent;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
-import io.reactivex.schedulers.Schedulers;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,31 +17,29 @@ class EventReaderTest {
         EventsRepository rep = EventReader.getEventsRepository(null, "src/test/resources/event_json.json").blockingGet();
 
         assertNotNull(rep);
-        List<GoodEvent> listOfGoodEvent = rep.getGoodEventList();
+        List<Event> listOfGoodEvent = rep.getGoodEventList();
         assertNotNull(listOfGoodEvent);
 
         assertEquals(listOfGoodEvent.size(), 2);
 
-        assertEquals(listOfGoodEvent.get(0).name, "goodName");
-        assertEquals(listOfGoodEvent.get(0).text, "text");
-        assertEquals(listOfGoodEvent.get(0).moneyBonus, 5);
+        assertEquals(((NotificationEvent) listOfGoodEvent.get(0)).title, "goodName");
+        assertEquals(((NotificationEvent) listOfGoodEvent.get(0)).text, "text");
 
-        assertEquals(listOfGoodEvent.get(1).name, "goodName2");
-        assertEquals(listOfGoodEvent.get(1).text, "");
-        assertEquals(listOfGoodEvent.get(1).moneyBonus, 132);
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).name, "goodName2");
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).text, "");
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).moneyBonus, 132);
 
-        List<BadEvent> listOfBadEvent = rep.getBadEventList();
+        List<Event> listOfBadEvent = rep.getBadEventList();
         assertNotNull(listOfBadEvent);
 
         assertEquals(listOfBadEvent.size(), 2);
 
-        assertEquals(listOfBadEvent.get(0).name, "badName1");
-        assertEquals(listOfBadEvent.get(0).text, "12wef");
-        assertEquals(listOfBadEvent.get(0).moneyBonus, 4234);
+        assertEquals(((SelectionEvent) listOfBadEvent.get(0)).name, "badName1");
+        assertEquals(((SelectionEvent) listOfBadEvent.get(0)).text, "12wef");
+        assertEquals(((SelectionEvent) listOfBadEvent.get(0)).moneyBonus, 4234);
 
-        assertEquals(listOfBadEvent.get(1).name, "badName2");
-        assertEquals(listOfBadEvent.get(1).text, "12");
-        assertEquals(listOfBadEvent.get(1).moneyBonus, 234);
+        assertEquals(((NotificationEvent) listOfBadEvent.get(1)).title, "badName2");
+        assertEquals(((NotificationEvent) listOfBadEvent.get(1)).text, "12");
     }
 
     @Test
@@ -60,16 +56,17 @@ class EventReaderTest {
         EventsRepository rep = EventReader.getEventsRepository(null, "src/test/resources/half_empty_event_json.json").blockingGet();
 
         assertNotNull(rep);
-        List<GoodEvent> listOfGoodEvent = rep.getGoodEventList();
+        List<Event> listOfGoodEvent = rep.getGoodEventList();
+
         assertNotNull(listOfGoodEvent);
 
         assertEquals(listOfGoodEvent.size(), 1);
 
-        assertEquals(listOfGoodEvent.get(0).name, "\n");
-        assertEquals(listOfGoodEvent.get(0).text, "\t");
-        assertEquals(listOfGoodEvent.get(0).moneyBonus, -2);
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(0)).name, "\n");
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(0)).text, "\t");
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(0)).moneyBonus, -2);
 
-        List<BadEvent> listOfBadEvent = rep.getBadEventList();
+        List<Event> listOfBadEvent = rep.getBadEventList();
         assertNotNull(listOfBadEvent);
 
         assertEquals(listOfBadEvent.size(), 0);
