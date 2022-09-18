@@ -4,7 +4,7 @@ import com.company.prodamgarage.models.DialogBuilder;
 import com.company.prodamgarage.models.DialogFactory;
 import com.company.prodamgarage.models.Event;
 import com.company.prodamgarage.models.UserChanges;
-import com.company.prodamgarage.models.dialogBuilders.GoodDialogBuilder;
+import com.company.prodamgarage.models.dialogBuilders.SelectionDialogBuilder;
 
 public class SelectionEvent extends Event {
 
@@ -22,6 +22,6 @@ public class SelectionEvent extends Event {
 
     @Override
     public DialogBuilder dialogBuilder() {
-        return new GoodDialogBuilder();
+        return new SelectionDialogBuilder();
     }
 }

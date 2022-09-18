@@ -4,7 +4,7 @@ import com.company.prodamgarage.models.DialogBuilder;
 import com.company.prodamgarage.models.DialogFactory;
 import com.company.prodamgarage.models.Event;
 import com.company.prodamgarage.models.UserChanges;
-import com.company.prodamgarage.models.dialogBuilders.BadDialogBuilder;
+import com.company.prodamgarage.models.dialogBuilders.NotificationDialogBuilder;
 
 public class NotificationEvent extends Event {
     
@@ -20,6 +20,6 @@ public class NotificationEvent extends Event {
 
     @Override
     public DialogBuilder dialogBuilder() {
-        return new BadDialogBuilder();
+        return new NotificationDialogBuilder();
     }
 }
