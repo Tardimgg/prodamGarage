@@ -45,11 +45,6 @@ public class EventReader {
                             new Pair<>(SelectionEvent.class, List.of(new Pair<>(DialogFactory.class, dialogFactory)))
                     );
 
-//                    Pair<Class<? extends Event>, List<Pair<Class<?>, ?>>> notificationPair = new Pair<>(NotificationEvent.class, List.of(new Pair<>(DialogFactory.class, dialogFactory)));
-//                    Pair<Class<? extends Event>, List<Pair<Class<?>, ?>>> selectionPair = new Pair<>(SelectionEvent.class, List.of(new Pair<>(DialogFactory.class, dialogFactory)));
-
-//                    List<Pair<Class<? extends Event>, List<Pair<Class<?>, ?>>>> events = Arrays.asList(notificationPair, selectionPair);
-
                     List<Event> goodEvents = parseListJson(good_arr, typesEvents, Event.class);
                     List<Event> badEvents = parseListJson(bad_arr, typesEvents, Event.class);
 
@@ -74,8 +69,8 @@ public class EventReader {
     //          key: type of the constructor parameter of the current event
     //          value: the value of this parameter of the current event
 
-    private static <T> List<T> parseListJson(JsonArray source, List<Pair<Class<? extends Event>, List<Pair<Class<?>, ?>>>> types,
-                                             Class<T> target) throws NoSuchFieldException, NoSuchMethodException {
+    private static <T> List<T> parseListJson(JsonArray source, List<Pair<Class<? extends Event>,
+            List<Pair<Class<?>, ?>>>> types, Class<T> target) throws NoSuchFieldException, NoSuchMethodException {
 
         List<T> ans = new ArrayList<>();
         for (int i = 0; i < source.size(); ++i) {
