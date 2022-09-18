@@ -17,8 +17,6 @@ import java.util.List;
 public class MapReader {
     private static String defaultPath = "src/main/resources/data/mapJSON.json";
     private static HashMap<String, MapRepository> data = new HashMap<>();
-    private static volatile MapReader instance;
-
 
     public static Single<MapRepository> getMapRepository() {
         return getMapRepository(defaultPath);

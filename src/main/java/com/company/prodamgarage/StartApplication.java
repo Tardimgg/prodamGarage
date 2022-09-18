@@ -23,7 +23,7 @@ public class StartApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         DialogFactory eventFactory = new JavaFXDialogFactory();
         new Game(eventFactory);
 
