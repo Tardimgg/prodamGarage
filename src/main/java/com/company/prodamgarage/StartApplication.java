@@ -21,11 +21,8 @@ public class StartApplication extends Application {
     }
 
     public static void main(String[] args) {
-
         DialogFactory eventFactory = new JavaFXDialogFactory();
         new Game(eventFactory);
-
-
         launch();
     }
 }
