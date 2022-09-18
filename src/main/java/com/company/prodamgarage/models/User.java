@@ -1,5 +1,7 @@
 package com.company.prodamgarage.models;
 
+import io.reactivex.Single;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
@@ -24,11 +26,21 @@ public class User implements Serializable {
     private static volatile User instance;
 
     @Nonnull
-    public static User getInstance() throws IOException {
-        if (instance == null) {
-            reload(serializationPath);
-        }
-        return instance;
+    public static Single<User> getInstance() throws IOException {
+        return Single.create(singleSubscriber -> {
+            synchronized (User.class) {
+                if (instance == null) {
+                    try {
+                        reload(serializationPath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        singleSubscriber.onError(new Throwable("user load error. " + e));
+                        return;
+                    }
+                }
+                singleSubscriber.onSuccess(instance);
+            }
+        });
     }
 
     private User() {}
