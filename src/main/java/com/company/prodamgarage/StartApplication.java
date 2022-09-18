@@ -26,9 +26,7 @@ public class StartApplication extends Application {
     public static void main(String[] args) throws IOException {
         DialogFactory eventFactory = new JavaFXDialogFactory();
         new Game(eventFactory);
-        MapReader m = MapReader.getInstance();
-        MapElement me = m.getMapRepository().getMapList().get(0);
-        System.out.println(me.eventType);
+
         launch();
     }
 }
