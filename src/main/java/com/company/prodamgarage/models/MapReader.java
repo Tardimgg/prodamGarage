@@ -5,8 +5,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +16,14 @@ import java.util.List;
 public class MapReader {
     private static String defaultPath = "src/main/resources/data/mapJSON.json";
     private static HashMap<String, MapRepository> data = new HashMap<>();
+    private static volatile MapReader instance;
+    @Nonnull
+    public static MapReader getInstance() throws IOException {
+        if (instance == null) {
+            instance = new MapReader();
+        }
+        return instance;
+    }
     @Nullable
     public MapRepository getMapRepository() {
         return getMapRepository(defaultPath);
@@ -25,13 +35,13 @@ public class MapReader {
             try (FileReader reader = new FileReader(path)) {
                 MapRepository mapRepository = new MapRepository();
                 JsonObject jsonObj = (JsonObject) parser.parse(reader);
-                List<Map> mapTarget = new ArrayList<>();
+                List<MapElement> mapElementTarget = new ArrayList<>();
                 JsonArray map_arr = (JsonArray) jsonObj.get("mapCellList");
                 for (int i = 0; i < map_arr.size(); ++i) {
-                    mapTarget.add(new Map());
+                    mapElementTarget.add(new MapElement());
                 }
-                parseListJson(map_arr, Map.class, mapTarget);
-                mapRepository.setMapList(mapTarget);
+                parseListJson(map_arr, MapElement.class, mapElementTarget);
+                mapRepository.setMapList(mapElementTarget);
                 data.put(path, mapRepository);
                 return mapRepository;
             } catch (Exception e) {

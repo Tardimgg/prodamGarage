@@ -1,8 +1,5 @@
 package com.company.prodamgarage.models;
 
-import com.company.prodamgarage.models.eventModels.BadEvent;
-import com.company.prodamgarage.models.eventModels.EventsRepository;
-import com.company.prodamgarage.models.eventModels.GoodEvent;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,16 +14,16 @@ class MapReaderTest {
         MapRepository rep = reader.getMapRepository("src/test/resources/good_map_json.json");
 
         assertNotNull(rep);
-        List<Map> mapList = rep.getMapList();
-        assertNotNull(mapList);
+        List<MapElement> mapElementList = rep.getMapList();
+        assertNotNull(mapElementList);
 
-        assertEquals(mapList.size(), 2);
+        assertEquals(mapElementList.size(), 2);
 
-        assertEquals(mapList.get(0).eventType, EventType.BAD);
-        assertEquals(mapList.get(0).seasonType, SeasonType.SUMMER);
+        assertEquals(mapElementList.get(0).eventType, EventType.BAD);
+        assertEquals(mapElementList.get(0).seasonType, SeasonType.SUMMER);
 
-        assertEquals(mapList.get(1).eventType, EventType.VERY_BAD);
-        assertEquals(mapList.get(1).seasonType, SeasonType.AUTUMN);
+        assertEquals(mapElementList.get(1).eventType, EventType.VERY_BAD);
+        assertEquals(mapElementList.get(1).seasonType, SeasonType.AUTUMN);
     }
 
     @Test
@@ -35,9 +32,9 @@ class MapReaderTest {
         MapRepository rep = reader.getMapRepository("src/test/resources/bad_map_json.json");
 
         assertNotNull(rep);
-        List<Map> mapList = rep.getMapList();
-        assertNotNull(mapList);
-        
-        assertEquals(mapList.size(), 0);
+        List<MapElement> mapElementList = rep.getMapList();
+        assertNotNull(mapElementList);
+
+        assertEquals(mapElementList.size(), 0);
     }
 }

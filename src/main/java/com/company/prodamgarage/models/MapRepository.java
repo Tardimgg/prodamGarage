@@ -3,13 +3,13 @@ package com.company.prodamgarage.models;
 import java.util.List;
 
 public class MapRepository {
-    private List<Map> mapList;
+    private List<MapElement> mapElementList;
 
 
-    public List<Map> getMapList(){
-        return mapList;
+    public List<MapElement> getMapList(){
+        return mapElementList;
     }
-    public void setMapList(List<Map> list){
-        this.mapList = list;
+    public void setMapList(List<MapElement> list){
+        this.mapElementList = list;
     }
 }
