@@ -3,7 +3,8 @@
     {
       "name" : "\n",
       "text": "\t",
-      "moneyBonus": -2
+      "moneyBonus": -2,
+      "eventType": "SelectionEvent"
     }
   ],
   "badEventList": []

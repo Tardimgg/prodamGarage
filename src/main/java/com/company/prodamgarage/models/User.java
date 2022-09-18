@@ -45,6 +45,7 @@ public class User implements Serializable {
 
     private User() {}
 
+    // add RxJava
     public static void reload(String filePath) throws IOException {
         try {
             FileInputStream fileInputStream = new FileInputStream(filePath);
