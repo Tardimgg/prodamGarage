@@ -41,13 +41,12 @@ public class MapReader {
                 } catch (Exception e) {
                     singleSubscriber.onError(new Throwable("parsing error" + e));
                 }
-                //               return null;
             } else {
                 singleSubscriber.onSuccess(data.get(path));
-//                return data.get(path);
             }
         });
     }
+
     private static <T> void parseListJson(JsonArray source, Class<T> tClass, List<T> target) throws NoSuchFieldException {
         if (target.size() < source.size()) {
             throw new IndexOutOfBoundsException("storage is too small");
@@ -57,6 +56,7 @@ public class MapReader {
             parseJson(elemObj, tClass, target.get(i));
         }
     }
+
     private static <T> void parseJson(JsonObject source, Class<T> tClass, T target) throws NoSuchFieldException {
         for (String key : source.keySet()) {
             Field field = tClass.getField(key);
