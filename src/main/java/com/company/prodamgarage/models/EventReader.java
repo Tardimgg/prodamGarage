@@ -1,5 +1,6 @@
 package com.company.prodamgarage.models;
 
+import com.company.prodamgarage.StdJsonParser;
 import com.company.prodamgarage.models.eventModels.NotificationEvent;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
 import com.company.prodamgarage.models.eventModels.SelectionEvent;
@@ -11,7 +12,6 @@ import javafx.util.Pair;
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -121,22 +121,36 @@ public class EventReader {
             }
 
             if (key.equals("userChanges")) {
-                // add implementation userChanges parsing
-                continue;
-            }
-
-            Field field = targetPair.getKey().getField(key);
-
-            try {
-                JsonElement elem = source.get(key);
-                if (field.getType().equals(String.class)) {
-                    field.set(ans, elem.getAsString());
-
-                } else if (field.getType().equals(Integer.TYPE)) {
-                    field.set(ans, elem.getAsInt());
+                if (Arrays.stream(targetPair.getKey().getFields()).filter((v) -> v.getName().equals(key)).findFirst().isEmpty()) {
+                    throw new NoSuchFieldException(targetPair.getKey().toString() + " does not contain the userChanges field");
                 }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                Field field = targetPair.getKey().getField(key);
+
+                JsonObject elem = (JsonObject) source.get(key);
+
+                UserChanges userChanges = new UserChanges();
+
+                StdJsonParser.parseJson(elem, UserChanges.class, userChanges);
+
+                try {
+                    field.set(ans, userChanges);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Field field = targetPair.getKey().getField(key);
+
+                try {
+                    JsonElement elem = source.get(key);
+                    if (field.getType().equals(String.class)) {
+                        field.set(ans, elem.getAsString());
+
+                    } else if (field.getType().equals(Integer.TYPE)) {
+                        field.set(ans, elem.getAsInt());
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

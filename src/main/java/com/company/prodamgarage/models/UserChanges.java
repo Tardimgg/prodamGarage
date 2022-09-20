@@ -7,10 +7,10 @@ import java.io.IOException;
 
 public class UserChanges {
 
-    private int deltaAge;
-    private int deltaCash;
-    private int deltaCredit;
-    private int deltaMoneyFlow;
+    public int deltaAge;
+    public int deltaCash;
+    public int deltaCredit;
+    public int deltaMoneyFlow;
 
     public Completable apply() {
         return new Completable() {

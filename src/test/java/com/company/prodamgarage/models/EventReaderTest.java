@@ -24,10 +24,14 @@ class EventReaderTest {
 
         assertEquals(((NotificationEvent) listOfGoodEvent.get(0)).title, "goodName");
         assertEquals(((NotificationEvent) listOfGoodEvent.get(0)).text, "text");
+        assertEquals(((NotificationEvent) listOfGoodEvent.get(0)).userChanges.deltaAge, 1);
+        assertEquals(((NotificationEvent) listOfGoodEvent.get(0)).userChanges.deltaMoneyFlow, 5);
 
         assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).name, "goodName2");
         assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).text, "");
         assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).moneyBonus, 132);
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).userChanges.deltaAge, -1);
+        assertEquals(((SelectionEvent) listOfGoodEvent.get(1)).userChanges.deltaMoneyFlow, 22);
 
         List<Event> listOfBadEvent = rep.getBadEventList();
         assertNotNull(listOfBadEvent);
@@ -37,9 +41,13 @@ class EventReaderTest {
         assertEquals(((SelectionEvent) listOfBadEvent.get(0)).name, "badName1");
         assertEquals(((SelectionEvent) listOfBadEvent.get(0)).text, "12wef");
         assertEquals(((SelectionEvent) listOfBadEvent.get(0)).moneyBonus, 4234);
+        assertEquals(((SelectionEvent) listOfBadEvent.get(0)).userChanges.deltaAge, 20);
+        assertEquals(((SelectionEvent) listOfBadEvent.get(0)).userChanges.deltaMoneyFlow, -202);
 
         assertEquals(((NotificationEvent) listOfBadEvent.get(1)).title, "badName2");
         assertEquals(((NotificationEvent) listOfBadEvent.get(1)).text, "12");
+        assertEquals(((NotificationEvent) listOfBadEvent.get(1)).userChanges.deltaAge, 100);
+        assertEquals(((NotificationEvent) listOfBadEvent.get(1)).userChanges.deltaMoneyFlow, -22);
     }
 
     @Test
