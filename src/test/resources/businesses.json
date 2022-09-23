@@ -3,20 +3,11 @@
     {
       "title" : "goodName",
       "text": "text",
-      "userChanges" : {
-        "deltaMoneyFlow": 5,
-        "deltaAge": 1
-      },
-      "eventType": "NotificationEvent"
+      "eventType": "PurchaseEvent"
     },{
-      "name" : "goodName2",
+      "title" : "goodName2",
       "text": "",
-      "moneyBonus": 132,
-      "userChanges" : {
-        "deltaMoneyFlow": 22,
-        "deltaAge": -1
-      },
-      "eventType": "SelectionEvent"
+      "eventType": "PurchaseEvent"
     }
   ]
 }
