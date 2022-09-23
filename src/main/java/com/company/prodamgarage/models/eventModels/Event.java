@@ -1,4 +1,7 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.eventModels;
+
+import com.company.prodamgarage.models.dialogBuilders.DialogBuilder;
+import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 
 public abstract class Event {
 

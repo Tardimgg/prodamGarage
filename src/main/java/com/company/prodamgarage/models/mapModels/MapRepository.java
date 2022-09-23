@@ -1,4 +1,6 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.mapModels;
+
+import com.company.prodamgarage.models.mapModels.MapElement;
 
 import java.util.List;
 

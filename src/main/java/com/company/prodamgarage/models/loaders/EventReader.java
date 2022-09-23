@@ -1,9 +1,12 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.loaders;
 
-import com.company.prodamgarage.StdJsonParser;
+import com.company.prodamgarage.models.StdJsonParser;
+import com.company.prodamgarage.models.user.UserChanges;
+import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.eventModels.NotificationEvent;
 import com.company.prodamgarage.models.eventModels.EventsRepository;
 import com.company.prodamgarage.models.eventModels.SelectionEvent;
+import com.company.prodamgarage.models.eventModels.Event;
 import com.google.gson.*;
 import io.reactivex.Single;
 import javafx.util.Pair;

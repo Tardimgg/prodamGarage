@@ -1,4 +1,4 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.eventModels;
 
 public enum EventType {
     VERY_BAD,

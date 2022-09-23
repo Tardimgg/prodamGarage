@@ -1,0 +1,16 @@
+package com.company.prodamgarage.models.eventModels;
+
+import com.company.prodamgarage.models.dialog.factory.DialogFactory;
+import com.company.prodamgarage.models.dialogBuilders.DialogBuilder;
+
+public class PurchaseEvent extends Event {
+
+    public PurchaseEvent(DialogFactory dialogFactory) {
+        super(dialogFactory);
+    }
+
+    @Override
+    public DialogBuilder dialogBuilder() {
+        return null;
+    }
+}

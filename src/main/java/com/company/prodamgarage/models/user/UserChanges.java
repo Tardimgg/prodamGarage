@@ -1,5 +1,6 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.user;
 
+import com.company.prodamgarage.models.user.User;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 

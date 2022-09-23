@@ -1,8 +1,7 @@
 package com.company.prodamgarage.models.dialogBuilders;
 
-import com.company.prodamgarage.models.Dialog;
-import com.company.prodamgarage.models.DialogBuilder;
-import com.company.prodamgarage.models.DialogFactory;
+import com.company.prodamgarage.models.dialog.Dialog;
+import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 
 public class NotificationDialogBuilder implements DialogBuilder {
     

@@ -1,15 +1,16 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.loaders;
 
+import com.company.prodamgarage.models.eventModels.EventType;
+import com.company.prodamgarage.models.mapModels.MapElement;
+import com.company.prodamgarage.models.mapModels.MapRepository;
+import com.company.prodamgarage.models.mapModels.SeasonType;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.reactivex.Single;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
