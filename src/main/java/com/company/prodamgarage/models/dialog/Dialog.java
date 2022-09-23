@@ -1,4 +1,4 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.dialog;
 
 public interface Dialog {
 

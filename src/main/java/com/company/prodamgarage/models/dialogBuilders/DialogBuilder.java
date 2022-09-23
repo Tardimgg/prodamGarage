@@ -3,10 +3,7 @@ package com.company.prodamgarage.models.dialogBuilders;
 import com.company.prodamgarage.models.dialog.Dialog;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 
-public class SelectionDialogBuilder implements DialogBuilder {
+public interface DialogBuilder {
 
-    @Override
-    public Dialog build(DialogFactory factory) {
-        return null;
-    }
+    Dialog build(DialogFactory factory);
 }

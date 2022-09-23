@@ -1,10 +1,8 @@
 package com.company.prodamgarage;
 
 import com.company.prodamgarage.models.*;
-import com.company.prodamgarage.models.eventModels.EventsRepository;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.internal.observers.BiConsumerSingleObserver;
-import io.reactivex.schedulers.Schedulers;
+import com.company.prodamgarage.models.dialog.factory.DialogFactory;
+import com.company.prodamgarage.models.dialog.factory.JavaFXDialogFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

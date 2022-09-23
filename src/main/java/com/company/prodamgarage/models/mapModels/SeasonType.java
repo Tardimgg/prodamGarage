@@ -1,4 +1,4 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.mapModels;
 
 public enum SeasonType {
     WINTER,

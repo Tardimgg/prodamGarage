@@ -1,11 +1,9 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.user;
 
 import io.reactivex.Single;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.*;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class User implements Serializable {

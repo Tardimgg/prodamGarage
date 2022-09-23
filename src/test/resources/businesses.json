@@ -1,0 +1,13 @@
+{
+  "businesses": [
+    {
+      "title" : "goodName",
+      "text": "text",
+      "eventType": "PurchaseEvent"
+    },{
+      "title" : "goodName2",
+      "text": "",
+      "eventType": "PurchaseEvent"
+    }
+  ]
+}

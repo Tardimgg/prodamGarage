@@ -1,5 +1,10 @@
 package com.company.prodamgarage.models;
 
+import com.company.prodamgarage.models.eventModels.EventType;
+import com.company.prodamgarage.models.loaders.MapReader;
+import com.company.prodamgarage.models.mapModels.MapElement;
+import com.company.prodamgarage.models.mapModels.MapRepository;
+import com.company.prodamgarage.models.mapModels.SeasonType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

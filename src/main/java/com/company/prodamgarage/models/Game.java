@@ -1,5 +1,10 @@
 package com.company.prodamgarage.models;
 
+import com.company.prodamgarage.models.dialog.Dialog;
+import com.company.prodamgarage.models.dialog.factory.DialogFactory;
+import com.company.prodamgarage.models.eventModels.Event;
+import com.company.prodamgarage.models.loaders.EventReader;
+import com.company.prodamgarage.models.user.User;
 import io.reactivex.Single;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;

@@ -1,7 +1,5 @@
-package com.company.prodamgarage;
+package com.company.prodamgarage.models;
 
-import com.company.prodamgarage.models.EventType;
-import com.company.prodamgarage.models.SeasonType;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

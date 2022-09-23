@@ -1,7 +1,5 @@
 package com.company.prodamgarage.models.eventModels;
 
-import com.company.prodamgarage.models.Event;
-
 import java.util.List;
 
 public class EventsRepository {
