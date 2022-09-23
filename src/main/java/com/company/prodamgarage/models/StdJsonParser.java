@@ -45,8 +45,7 @@ public class StdJsonParser {
 
         String eventType = source.get("className").getAsString();
         var targetPair = allTypes.stream().filter((v) -> {
-            int indexLastDot = v.getKey().getName().lastIndexOf('.');
-            return v.getKey().getName().substring(indexLastDot + 1).equals(eventType);
+            return getClassName(v.getKey().getName()).equals(getClassName(eventType));
         }).findFirst().orElseThrow(() -> new NoSuchFieldException("the required class was not found"));
 
 
@@ -93,9 +92,17 @@ public class StdJsonParser {
                 JsonElement elem = source.get(key);
 
                 if (elem.isJsonArray()) {
-                    field.set(ans.get(), parseListJson((JsonArray) elem, allTypes, field.getType()));
+                    // it is necessary to test
+
+                    JsonArray elemArr = (JsonArray) elem;
+                    for (int i = 0; i < elemArr.size(); ++i) {
+                        ((JsonObject) elemArr.get(i)).addProperty("className", getClassName(field.getGenericType().toString()));
+                    }
+
+                    field.set(ans.get(), parseListJson(elemArr, allTypes, field.getType()));
 
                 } else if (elem.isJsonObject()) {
+                    ((JsonObject) elem).addProperty("className", getClassName(field.getType().toString()));
                     field.set(ans.get(), parseJson((JsonObject) elem, allTypes, field.getType()));
 
                 } else {
@@ -112,5 +119,10 @@ public class StdJsonParser {
         }
 
         return ans.get();
+    }
+
+    private static String getClassName(String fullName) {
+        int indexLastDot = fullName.lastIndexOf('.');
+        return fullName.substring(indexLastDot + 1);
     }
 }

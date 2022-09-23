@@ -4,7 +4,6 @@
         "title" : "goodName",
         "text": "text",
         "userChanges" : {
-            "className": "UserChanges",
             "deltaMoneyFlow": 5,
             "deltaAge": 1
         },
@@ -14,7 +13,6 @@
         "text": "",
         "moneyBonus": 132,
         "userChanges" : {
-            "className": "UserChanges",
             "deltaMoneyFlow": 22,
             "deltaAge": -1
         },
@@ -28,7 +26,6 @@
       "moneyBonus": 4234,
       "className": "SelectionEvent",
       "userChanges" : {
-            "className": "UserChanges",
             "deltaMoneyFlow": -202,
             "deltaAge": 20
       }
@@ -37,7 +34,6 @@
       "text": "12",
       "className": "NotificationEvent",
       "userChanges" : {
-            "className": "UserChanges",
             "deltaMoneyFlow": -22,
             "deltaAge": 100
       }
