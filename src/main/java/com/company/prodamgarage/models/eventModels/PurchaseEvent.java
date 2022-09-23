@@ -1,7 +1,7 @@
 package com.company.prodamgarage.models.eventModels;
 
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
-import com.company.prodamgarage.models.dialogBuilders.DialogBuilder;
+import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 
 public class PurchaseEvent extends Event {
 

@@ -17,8 +17,8 @@ module com.company.prodamgarage {
 
     exports com.company.prodamgarage.models.eventModels;
     opens com.company.prodamgarage.models.eventModels;
-    exports com.company.prodamgarage.models.dialogBuilders;
-    opens com.company.prodamgarage.models.dialogBuilders to javafx.fxml;
+    exports com.company.prodamgarage.models.dialog.dialogBuilders;
+    opens com.company.prodamgarage.models.dialog.dialogBuilders to javafx.fxml;
     exports com.company.prodamgarage.models.dialog;
     opens com.company.prodamgarage.models.dialog to javafx.fxml;
     exports com.company.prodamgarage.models.dialog.factory;

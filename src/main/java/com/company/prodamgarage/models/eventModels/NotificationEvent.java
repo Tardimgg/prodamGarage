@@ -1,9 +1,9 @@
 package com.company.prodamgarage.models.eventModels;
 
-import com.company.prodamgarage.models.dialogBuilders.DialogBuilder;
+import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.user.UserChanges;
-import com.company.prodamgarage.models.dialogBuilders.NotificationDialogBuilder;
+import com.company.prodamgarage.models.dialog.dialogBuilders.NotificationDialogBuilder;
 
 public class NotificationEvent extends Event {
     
