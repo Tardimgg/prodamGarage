@@ -1,9 +1,9 @@
 package com.company.prodamgarage.models.eventModels;
 
-import com.company.prodamgarage.models.dialogBuilders.DialogBuilder;
+import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.user.UserChanges;
-import com.company.prodamgarage.models.dialogBuilders.SelectionDialogBuilder;
+import com.company.prodamgarage.models.dialog.dialogBuilders.SelectionDialogBuilder;
 
 public class SelectionEvent extends Event {
 
