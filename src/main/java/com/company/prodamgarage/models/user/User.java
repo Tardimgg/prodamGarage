@@ -8,7 +8,8 @@ import io.reactivex.Single;
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.Objects;
-
+import java.util.HashMap;
+import java.util.List;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -20,6 +21,8 @@ public class User implements Serializable {
     private int credit;
     private int moneyFlow;
     private int mapPosition;
+    private int currentTime;
+    private HashMap<PropertyType, List<String>> properties = new HashMap<>();
     private static String imagePath = "src/main/resources/images/image1.png";
 
     private String customImagePath = null;
@@ -139,4 +142,7 @@ public class User implements Serializable {
     public void setMapPosition(int mapPosition) {
         this.mapPosition = mapPosition;
     }
+    public void setCurrentTime(int time){currentTime = time;}
+    public int getCurrentTime(){ return currentTime;}
+    public void increaseCurrentTime(){currentTime += 1;}
 }
