@@ -19,6 +19,6 @@ public class NotificationEvent extends Event {
 
     @Override
     public DialogBuilder dialogBuilder() {
-        return new NotificationDialogBuilder();
+        return new NotificationDialogBuilder(this.dialogFactory);
     }
 }

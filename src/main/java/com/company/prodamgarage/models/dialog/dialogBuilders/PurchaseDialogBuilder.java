@@ -3,11 +3,11 @@ package com.company.prodamgarage.models.dialog.dialogBuilders;
 import com.company.prodamgarage.models.dialog.Dialog;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 
-public class SelectionDialogBuilder implements DialogBuilder {
+public class PurchaseDialogBuilder implements DialogBuilder {
 
     private DialogFactory factory;
 
-    public SelectionDialogBuilder(DialogFactory factory) {
+    public PurchaseDialogBuilder(DialogFactory factory) {
         this.factory = factory;
     }
 
@@ -15,4 +15,5 @@ public class SelectionDialogBuilder implements DialogBuilder {
     public Dialog build() {
         return null;
     }
+
 }

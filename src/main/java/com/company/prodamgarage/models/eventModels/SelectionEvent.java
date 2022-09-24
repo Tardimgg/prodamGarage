@@ -18,9 +18,8 @@ public class SelectionEvent extends Event {
         super(dialogFactory);
     }
 
-
     @Override
     public DialogBuilder dialogBuilder() {
-        return new SelectionDialogBuilder();
+        return new SelectionDialogBuilder(this.dialogFactory);
     }
 }

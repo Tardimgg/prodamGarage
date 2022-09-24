@@ -5,5 +5,5 @@ import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 
 public interface DialogBuilder {
 
-    Dialog build(DialogFactory factory);
+    Dialog build();
 }

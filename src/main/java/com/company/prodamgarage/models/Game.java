@@ -21,10 +21,10 @@ public class Game {
         return instance;
     }
 
-    private final DialogFactory eventFactory;
+    private final DialogFactory dialogFactory;
 
     public Game(DialogFactory eventFactory) {
-        this.eventFactory = eventFactory;
+        this.dialogFactory = eventFactory;
         instance = this;
 
         User user;
@@ -42,7 +42,7 @@ public class Game {
 
                     }));
 
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
             System.out.println("Error. " + e);
         }
     }
@@ -51,7 +51,7 @@ public class Game {
 
     public Single<Dialog> getNext() {
         return Single.create(singleSubscriber -> {
-            singleSubscriber.onSuccess(eventFactory.createDialog());
+            singleSubscriber.onSuccess(dialogFactory.createDialog());
         });
     } // Получение следующего события
 }
