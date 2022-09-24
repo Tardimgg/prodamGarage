@@ -1,5 +1,6 @@
 package com.company.prodamgarage.models.eventModels;
 
+import com.company.prodamgarage.models.dialog.dialogBuilders.PurchaseDialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 
@@ -11,6 +12,6 @@ public class PurchaseEvent extends Event {
 
     @Override
     public DialogBuilder dialogBuilder() {
-        return null;
+        return new PurchaseDialogBuilder(this.dialogFactory);
     }
 }

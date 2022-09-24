@@ -26,7 +26,7 @@ public class UserChanges {
 
                     completableObserver.onComplete();
 
-                } catch (IOException e) {
+                } catch (RuntimeException e) {
                     e.printStackTrace();
                     completableObserver.onError(e);
                 }
