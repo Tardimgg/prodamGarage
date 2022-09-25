@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class StdJsonParser {
@@ -35,7 +34,11 @@ public class StdJsonParser {
         return ans;
     }
 
-
+    //  types: list of pair
+    //      key: types of possible events
+    //      value: list of pair
+    //          key: type of the constructor parameter of the current event
+    //          value: the value of this parameter of the current event
     public static <T> T parseJson(JsonObject source, List<Pair<Class<?>,
             Optional<List<Pair<Class<?>, ?>>>>> allTypes, Class<T> castTarget) throws NoSuchFieldException, NoSuchMethodException {
 
@@ -48,14 +51,11 @@ public class StdJsonParser {
             return getClassName(v.getKey().getName()).equals(getClassName(eventType));
         }).findFirst().orElseThrow(() -> new NoSuchFieldException("the required class was not found"));
 
-
         AtomicReference<T> ans = new AtomicReference<>();
-
         targetPair.getValue().ifPresentOrElse(pairs -> {
             List<Class<?>> constructParams = pairs.stream().map(Pair::getKey).collect(Collectors.toList());
 
             Constructor<?> ansConstructor;
-
             try {
                 ansConstructor = targetPair.getKey().getConstructor(constructParams.toArray(Class<?>[]::new));
             } catch (NoSuchMethodException e) {
@@ -63,13 +63,11 @@ public class StdJsonParser {
             }
 
             List<Object> constructParamsObj = pairs.stream().map(Pair::getValue).collect(Collectors.toList());
-
             try {
                 ans.set((T) ansConstructor.newInstance(constructParamsObj.toArray(Object[]::new)));
             } catch (Exception e) {
                 throw new RuntimeException("invalid data provided for constructor");
             }
-
         }, () -> {
             try {
                 ans.set((T) targetPair.getKey().getConstructor().newInstance());
@@ -106,12 +104,20 @@ public class StdJsonParser {
                     field.set(ans.get(), parseJson((JsonObject) elem, allTypes, field.getType()));
 
                 } else {
+                    Object value = null;
                     if (field.getType().equals(String.class)) {
-                        field.set(ans.get(), elem.getAsString());
+                        value = elem.getAsString();
 
                     } else if (field.getType().equals(Integer.TYPE)) {
-                        field.set(ans.get(), elem.getAsInt());
+                        value = elem.getAsInt();
+
+                    } else if (field.getType().isEnum()) {
+                        // it is necessary to test
+
+                        value = Enum.valueOf((Class<Enum>) field.getType(), elem.getAsString());
                     }
+
+                    field.set(ans.get(), value);
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
