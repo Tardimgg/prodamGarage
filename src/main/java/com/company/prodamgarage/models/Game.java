@@ -5,12 +5,12 @@ import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.loaders.EventReader;
 import com.company.prodamgarage.models.user.User;
+import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.Single;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class Game {
 
@@ -51,7 +51,8 @@ public class Game {
 
     public Single<Dialog> getNext() {
         return Single.create(singleSubscriber -> {
-            singleSubscriber.onSuccess(dialogFactory.createDialog());
+            Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
+            singleSubscriber.onSuccess(event.dialogBuilder().build());
         });
     } // Получение следующего события
 }

@@ -2,36 +2,62 @@
   "goodEventList": [
       {
         "title" : "goodName",
-        "text": "text",
+        "mainText": "text",
         "userChanges" : {
             "deltaMoneyFlow": 5,
             "deltaAge": 1
         },
         "className": "NotificationEvent"
       },{
-        "name" : "goodName2",
-        "text": "",
-        "moneyBonus": 132,
-        "userChanges" : {
-            "deltaMoneyFlow": 22,
-            "deltaAge": -1
-        },
-        "className": "SelectionEvent"
+        "title" : "goodName2",
+        "mainText": "",
+        "userChanges": [
+            {
+              "key": "ok",
+              "value": {
+                "className": "UserChanges",
+                "deltaMoneyFlow": 5,
+                "deltaAge": 1
+              }
+            },
+        {
+          "key": "no",
+          "value": {
+            "className": "UserChanges",
+            "deltaMoneyFlow": 50,
+            "deltaAge": 10
+          }
+        }
+      ],
+      "className": "SelectionEvent"
       }
   ],
   "badEventList": [
     {
-      "name" : "badName1",
-      "text": "12wef",
-      "moneyBonus": 4234,
+      "title" : "badName1",
+      "mainText": "12wef",
       "className": "SelectionEvent",
-      "userChanges" : {
-            "deltaMoneyFlow": -202,
-            "deltaAge": 20
-      }
+      "userChanges": [
+        {
+          "key": "ok",
+          "value": {
+            "className": "UserChanges",
+            "deltaMoneyFlow": 22,
+            "deltaAge": 5
+          }
+        },
+        {
+          "key": "nono",
+          "value": {
+            "className": "UserChanges",
+            "deltaCredit": 5,
+            "deltaCash": 1
+          }
+        }
+      ]
     },{
       "title" : "badName2",
-      "text": "12",
+      "mainText": "12",
       "className": "NotificationEvent",
       "userChanges" : {
             "deltaMoneyFlow": -22,

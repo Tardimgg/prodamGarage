@@ -1,15 +1,12 @@
 package com.company.prodamgarage.models.loaders;
 
+import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.StdJsonParser;
+import com.company.prodamgarage.models.eventModels.*;
 import com.company.prodamgarage.models.user.UserChanges;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
-import com.company.prodamgarage.models.eventModels.NotificationEvent;
-import com.company.prodamgarage.models.eventModels.EventsRepository;
-import com.company.prodamgarage.models.eventModels.SelectionEvent;
-import com.company.prodamgarage.models.eventModels.Event;
 import com.google.gson.*;
 import io.reactivex.Single;
-import javafx.util.Pair;
 
 
 import java.io.FileReader;
@@ -38,13 +35,23 @@ public class EventReader {
                     JsonArray bad_arr = (JsonArray) jsonObj.get("badEventList");
 
                     List<Pair<Class<?>, Optional<List<Pair<Class<?>, ?>>>>> allTypesObj = Arrays.asList(
-                            new Pair<>(NotificationEvent.class, Optional.of(List.of(new Pair<>(DialogFactory.class, dialogFactory)))),
-                            new Pair<>(SelectionEvent.class, Optional.of(List.of(new Pair<>(DialogFactory.class, dialogFactory)))),
-                            new Pair<>(UserChanges.class, Optional.empty())
+                            Pair.create(NotificationEvent.class, Optional.of(List.of(Pair.create(DialogFactory.class, dialogFactory)))),
+                            Pair.create(SelectionEvent.class, Optional.of(List.of(Pair.create(DialogFactory.class, dialogFactory)))),
+                            Pair.create(UserChanges.class, Optional.empty()),
+//                            Pair.create(Pair.class, Optional.of(List.of(
+//                                    Pair.create(String.class.getClass(), String.class),
+//                                    Pair.create(UserChanges.class.getClass(), UserChanges.class)
+//                            )))
+                            Pair.create(Pair.class, Optional.empty())
                     );
 
                     List<Event> goodEvents = StdJsonParser.parseListJson(good_arr, allTypesObj, Event.class);
                     List<Event> badEvents = StdJsonParser.parseListJson(bad_arr, allTypesObj, Event.class);
+
+                    if (!checkingCorrectnessListEvents(goodEvents) || !checkingCorrectnessListEvents(badEvents)) {
+                        singleSubscriber.onError(new JsonParseException("parsing error, json is not complete"));
+                        return;
+                    }
 
                     eventsRepository.setGoodEventList(goodEvents);
                     eventsRepository.setBadEventList(badEvents);
@@ -53,11 +60,34 @@ public class EventReader {
 
                     singleSubscriber.onSuccess(eventsRepository);
                 } catch (Exception e) {
-                    singleSubscriber.onError(new Throwable("parsing error" + e));
+                    singleSubscriber.onError(new RuntimeException("parsing error " + e));
                 }
             } else {
                 singleSubscriber.onSuccess(data.get(path));
             }
         });
+    }
+
+    private static boolean checkingCorrectnessListEvents(List<Event> events) {
+        for (Event event: events) {
+            if (!checkingCorrectnessEvents(event)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean checkingCorrectnessEvents(Event event) {
+        if (event instanceof NotificationEvent locEvent) {
+            return locEvent.mainText != null && locEvent.title != null && locEvent.userChanges != null;
+
+        } else if (event instanceof SelectionEvent locEvent) {
+            return locEvent.title != null && locEvent.mainText != null && locEvent.userChanges != null; // temp code
+
+
+        } else if (event instanceof PurchaseEvent) {
+
+        }
+        return true;
     }
 }

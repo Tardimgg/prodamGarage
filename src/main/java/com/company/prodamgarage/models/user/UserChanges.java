@@ -33,4 +33,14 @@ public class UserChanges {
             }
         };
     }
+
+    @Override
+    public String toString() {
+        return "UserChanges{" +
+                "deltaAge=" + deltaAge +
+                ", deltaCash=" + deltaCash +
+                ", deltaCredit=" + deltaCredit +
+                ", deltaMoneyFlow=" + deltaMoneyFlow +
+                '}';
+    }
 }
