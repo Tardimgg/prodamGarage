@@ -20,9 +20,9 @@ public class UserChanges {
                 try {
                     User user = User.getInstance().blockingGet();
                     user.setAge(user.getAge() + deltaAge);
-                    user.setAge(user.getCash() + deltaCash);
-                    user.setAge(user.getCredit() + deltaCredit);
-                    user.setAge(user.getMoneyFlow() + deltaMoneyFlow);
+                    user.setCash(user.getCash() + deltaCash);
+                    user.setCredit(user.getCredit() + deltaCredit);
+                    user.setMoneyFlow(user.getMoneyFlow() + deltaMoneyFlow);
 
                     completableObserver.onComplete();
 

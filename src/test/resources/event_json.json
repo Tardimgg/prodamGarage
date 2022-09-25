@@ -26,21 +26,21 @@
       "name" : "badName1",
       "text": "12wef",
       "moneyBonus": 4234,
-      "className": "SelectionEvent",
       "userChanges" : {
             "className": "UserChanges",
             "deltaMoneyFlow": -202,
             "deltaAge": 20
-      }
+      },
+      "className": "SelectionEvent"
     },{
       "title" : "badName2",
       "text": "12",
-      "className": "NotificationEvent",
       "userChanges" : {
             "className": "UserChanges",
             "deltaMoneyFlow": -22,
             "deltaAge": 100
-      }
+      },
+      "className": "NotificationEvent"
     }
   ]
 }
