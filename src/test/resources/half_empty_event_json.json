@@ -1,10 +1,13 @@
 {
   "goodEventList": [
     {
-      "name" : "\n",
-      "text": "\t",
-      "moneyBonus": -2,
-      "className": "SelectionEvent"
+      "title" : "\n",
+      "mainText": "\t",
+      "className": "NotificationEvent",
+      "userChanges" : {
+        "deltaMoneyFlow": 1,
+        "deltaAge": -1
+      }
     }
   ],
   "badEventList": []

@@ -29,4 +29,8 @@ module com.company.prodamgarage {
     opens com.company.prodamgarage.models.mapModels to javafx.fxml;
     exports com.company.prodamgarage.models.user;
     opens com.company.prodamgarage.models.user to javafx.fxml;
+    exports com.company.prodamgarage.models.dialog.consoleDialogs;
+    opens com.company.prodamgarage.models.dialog.consoleDialogs to javafx.fxml;
+    exports com.company.prodamgarage.models.dialog.javaFXDialogs;
+    opens com.company.prodamgarage.models.dialog.javaFXDialogs to javafx.fxml;
 }
