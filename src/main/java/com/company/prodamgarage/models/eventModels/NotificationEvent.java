@@ -1,5 +1,6 @@
 package com.company.prodamgarage.models.eventModels;
 
+import com.company.prodamgarage.models.dialog.Dialog;
 import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 import com.company.prodamgarage.models.dialog.dialogBuilders.NotificationDialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
@@ -18,10 +19,8 @@ public class NotificationEvent extends Event {
     }
 
     @Override
-    public DialogBuilder dialogBuilder() {
-        return new NotificationDialogBuilder(dialogFactory)
-                .setTitle(title)
-                .setMainText(mainText)
-                .setChanges(userChanges);
+    public void dialogBuilder() {
+        dialogFactory.createNotificationDialogTest(title, mainText, userChanges);
     }
+
 }

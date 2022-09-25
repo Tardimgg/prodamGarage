@@ -20,10 +20,7 @@ public class SelectionEvent extends Event {
     }
 
     @Override
-    public DialogBuilder dialogBuilder() {
-        return new SelectionDialogBuilder(this.dialogFactory)
-                .setTitle(title)
-                .setMainText(mainText)
-                .setChanges(userChanges);
+    public void dialogBuilder() {
+
     }
 }

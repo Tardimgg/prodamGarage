@@ -49,10 +49,9 @@ public class Game {
 
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
 
-    public Single<Dialog> getNext() {
-        return Single.create(singleSubscriber -> {
-            Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
-            singleSubscriber.onSuccess(event.dialogBuilder().build());
-        });
+    public void getNext() {
+        Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
+        event.dialogBuilder();
+        ;
     } // Получение следующего события
 }

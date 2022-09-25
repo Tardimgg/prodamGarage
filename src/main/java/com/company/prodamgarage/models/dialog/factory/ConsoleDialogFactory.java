@@ -2,6 +2,7 @@ package com.company.prodamgarage.models.dialog.factory;
 
 import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.dialog.Dialog;
+import com.company.prodamgarage.models.dialog.consoleDialogs.ConsoleIOSystem;
 import com.company.prodamgarage.models.dialog.consoleDialogs.NotificationConsoleDialog;
 import com.company.prodamgarage.models.dialog.consoleDialogs.PurchaseConsoleDialog;
 import com.company.prodamgarage.models.dialog.consoleDialogs.SelectionConsoleDialog;
@@ -15,6 +16,25 @@ public class ConsoleDialogFactory implements DialogFactory{
     @Override
     public Dialog createNotificationDialog(String title, String mainText, UserChanges changes) {
         return new NotificationConsoleDialog(title, mainText, changes);
+    }
+    public void createNotificationDialogTest(String title, String mainText, UserChanges changes) {
+        ConsoleIOSystem io = ConsoleIOSystem.getInstance();
+
+        io.println(title);
+        io.println(mainText);
+        io.println("Изменения: ");
+        io.println(changes);
+
+//        if (Game.getInstance().isPossible) {
+        io.println("Нажмите enter для продолжения игры");
+
+        io.readEnter();
+
+        changes.apply().blockingAwait();
+//        } else {
+//            throw new GameOver();
+
+
     }
 
     @Override

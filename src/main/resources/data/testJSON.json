@@ -9,29 +9,6 @@
         "deltaMoneyFlow": 5,
         "deltaAge": 1
       }
-    },
-    {
-      "title": "testName1",
-      "mainText": "testText1",
-      "className": "SelectionEvent",
-      "userChanges": [
-        {
-          "key": "ok",
-          "value": {
-            "className": "UserChanges",
-            "deltaMoneyFlow": 5,
-            "deltaAge": 1
-          }
-        },
-        {
-          "key": "no",
-          "value": {
-            "className": "UserChanges",
-            "deltaMoneyFlow": 5,
-            "deltaAge": 1
-          }
-        }
-      ]
     }
   ],
   "badEventList": [

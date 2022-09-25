@@ -16,6 +16,11 @@ public class JavaFXDialogFactory implements DialogFactory {
     }
 
     @Override
+    public void createNotificationDialogTest(String title, String mainText, UserChanges changes) {
+
+    }
+
+    @Override
     public Dialog createSelectionDialog(String title, String mainText, List<Pair<String, UserChanges>> changes) {
         return null;
     }

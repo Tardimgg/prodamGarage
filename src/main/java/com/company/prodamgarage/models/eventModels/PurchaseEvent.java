@@ -11,7 +11,7 @@ public class PurchaseEvent extends Event {
     }
 
     @Override
-    public DialogBuilder dialogBuilder() {
-        return new PurchaseDialogBuilder(this.dialogFactory);
+    public void dialogBuilder() {
+
     }
 }

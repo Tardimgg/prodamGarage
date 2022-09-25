@@ -11,5 +11,5 @@ public abstract class Event {
         this.dialogFactory = dialogFactory;
     }
 
-    public abstract DialogBuilder dialogBuilder();
+    public abstract void dialogBuilder();
 }

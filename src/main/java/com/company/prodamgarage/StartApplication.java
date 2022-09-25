@@ -45,8 +45,8 @@ public class StartApplication extends Application {
             case CONSOLE -> {
                 while (true) {
                     try {
-                        Game.getInstance().getNext().blockingGet().show();
-                    } catch (GameOver e) {
+                        Game.getInstance().getNext();
+                    } catch (Exception e) {
                         break;
                     }
                 }

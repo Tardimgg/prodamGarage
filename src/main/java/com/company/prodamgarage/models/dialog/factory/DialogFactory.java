@@ -10,6 +10,7 @@ import java.util.List;
 public interface DialogFactory {
 
     Dialog createNotificationDialog(String title, String mainText, UserChanges changes);
+    void createNotificationDialogTest(String title, String mainText, UserChanges changes);
 
     Dialog createSelectionDialog(String title, String mainText, List<Pair<String, UserChanges>> changes);
 
