@@ -4,6 +4,9 @@ import com.company.prodamgarage.models.*;
 import com.company.prodamgarage.models.dialog.factory.ConsoleDialogFactory;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.dialog.factory.JavaFXDialogFactory;
+import com.company.prodamgarage.models.loaders.BusinessPossibility;
+import com.company.prodamgarage.models.loaders.PossibilitiesLoader;
+import com.company.prodamgarage.models.loaders.PossibilitiesRepository;
 import io.reactivex.schedulers.Schedulers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 public class StartApplication extends Application {
     @Override
@@ -31,7 +35,7 @@ public class StartApplication extends Application {
 
     private final static Mode mode = Mode.CONSOLE;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchFieldException {
         DialogFactory dialogFactory;
 
         dialogFactory = switch (mode) {
