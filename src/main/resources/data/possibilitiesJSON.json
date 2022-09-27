@@ -1,30 +1,25 @@
 {
-  "businessPossibilitiesList": [
+  "possibilitiesList": [
     {
       "name" : "Buy Garage",
       "description": "Покупка гаража -- отличный способ войтив бизнес самогоноваренья!",
-      "deltaMoneyFlow": 1,
-      "deltaCash": 1,
-      "deltaHoursAWeek": 1
+      "className": "Possibility",
+      "userChanges":
+        {
+          "className": "UserChanges",
+          "deltaMoneyFlow": 5,
+          "deltaAge": 1
+        }
     },{
       "name" : "Buy pen",
       "description": "Продай ручку. Часто ли вам приходилось слышать эту фразу? Мы будем уникальны и попросим вас купить ручку. buy pen pls",
-      "deltaMoneyFlow": 112,
-      "deltaCash": 12,
-      "deltaHoursAWeek": -11
-    }
-  ],
-  "educationPossibilitiesList": [
-    {
-      "name" : "МИРЭА",
-      "description": "Дядя, ты ж бизнесмен, какой МИРЭА блэт?",
-      "deltaCash": 13,
-      "deltaHoursAWeek": -13
-    },{
-      "name" : "Поступить в Хагрид",
-      "description": "Может, в Хогвардс лучше? Ох уж эта иновационная Европа, лишь в бы в кого-нибудь...кхм...поступить^^",
-      "deltaCash": 123,
-      "deltaHoursAWeek": -113
+      "className": "Possibility",
+      "userChanges":
+        {
+          "className": "UserChanges",
+          "deltaMoneyFlow": 5,
+          "deltaAge": 1
+        }
     }
   ]
 }
