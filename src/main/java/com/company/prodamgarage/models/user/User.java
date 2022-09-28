@@ -20,6 +20,7 @@ public class User implements Serializable {
     private int credit;
     private int moneyFlow;
     private int mapPosition;
+    private int weekScore;
     private static String imagePath = "src/main/resources/images/image1.png";
 
     private String customImagePath = null;
@@ -138,5 +139,13 @@ public class User implements Serializable {
 
     public void setMapPosition(int mapPosition) {
         this.mapPosition = mapPosition;
+    }
+
+    public int getWeekScore() {
+        return weekScore;
+    }
+
+    public void setWeekScore(int weekScore) {
+        this.weekScore = weekScore;
     }
 }
