@@ -1,18 +1,19 @@
 package com.company.prodamgarage.models;
 
+import com.company.prodamgarage.Pair;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import javafx.util.Pair;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class StdJsonParser {
@@ -35,7 +36,11 @@ public class StdJsonParser {
         return ans;
     }
 
-
+    //  types: list of pair
+    //      key: types of possible events
+    //      value: list of pair
+    //          key: type of the constructor parameter of the current event
+    //          value: the value of this parameter of the current event
     public static <T> T parseJson(JsonObject source, List<Pair<Class<?>,
             Optional<List<Pair<Class<?>, ?>>>>> allTypes, Class<T> castTarget) throws NoSuchFieldException, NoSuchMethodException {
 
@@ -43,34 +48,28 @@ public class StdJsonParser {
             throw new NoSuchFieldException("className field is required");
         }
 
-        String eventType = source.get("className").getAsString();
+        String objName = source.get("className").getAsString();
         var targetPair = allTypes.stream().filter((v) -> {
-            int indexLastDot = v.getKey().getName().lastIndexOf('.');
-            return v.getKey().getName().substring(indexLastDot + 1).equals(eventType);
-        }).findFirst().orElseThrow(() -> new NoSuchFieldException("the required class was not found"));
-
+            return getClassName(v.getKey().getName()).equals(getClassName(objName));
+        }).findFirst().orElseThrow(() -> new NoSuchFieldException("the required class (" + objName + ") was not found"));
 
         AtomicReference<T> ans = new AtomicReference<>();
-
         targetPair.getValue().ifPresentOrElse(pairs -> {
             List<Class<?>> constructParams = pairs.stream().map(Pair::getKey).collect(Collectors.toList());
 
             Constructor<?> ansConstructor;
-
             try {
                 ansConstructor = targetPair.getKey().getConstructor(constructParams.toArray(Class<?>[]::new));
             } catch (NoSuchMethodException e) {
-                throw new RuntimeException("the required class constructor was not found");
+                throw new RuntimeException("the required class(" + targetPair.getKey() + ") constructor was not found");
             }
 
             List<Object> constructParamsObj = pairs.stream().map(Pair::getValue).collect(Collectors.toList());
-
             try {
                 ans.set((T) ansConstructor.newInstance(constructParamsObj.toArray(Object[]::new)));
             } catch (Exception e) {
                 throw new RuntimeException("invalid data provided for constructor");
             }
-
         }, () -> {
             try {
                 ans.set((T) targetPair.getKey().getConstructor().newInstance());
@@ -88,23 +87,47 @@ public class StdJsonParser {
             if (Arrays.stream(targetPair.getKey().getFields()).filter((v) -> v.getName().equals(key)).findFirst().isEmpty()) {
                 throw new NoSuchFieldException(targetPair.getKey().toString() + " does not contain the " + key +" field");
             }
+
             Field field = targetPair.getKey().getField(key);
             try {
                 JsonElement elem = source.get(key);
 
                 if (elem.isJsonArray()) {
-                    field.set(ans.get(), parseListJson((JsonArray) elem, allTypes, field.getType()));
+                    JsonArray elemArr = (JsonArray) elem;
+
+                    ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+                    Type type = parameterizedType.getActualTypeArguments()[0];
+
+
+                    for (int i = 0; i < elemArr.size(); ++i) {
+                        ((JsonObject) elemArr.get(i)).addProperty("className", getClassName(type.getTypeName()));
+                    }
+
+                    field.set(ans.get(), parseListJson(elemArr, allTypes, field.getType()));
 
                 } else if (elem.isJsonObject()) {
+                    if (!((JsonObject) elem).has("className")) {
+                        ((JsonObject) elem).addProperty("className", getClassName(field.getType().toString()));
+                    }
                     field.set(ans.get(), parseJson((JsonObject) elem, allTypes, field.getType()));
 
                 } else {
+                    Object value;
                     if (field.getType().equals(String.class)) {
-                        field.set(ans.get(), elem.getAsString());
+                        value = elem.getAsString();
 
                     } else if (field.getType().equals(Integer.TYPE)) {
-                        field.set(ans.get(), elem.getAsInt());
+                        value = elem.getAsInt();
+
+                    } else if (field.getType().isEnum()) {
+                        // it is necessary to test
+
+                        value = Enum.valueOf((Class<Enum>) field.getType(), elem.getAsString());
+                    } else {
+                        value = field.getType().cast(elem.getAsString());
                     }
+
+                    field.set(ans.get(), value);
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -112,5 +135,18 @@ public class StdJsonParser {
         }
 
         return ans.get();
+    }
+
+    private static String getClassName(String fullName) {
+        int indexOfGenericParam = fullName.indexOf('<');
+
+        int indexLastDot;
+        if (indexOfGenericParam != -1) {
+            fullName = fullName.substring(0, indexOfGenericParam);
+        }
+
+        indexLastDot = fullName.lastIndexOf('.');
+
+        return fullName.substring(indexLastDot + 1);
     }
 }

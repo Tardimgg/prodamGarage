@@ -1,11 +1,15 @@
 package com.company.prodamgarage.models.user;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableEmitter;
+import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Single;
 
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.Objects;
-
+import java.util.HashMap;
+import java.util.List;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -17,6 +21,8 @@ public class User implements Serializable {
     private int credit;
     private int moneyFlow;
     private int mapPosition;
+    private int currentTime;
+    private HashMap<PropertyType, List<String>> properties = new HashMap<>();
     private static String imagePath = "src/main/resources/images/image1.png";
 
     private String customImagePath = null;
@@ -24,15 +30,16 @@ public class User implements Serializable {
     private static volatile User instance;
 
     @Nonnull
-    public static Single<User> getInstance() throws IOException {
+    public static Single<User> getInstance() {
         return Single.create(singleSubscriber -> {
             synchronized (User.class) {
                 if (instance == null) {
-                    try {
-                        reload(serializationPath);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        singleSubscriber.onError(new Throwable("user load error. " + e));
+                    Throwable err = reload(serializationPath, imagePath).blockingGet();
+                    if (err != null) {
+                        if (!(err instanceof IOException)) {
+                            err.printStackTrace();
+                        }
+                        singleSubscriber.onError(new RuntimeException("user load error. " + err));
                         return;
                     }
                 }
@@ -43,27 +50,30 @@ public class User implements Serializable {
 
     private User() {}
 
-    // add RxJava
-    public static void reload(String filePath) throws IOException {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(filePath);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            instance = (User) objectInputStream.readObject();
-        } catch (FileNotFoundException e) {
-            instance = new User();
-            instance.save();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        if (!filePath.equals(User.imagePath)) {
-            instance.customImagePath = filePath;
-        } else {
-            instance.customImagePath = null;
-        }
+    public static Completable reload(String filePath, String imagePath) {
+        return Completable.create(completableEmitter -> {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(filePath);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                instance = (User) objectInputStream.readObject();
+            } catch (FileNotFoundException e) {
+                instance = new User();
+                instance.save();
+            } catch (IOException | ClassNotFoundException e) {
+                completableEmitter.onError(e);
+            }
+            if (!imagePath.equals(User.imagePath)) {
+                instance.customImagePath = filePath;
+            } else {
+                instance.customImagePath = null;
+            }
+
+            completableEmitter.onComplete();
+        });
     }
 
     public static void reload() throws IOException {
-        reload(serializationPath);
+        reload(serializationPath, imagePath);
     }
 
     public void save(String filePath) throws IOException {
@@ -74,7 +84,7 @@ public class User implements Serializable {
     }
 
     public void save() throws IOException {
-        instance.save(Objects.requireNonNullElse(instance.customImagePath, serializationPath));
+        instance.save(serializationPath);
     }
 
     public int getCash() {
@@ -132,4 +142,7 @@ public class User implements Serializable {
     public void setMapPosition(int mapPosition) {
         this.mapPosition = mapPosition;
     }
+    public void setCurrentTime(int time){currentTime = time;}
+    public int getCurrentTime(){ return currentTime;}
+    public void increaseCurrentTime(){currentTime += 1;}
 }

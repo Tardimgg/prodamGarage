@@ -2,23 +2,34 @@
   "goodEventList": [
       {
         "title" : "goodName",
-        "text": "text",
+        "mainText": "text",
         "userChanges" : {
-            "className": "UserChanges",
             "deltaMoneyFlow": 5,
             "deltaAge": 1
         },
         "className": "NotificationEvent"
       },{
-        "name" : "goodName2",
-        "text": "",
-        "moneyBonus": 132,
-        "userChanges" : {
+        "title" : "goodName2",
+        "mainText": "",
+        "userChanges": [
+            {
+              "key": "ok",
+              "value": {
+                "className": "UserChanges",
+                "deltaMoneyFlow": 5,
+                "deltaAge": 1
+              }
+            },
+        {
+          "key": "no",
+          "value": {
             "className": "UserChanges",
-            "deltaMoneyFlow": 22,
-            "deltaAge": -1
-        },
-        "className": "SelectionEvent"
+            "deltaMoneyFlow": 50,
+            "deltaAge": 10
+          }
+        }
+      ],
+      "className": "SelectionEvent"
       }
   ],
   "badEventList": [
@@ -35,8 +46,32 @@
     },{
       "title" : "badName2",
       "text": "12",
-      "userChanges" : {
+      "title" : "badName1",
+      "mainText": "12wef",
+      "className": "SelectionEvent",
+      "userChanges": [
+        {
+          "key": "ok",
+          "value": {
             "className": "UserChanges",
+            "deltaMoneyFlow": 22,
+            "deltaAge": 5
+          }
+        },
+        {
+          "key": "nono",
+          "value": {
+            "className": "UserChanges",
+            "deltaCredit": 5,
+            "deltaCash": 1
+          }
+        }
+      ]
+    },{
+      "title" : "badName2",
+      "mainText": "12",
+      "className": "NotificationEvent",
+      "userChanges" : {
             "deltaMoneyFlow": -22,
             "deltaAge": 100
       },

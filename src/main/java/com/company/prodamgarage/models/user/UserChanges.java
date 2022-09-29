@@ -26,11 +26,21 @@ public class UserChanges {
 
                     completableObserver.onComplete();
 
-                } catch (IOException e) {
+                } catch (RuntimeException e) {
                     e.printStackTrace();
                     completableObserver.onError(e);
                 }
             }
         };
+    }
+
+    @Override
+    public String toString() {
+        return "UserChanges{" +
+                "deltaAge=" + deltaAge +
+                ", deltaCash=" + deltaCash +
+                ", deltaCredit=" + deltaCredit +
+                ", deltaMoneyFlow=" + deltaMoneyFlow +
+                '}';
     }
 }

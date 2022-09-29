@@ -5,12 +5,12 @@ import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.loaders.EventReader;
 import com.company.prodamgarage.models.user.User;
+import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.Single;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class Game {
 
@@ -21,13 +21,13 @@ public class Game {
         return instance;
     }
 
-    private final DialogFactory eventFactory;
+    private final DialogFactory dialogFactory;
+
+    private User user;
 
     public Game(DialogFactory eventFactory) {
-        this.eventFactory = eventFactory;
+        this.dialogFactory = eventFactory;
         instance = this;
-
-        User user;
 
         try {
             user = User.getInstance().blockingGet();
@@ -42,7 +42,7 @@ public class Game {
 
                     }));
 
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
             System.out.println("Error. " + e);
         }
     }
@@ -50,8 +50,10 @@ public class Game {
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
 
     public Single<Dialog> getNext() {
+        user.increaseCurrentTime();
         return Single.create(singleSubscriber -> {
-            singleSubscriber.onSuccess(eventFactory.createDialog());
+            Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
+            singleSubscriber.onSuccess(event.dialogBuilder().build());
         });
     } // Получение следующего события
 }

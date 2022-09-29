@@ -1,27 +1,72 @@
 {
   "goodEventList": [
-      {
-        "title" : "testName0",
-        "text": "testText0",
-        "eventType": "NotificationEvent"
-      },{
-        "name" : "testName1",
-        "text": "testText1",
-        "moneyBonus": 132,
-        "eventType": "SelectionEvent"
+    {
+      "title": "testName0",
+      "mainText": "testText0",
+      "className": "NotificationEvent",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaMoneyFlow": 5,
+        "deltaAge": 1
       }
+    },
+    {
+      "title": "testName1",
+      "mainText": "testText1",
+      "className": "SelectionEvent",
+      "userChanges": [
+        {
+          "key": "ok",
+          "value": {
+            "className": "UserChanges",
+            "deltaMoneyFlow": 5,
+            "deltaAge": 1
+          }
+        },
+        {
+          "key": "no",
+          "value": {
+            "className": "UserChanges",
+            "deltaMoneyFlow": 5,
+            "deltaAge": 1
+          }
+        }
+      ]
+    }
   ],
   "badEventList": [
     {
-      "name" : "testName2",
-      "text": "testText2",
-      "moneyBonus": 4234,
-      "eventType": "SelectionEvent"
-    },{
-      "title" : "testName3",
-      "text": "testText3",
-      "eventType": "NotificationEvent"
-
+      "title": "testName2",
+      "mainText": "testText2",
+      "className": "SelectionEvent",
+      "userChanges": [
+        {
+          "key": "ok",
+          "value": {
+            "className": "UserChanges",
+            "deltaMoneyFlow": 5,
+            "deltaAge": 1
+          }
+        },
+        {
+          "key": "no",
+          "value": {
+            "className": "UserChanges",
+            "deltaMoneyFlow": 5,
+            "deltaAge": 1
+          }
+        }
+      ]
+    },
+    {
+      "title": "testName3",
+      "mainText": "testText3",
+      "className": "NotificationEvent",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaMoneyFlow": 5,
+        "deltaAge": 1
+      }
     }
   ]
 }
