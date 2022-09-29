@@ -30,7 +30,7 @@ public class StartApplication extends Application {
 
     private final static Mode mode = Mode.CONSOLE;
 
-    public static void main(String[] args) throws NoSuchFieldException {
+    public static void main(String[] args) {
         DialogFactory dialogFactory;
 
         dialogFactory = switch (mode) {
