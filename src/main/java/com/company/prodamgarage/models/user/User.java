@@ -142,6 +142,7 @@ public class User implements Serializable {
     public void setMapPosition(int mapPosition) {
         this.mapPosition = mapPosition;
     }
+    
     public void setCurrentTime(int time){currentTime = time;}
     public int getCurrentTime(){ return currentTime;}
     public void increaseCurrentTime(){currentTime += 1;}
