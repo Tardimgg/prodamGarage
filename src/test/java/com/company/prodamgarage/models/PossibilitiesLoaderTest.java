@@ -16,25 +16,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PossibilitiesLoaderTest {
 
-    @Test
-    void getPossibilitiesRepositoryTest() {
-        PossibilitiesRepository rep = PossibilitiesLoader.getPossibilitiesRepository( "src/test/resources/possibilities_json.json").blockingGet();
 
-        assertNotNull(rep);
-        List<Possibility> listOfPossibilities = rep.getPossibilities();
-        assertNotNull(listOfPossibilities);
-
-        assertEquals(listOfPossibilities.size(), 2);
-
-        assertEquals(((Possibility) listOfPossibilities.get(0)).name, "Buy Garage");
-        assertEquals(((Possibility) listOfPossibilities.get(0)).description, "Покупка гаража -- отличный способ войтив бизнес самогоноваренья!");
-        assertEquals(((Possibility) listOfPossibilities.get(0)).userChanges.deltaAge, 1);
-        assertEquals(((Possibility) listOfPossibilities.get(0)).userChanges.deltaMoneyFlow, 5);
-
-        assertEquals(((Possibility) listOfPossibilities.get(1)).name, "Buy pen");
-        assertEquals(((Possibility) listOfPossibilities.get(1)).description, "Продай ручку. Часто ли вам приходилось слышать эту фразу? Мы будем уникальны и попросим вас купить ручку. buy pen pls");
-        assertEquals(((Possibility) listOfPossibilities.get(1)).userChanges.deltaAge, 1);
-        assertEquals(((Possibility) listOfPossibilities.get(1)).userChanges.deltaMoneyFlow, 5);
-        assertEquals(((Possibility) listOfPossibilities.get(1)).userChanges.deltaCredit, -21);
-    }
 }
