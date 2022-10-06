@@ -23,11 +23,11 @@ public class Game {
 
     private final DialogFactory dialogFactory;
 
+    private User user;
+
     public Game(DialogFactory eventFactory) {
         this.dialogFactory = eventFactory;
         instance = this;
-
-        User user;
 
         try {
             user = User.getInstance().blockingGet();
@@ -50,6 +50,7 @@ public class Game {
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
 
     public Single<Dialog> getNext() {
+        user.increaseCurrentTime();
         return Single.create(singleSubscriber -> {
             Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
             singleSubscriber.onSuccess(event.dialogBuilder().build());
