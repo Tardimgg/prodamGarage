@@ -1,19 +1,24 @@
 package com.company.prodamgarage.models.possibilityModels;
 
-import com.company.prodamgarage.models.possibilityModels.Possibility;
-
+import java.util.HashMap;
 import java.util.List;
 
 public class PossibilitiesRepository {
-    private List<Possibility> possibilities;
+    private HashMap<String, List<Possibility>> possibilities = new HashMap<>();
 
-
-
-    public List<Possibility> getPossibilities() {
-        return possibilities;
+    public List<Possibility> getApartmentPossibilities() {
+        return possibilities.get("ApartmentPossibilities");
     }
 
-    public void setPossibilities(List<Possibility> possibilities) {
-        this.possibilities = possibilities;
+    public void setApartmentPossibilities(List<Possibility> apartmentPossibilities) {
+        this.possibilities.put("ApartmentPossibilities", apartmentPossibilities);
+    }
+
+    public List<Possibility> getBusinessPossibilities() {
+        return possibilities.get("BusinessPossibilities");
+    }
+
+    public void setBusinessPossibilities(List<Possibility> businessPossibilities) {
+        this.possibilities.put("BusinessPossibilities", businessPossibilities);
     }
 }

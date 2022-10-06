@@ -29,7 +29,7 @@ public class PossibilitiesEvent extends Event {
         return Completable.create(completableEmitter -> {
 
             // necessary to add reading of all types of possibility
-            var res = PossibilitiesLoader.getPossibilitiesRepository().blockingGet().getPossibilities();
+            var res = PossibilitiesLoader.getPossibilitiesRepository().blockingGet().getApartmentPossibilities();
             isFullyLoaded = true;
         });
     }

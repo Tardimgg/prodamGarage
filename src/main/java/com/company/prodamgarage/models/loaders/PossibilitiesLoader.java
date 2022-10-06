@@ -29,13 +29,8 @@ public class PossibilitiesLoader {
                     PossibilitiesRepository possibilitiesRepository = new PossibilitiesRepository();
                     JsonObject jsonObj = (JsonObject) parser.parse(reader);
 
-                    //List<BusinessPossibility> targetBisRepository = new ArrayList<>();
-//                  List<EducationPossibility> targetEdRepository = new ArrayList<>();
-                    //List<Possibility> targetRepository = new ArrayList<>();
-
-
-                    JsonArray possibility_arr = (JsonArray) jsonObj.get("possibilitiesList");
-                    //JsonArray EducationPossibility_arr = (JsonArray) jsonObj.get("educationPossibilitiesList");
+                    JsonArray apPossibility_arr = (JsonArray) jsonObj.get("apartmentPossibilitiesList");
+                    JsonArray bisPossibility_arr = (JsonArray) jsonObj.get("businessPossibilitiesList");
 
                     List<Pair<Class<?>, Optional<List<Pair<Class<?>, ?>>>>> allTypesObj = Arrays.asList(
                             Pair.create(Possibility.class, Optional.empty()),
@@ -43,16 +38,11 @@ public class PossibilitiesLoader {
                             Pair.create(Pair.class, Optional.empty())
                     );
 
-                    List<Possibility> targetRepository = StdJsonParser.parseListJson(possibility_arr, allTypesObj, Possibility.class);
-//                    for (int i = 0; i < EducationPossibility_arr.size(); ++i) {
-//                        targetEdRepository.add(new EducationPossibility());
-//                    }
+                    List<Possibility> targetApRepository = StdJsonParser.parseListJson(apPossibility_arr, allTypesObj, Possibility.class);
+                    List<Possibility> targetBisRepository = StdJsonParser.parseListJson(bisPossibility_arr, allTypesObj, Possibility.class);
 
-//                    parseListJson(BusinessPossibility_arr, BusinessPossibility.class, targetBisRepository);
-//                    parseListJson(EducationPossibility_arr, EducationPossibility.class, targetEdRepository);
-
-                    possibilitiesRepository.setPossibilities(targetRepository);
-//                  possibilitiesRepository.setEducationPossibilities(targetEdRepository);
+                    possibilitiesRepository.setApartmentPossibilities(targetApRepository);
+                    possibilitiesRepository.setBusinessPossibilities(targetBisRepository);
 
                     data.put(path, possibilitiesRepository);
                     singleSubscriber.onSuccess(possibilitiesRepository);
