@@ -33,4 +33,6 @@ module com.company.prodamgarage {
     opens com.company.prodamgarage.models.dialog.consoleDialogs to javafx.fxml;
     exports com.company.prodamgarage.models.dialog.javaFXDialogs;
     opens com.company.prodamgarage.models.dialog.javaFXDialogs to javafx.fxml;
+    exports com.company.prodamgarage.models.possibilityModels;
+    opens com.company.prodamgarage.models.possibilityModels to javafx.fxml;
 }

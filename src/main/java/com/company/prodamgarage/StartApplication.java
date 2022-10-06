@@ -4,7 +4,6 @@ import com.company.prodamgarage.models.*;
 import com.company.prodamgarage.models.dialog.factory.ConsoleDialogFactory;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.dialog.factory.JavaFXDialogFactory;
-import io.reactivex.schedulers.Schedulers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
