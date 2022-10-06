@@ -53,6 +53,14 @@ public class Game {
         user.increaseCurrentTime();
         return Single.create(singleSubscriber -> {
             Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
+
+            if (!event.isFullyLoaded()) {
+                Throwable res = event.load().blockingGet();
+                if (res != null) {
+                    singleSubscriber.onError(res);
+                }
+            }
+
             singleSubscriber.onSuccess(event.dialogBuilder().build());
         });
     } // Получение следующего события

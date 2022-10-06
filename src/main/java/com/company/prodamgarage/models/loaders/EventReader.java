@@ -79,13 +79,13 @@ public class EventReader {
 
     private static boolean checkingCorrectnessEvents(Event event) {
         if (event instanceof NotificationEvent locEvent) {
-            return locEvent.mainText != null && locEvent.title != null && locEvent.userChanges != null;
+            return locEvent.mainText != null && locEvent.title != null;
 
         } else if (event instanceof SelectionEvent locEvent) {
             return locEvent.title != null && locEvent.mainText != null && locEvent.userChanges != null; // temp code
 
 
-        } else if (event instanceof PurchaseEvent) {
+        } else if (event instanceof PossibilitiesEvent) {
 
         }
         return true;
