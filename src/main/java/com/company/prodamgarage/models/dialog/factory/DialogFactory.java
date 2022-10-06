@@ -13,5 +13,5 @@ public interface DialogFactory {
 
     Dialog createSelectionDialog(String title, String mainText, List<Pair<String, UserChanges>> changes);
 
-    Dialog createPurchaseDialog(String title, List<Event> events);
+    Dialog createPossibilitiesDialog(String title, List<Event> events);
 }

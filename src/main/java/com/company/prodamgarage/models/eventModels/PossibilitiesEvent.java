@@ -1,22 +1,22 @@
 package com.company.prodamgarage.models.eventModels;
 
-import com.company.prodamgarage.models.dialog.dialogBuilders.PossibilityDialogBuilder;
+import com.company.prodamgarage.models.dialog.dialogBuilders.PossibilitiesDialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 import com.company.prodamgarage.models.loaders.PossibilitiesLoader;
 import io.reactivex.Completable;
 
-public class PossibilityEvent extends Event {
+public class PossibilitiesEvent extends Event {
 
     private volatile boolean isFullyLoaded = false;
 
-    public PossibilityEvent(DialogFactory dialogFactory) {
+    public PossibilitiesEvent(DialogFactory dialogFactory) {
         super(dialogFactory);
     }
 
     @Override
     public DialogBuilder dialogBuilder() {
-        return new PossibilityDialogBuilder(this.dialogFactory);
+        return new PossibilitiesDialogBuilder(this.dialogFactory);
     }
 
     @Override

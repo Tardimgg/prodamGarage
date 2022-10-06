@@ -21,7 +21,7 @@ public class JavaFXDialogFactory implements DialogFactory {
     }
 
     @Override
-    public Dialog createPurchaseDialog(String title, List<Event> events) {
+    public Dialog createPossibilitiesDialog(String title, List<Event> events) {
         return null;
     }
 
