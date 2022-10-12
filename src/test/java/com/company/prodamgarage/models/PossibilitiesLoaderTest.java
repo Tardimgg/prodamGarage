@@ -21,7 +21,7 @@ class PossibilitiesLoaderTest {
         PossibilitiesRepository rep = PossibilitiesLoader.getPossibilitiesRepository( "src/test/resources/possibilities_json.json").blockingGet();
 
         assertNotNull(rep);
-        List<Possibility> listOfPossibilities = rep.getPossibilities();
+        List<Possibility> listOfPossibilities = rep.getApartmentPossibilities();
         assertNotNull(listOfPossibilities);
 
         assertEquals(listOfPossibilities.size(), 2);

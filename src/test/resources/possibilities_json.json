@@ -1,5 +1,5 @@
 {
-  "possibilitiesList": [
+  "apartmentPossibilitiesList": [
     {
       "name" : "Buy Garage",
       "description": "Покупка гаража -- отличный способ войтив бизнес самогоноваренья!",
@@ -20,6 +20,29 @@
         "deltaMoneyFlow": 5,
         "deltaAge": 1,
         "deltaCredit": -21
+      }
+    }
+  ],
+  "businessPossibilitiesList": [
+    {
+      "name" : "Buy Garage",
+      "description": "Покупка гаража -- отличный способ войтив бизнес самогоноваренья!",
+      "className": "Possibility",
+      "userChanges":
+      {
+        "className": "UserChanges",
+        "deltaMoneyFlow": 5,
+        "deltaAge": 1
+      }
+    },{
+      "name" : "Buy pen",
+      "description": "Продай ручку. Часто ли вам приходилось слышать эту фразу? Мы будем уникальны и попросим вас купить ручку. buy pen pls",
+      "className": "Possibility",
+      "userChanges":
+      {
+        "className": "UserChanges",
+        "deltaMoneyFlow": 5,
+        "deltaAge": 1
       }
     }
   ]
