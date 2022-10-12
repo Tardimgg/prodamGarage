@@ -31,6 +31,7 @@ public class PossibilitiesLoader {
 
                     JsonArray apPossibility_arr = (JsonArray) jsonObj.get("apartmentPossibilitiesList");
                     JsonArray bisPossibility_arr = (JsonArray) jsonObj.get("businessPossibilitiesList");
+                    JsonArray edPossibility_arr = (JsonArray) jsonObj.get("businessPossibilitiesList");
 
                     List<Pair<Class<?>, Optional<List<Pair<Class<?>, ?>>>>> allTypesObj = Arrays.asList(
                             Pair.create(Possibility.class, Optional.empty()),
@@ -40,9 +41,11 @@ public class PossibilitiesLoader {
 
                     List<Possibility> targetApRepository = StdJsonParser.parseListJson(apPossibility_arr, allTypesObj, Possibility.class);
                     List<Possibility> targetBisRepository = StdJsonParser.parseListJson(bisPossibility_arr, allTypesObj, Possibility.class);
+                    List<Possibility> targetEdRepository = StdJsonParser.parseListJson(edPossibility_arr, allTypesObj, Possibility.class);
 
                     possibilitiesRepository.setApartmentPossibilities(targetApRepository);
                     possibilitiesRepository.setBusinessPossibilities(targetBisRepository);
+                    possibilitiesRepository.setEducationPossibilities(targetEdRepository);
 
                     data.put(path, possibilitiesRepository);
                     singleSubscriber.onSuccess(possibilitiesRepository);

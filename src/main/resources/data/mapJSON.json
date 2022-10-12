@@ -1,11 +1,100 @@
 {
   "mapCellList": [
     {
+      "eventType" : "BUY_CHOICE",
+      "seasonType": "SUMMER"
+    },
+    {
+      "eventType" : "GOOD",
+      "seasonType": "SUMMER"
+    },
+    {
+      "eventType" : "PLOT",
+      "seasonType": "SUMMER"
+    },
+    {
+      "eventType" : "EDUCATION_CHOICE",
+      "seasonType": "SUMMER"
+    },
+    {
+      "eventType" : "BUY_CHOICE",
+      "seasonType": "SUMMER"
+    },
+    {
       "eventType" : "BAD",
       "seasonType": "SUMMER"
-    },{
-      "eventType" : "VERY_BAD",
+    },
+    {
+      "eventType" : "GOOD",
       "seasonType": "AUTUMN"
+    },
+    {
+      "eventType" : "BAD",
+      "seasonType": "AUTUMN"
+    },
+    {
+      "eventType" : "BUY_CHOICE",
+      "seasonType": "AUTUMN"
+    },
+    {
+      "eventType" : "PLOT",
+      "seasonType": "AUTUMN"
+    },
+    {
+      "eventType" : "BAD",
+      "seasonType": "AUTUMN"
+    },
+    {
+      "eventType" : "EDUCATION_CHOICE",
+      "seasonType": "AUTUMN"
+    },
+    {
+      "eventType" : "BUY_CHOICE",
+      "seasonType": "WINTER"
+    },
+    {
+      "eventType" : "GOOD",
+      "seasonType": "WINTER"
+    },
+    {
+      "eventType" : "PLOT",
+      "seasonType": "WINTER"
+    },
+    {
+      "eventType" : "BAD",
+      "seasonType": "WINTER"
+    },
+    {
+      "eventType" : "BUY_CHOICE",
+      "seasonType": "WINTER"
+    },
+    {
+      "eventType" : "BAD",
+      "seasonType": "WINTER"
+    },
+    {
+      "eventType" : "PLOT",
+      "seasonType": "SPRING"
+    },
+    {
+      "eventType" : "EDUCATION_CHOICE",
+      "seasonType": "SPRING"
+    },
+    {
+      "eventType" : "BUY_CHOICE",
+      "seasonType": "SPRING"
+    },
+    {
+      "eventType" : "GOOD",
+      "seasonType": "SPRING"
+    },
+    {
+      "eventType" : "BAD",
+      "seasonType": "SPRING"
+    },
+    {
+      "eventType" : "GOOD",
+      "seasonType": "SPRING"
     }
   ]
 }

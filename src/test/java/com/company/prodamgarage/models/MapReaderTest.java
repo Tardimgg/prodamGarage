@@ -26,7 +26,7 @@ class MapReaderTest {
         assertEquals(mapElementList.get(0).eventType, EventType.BAD);
         assertEquals(mapElementList.get(0).seasonType, SeasonType.SUMMER);
 
-        assertEquals(mapElementList.get(1).eventType, EventType.VERY_BAD);
+        assertEquals(mapElementList.get(1).eventType, EventType.GOOD);
         assertEquals(mapElementList.get(1).seasonType, SeasonType.AUTUMN);
     }
 
