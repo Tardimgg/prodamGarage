@@ -1,6 +1,8 @@
 package com.company.prodamgarage.models;
 
+import com.company.prodamgarage.ConditionsTypes;
 import com.company.prodamgarage.Pair;
+import com.company.prodamgarage.models.eventModels.EventType;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -120,8 +122,7 @@ public class StdJsonParser {
                         value = elem.getAsInt();
 
                     } else if (field.getType().isEnum()) {
-                        // it is necessary to test
-
+                        // it is necessary to test // TESTED ^-^
                         value = Enum.valueOf((Class<Enum>) field.getType(), elem.getAsString());
                     } else {
                         value = field.getType().cast(elem.getAsString());

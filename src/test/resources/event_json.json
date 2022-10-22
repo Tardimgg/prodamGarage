@@ -45,8 +45,6 @@
       "className": "SelectionEvent"
     },{
       "title" : "badName2",
-      "text": "12",
-      "title" : "badName1",
       "mainText": "12wef",
       "className": "SelectionEvent",
       "userChanges": [

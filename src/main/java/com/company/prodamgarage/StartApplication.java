@@ -4,6 +4,7 @@ import com.company.prodamgarage.models.*;
 import com.company.prodamgarage.models.dialog.factory.ConsoleDialogFactory;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.dialog.factory.JavaFXDialogFactory;
+import com.company.prodamgarage.models.loaders.PlotLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,7 +30,7 @@ public class StartApplication extends Application {
     }
 
     private final static Mode mode = Mode.CONSOLE;
-
+    
     public static void main(String[] args) {
         DialogFactory dialogFactory;
 
@@ -39,17 +40,7 @@ public class StartApplication extends Application {
         };
         new Game(dialogFactory);
 
-        switch (mode) {
-            case GUI -> launch();
-            case CONSOLE -> {
-                while (true) {
-                    try {
-                        Game.getInstance().getNext().blockingGet().show();
-                    } catch (GameOver e) {
-                        break;
-                    }
-                }
-            }
-        }
+
+
     }
 }

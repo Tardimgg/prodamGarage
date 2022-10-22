@@ -1,13 +1,11 @@
 package com.company.prodamgarage.models.loaders;
 
+import com.company.prodamgarage.Conditions;
 import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.PlotRepository;
 import com.company.prodamgarage.models.StdJsonParser;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.eventModels.PlotEvent;
-import com.company.prodamgarage.models.possibilityModels.PossibilitiesRepository;
-import com.company.prodamgarage.models.possibilityModels.Possibility;
-import com.company.prodamgarage.models.user.UserChanges;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -36,6 +34,7 @@ public class PlotLoader {
 
                     List<Pair<Class<?>, Optional<List<Pair<Class<?>, ?>>>>> allTypesObj = Arrays.asList(
                             Pair.create(PlotEvent.class, Optional.of(List.of(Pair.create(DialogFactory.class, dialogFactory)))),
+                            Pair.create(Conditions.class, Optional.empty()),
                             Pair.create(Pair.class, Optional.empty())
                     );
 
