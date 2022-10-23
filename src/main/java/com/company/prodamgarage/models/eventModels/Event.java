@@ -1,6 +1,6 @@
 package com.company.prodamgarage.models.eventModels;
 
-import com.company.prodamgarage.Conditions;
+import com.company.prodamgarage.models.conditions.Conditions;
 import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import io.reactivex.Completable;

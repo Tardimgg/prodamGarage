@@ -1,8 +1,6 @@
 package com.company.prodamgarage.models;
 
-import com.company.prodamgarage.ConditionsTypes;
 import com.company.prodamgarage.Pair;
-import com.company.prodamgarage.models.eventModels.EventType;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
