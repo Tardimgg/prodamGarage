@@ -72,8 +72,8 @@ public class User implements Serializable {
         });
     }
 
-    public static void reload() throws IOException {
-        reload(serializationPath, imagePath);
+    public static Completable reload() throws IOException {
+        return reload(serializationPath, imagePath);
     }
 
     public void save(String filePath) throws IOException {

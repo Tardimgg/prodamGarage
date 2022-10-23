@@ -4,6 +4,6 @@ import com.company.prodamgarage.models.GameOver;
 
 public interface Dialog {
 
-    void show() throws GameOver;
+    Object show() throws GameOver;
 
 }

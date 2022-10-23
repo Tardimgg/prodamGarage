@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.company.prodamgarage.controllers.NotificationController"
+           maxHeight="200" maxWidth="300"
+           prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+
+    <HBox>
+        <ImageView>
+            <Image requestedHeight="130" requestedWidth="100" url="@../../../images/image1.png"/>
+        </ImageView>
+        <VBox>
+            <Label>
+                Тема
+            </Label>
+<!--            <ScrollPane VBox.vgrow="ALWAYS">-->
+                <TextArea fx:id="main_text" wrapText="true">
+                    очень приольное аписание, ахуеть проста
+                </TextArea>
+<!--            </ScrollPane>-->
+            <HBox>
+                <Button>
+                    Прикол
+                </Button>
+                <Button>
+                    Прикол
+                </Button>
+                <Button onAction="#back">
+                    Прикол
+                </Button>
+            </HBox>
+        </VBox>
+    </HBox>
+
+</StackPane>

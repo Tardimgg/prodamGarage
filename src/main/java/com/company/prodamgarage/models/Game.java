@@ -6,6 +6,8 @@ import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.loaders.EventReader;
 import com.company.prodamgarage.models.user.User;
 import com.company.prodamgarage.models.user.UserChanges;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -49,9 +51,10 @@ public class Game {
 
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
 
-    public Single<Dialog> getNext() {
+    public Flowable<Dialog> getNext() {
         user.increaseCurrentTime();
-        return Single.create(singleSubscriber -> {
+
+        return Flowable.create(singleSubscriber -> {
             Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
 
             if (!event.isFullyLoaded()) {
@@ -61,7 +64,11 @@ public class Game {
                 }
             }
 
-            singleSubscriber.onSuccess(event.dialogBuilder().build());
-        });
+            singleSubscriber.onNext(event.dialogBuilder().build());
+
+            singleSubscriber.onNext(event.dialogBuilder().setTitle("ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ").build());
+
+            singleSubscriber.onComplete();
+        }, BackpressureStrategy.BUFFER);
     } // Получение следующего события
 }
