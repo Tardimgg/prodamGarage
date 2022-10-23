@@ -1,9 +1,10 @@
 package com.company.prodamgarage.models.eventModels;
 
 public enum EventType {
-    VERY_BAD,
     BAD,
-    PLOT,
     GOOD,
-    VERY_GOOD
+    PLOT,
+//  for business, hata and stocks
+    BUY_CHOICE,
+    EDUCATION_CHOICE,
 }

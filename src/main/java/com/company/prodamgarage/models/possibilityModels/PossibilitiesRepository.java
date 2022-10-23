@@ -21,4 +21,11 @@ public class PossibilitiesRepository {
     public void setBusinessPossibilities(List<Possibility> businessPossibilities) {
         this.possibilities.put("BusinessPossibilities", businessPossibilities);
     }
+    public List<Possibility> getEducationPossibilities() {
+        return possibilities.get("EducationPossibilities");
+    }
+
+    public void setEducationPossibilities(List<Possibility> educationPossibilities) {
+        this.possibilities.put("EducationPossibilities", educationPossibilities);
+    }
 }

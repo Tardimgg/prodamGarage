@@ -38,7 +38,7 @@ public class StartApplication extends Application {
             case GUI -> new JavaFXDialogFactory();
         };
         new Game(dialogFactory);
-
+        
         switch (mode) {
             case GUI -> launch();
             case CONSOLE -> {
@@ -51,5 +51,6 @@ public class StartApplication extends Application {
                 }
             }
         }
+
     }
 }

@@ -4,7 +4,7 @@
       "eventType" : "BAD",
       "seasonType": "SUMMER"
     },{
-      "eventType" : "VERY_BAD",
+      "eventType" : "GOOD",
       "seasonType": "AUTUMN"
     }
   ]

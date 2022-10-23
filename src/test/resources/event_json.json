@@ -34,7 +34,17 @@
   ],
   "badEventList": [
     {
-      "title" : "badName1",
+      "name" : "badName1",
+      "text": "12wef",
+      "moneyBonus": 4234,
+      "userChanges" : {
+            "className": "UserChanges",
+            "deltaMoneyFlow": -202,
+            "deltaAge": 20
+      },
+      "className": "SelectionEvent"
+    },{
+      "title" : "badName2",
       "mainText": "12wef",
       "className": "SelectionEvent",
       "userChanges": [
@@ -62,7 +72,8 @@
       "userChanges" : {
             "deltaMoneyFlow": -22,
             "deltaAge": 100
-      }
+      },
+      "className": "NotificationEvent"
     }
   ]
 }

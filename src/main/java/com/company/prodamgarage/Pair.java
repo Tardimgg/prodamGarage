@@ -15,6 +15,7 @@ public class Pair<K, V> {
         this.value = null;
     }
 
+
     public static<K1, V1> Pair<K1, V1> create(K1 key, V1 value) {
 //        Pair<K1, V1> ans = new Pair<>((Class<K1>) key.getClass(), (Class<V1>) value.getClass());
         Pair<K1, V1> ans = new Pair<>();
