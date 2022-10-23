@@ -18,7 +18,7 @@ public class NotificationConsoleDialog implements Dialog {
     }
 
     @Override
-    public void show() throws GameOver {
+    public Object show() throws GameOver {
         ConsoleIOSystem io = ConsoleIOSystem.getInstance();
 
         io.println(title);
@@ -35,6 +35,7 @@ public class NotificationConsoleDialog implements Dialog {
 //        } else {
 //            throw new GameOver();
 
+        return null;
 
     }
 }

@@ -21,7 +21,7 @@ public class SelectionConsoleDialog implements Dialog {
     }
 
     @Override
-    public void show() throws GameOver {
+    public Object show() throws GameOver {
         ConsoleIOSystem io = ConsoleIOSystem.getInstance();
 
         io.println(title);
@@ -50,5 +50,7 @@ public class SelectionConsoleDialog implements Dialog {
                 io.println("Попробуйте ещё раз");
             }
         }
+        return null;
+
     }
 }
