@@ -13,7 +13,8 @@ public class NotificationEvent extends Event{
     public DialogBuilder dialogBuilder(){
         return new NotificationDialogBuilder(dialogFactory)
                 .setTitle(title)
-                .setMainText(mainText);
+                .setMainText(mainText)
+                .setChanges(userChanges);
     }
 
     public NotificationEvent(DialogFactory dialogFactory) {

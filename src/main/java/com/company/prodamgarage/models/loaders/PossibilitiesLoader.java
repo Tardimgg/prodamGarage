@@ -31,7 +31,7 @@ public class PossibilitiesLoader {
 
                     JsonArray apPossibility_arr = (JsonArray) jsonObj.get("apartmentPossibilitiesList");
                     JsonArray bisPossibility_arr = (JsonArray) jsonObj.get("businessPossibilitiesList");
-                    JsonArray edPossibility_arr = (JsonArray) jsonObj.get("businessPossibilitiesList");
+                    JsonArray edPossibility_arr = (JsonArray) jsonObj.get("educationPossibilitiesList");
 
                     List<Pair<Class<?>, Optional<List<Pair<Class<?>, ?>>>>> allTypesObj = Arrays.asList(
                             Pair.create(Possibility.class, Optional.empty()),
