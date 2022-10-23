@@ -5,7 +5,7 @@ import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.PlotRepository;
 import com.company.prodamgarage.models.StdJsonParser;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
-import com.company.prodamgarage.models.eventModels.PlotEvent;
+import com.company.prodamgarage.models.eventModels.NotificationEvent;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -33,12 +33,12 @@ public class PlotLoader {
                     JsonArray plot_arr = (JsonArray) jsonObj.get("plotList");
 
                     List<Pair<Class<?>, Optional<List<Pair<Class<?>, ?>>>>> allTypesObj = Arrays.asList(
-                            Pair.create(PlotEvent.class, Optional.of(List.of(Pair.create(DialogFactory.class, dialogFactory)))),
+                            Pair.create(NotificationEvent.class, Optional.of(List.of(Pair.create(DialogFactory.class, dialogFactory)))),
                             Pair.create(Conditions.class, Optional.empty()),
                             Pair.create(Pair.class, Optional.empty())
                     );
 
-                    List<PlotEvent> targetPlotRepository = StdJsonParser.parseListJson(plot_arr, allTypesObj, PlotEvent.class);
+                    List<NotificationEvent> targetPlotRepository = StdJsonParser.parseListJson(plot_arr, allTypesObj, NotificationEvent.class);
 
 
                     plotRepository.setPlotEvents(targetPlotRepository);

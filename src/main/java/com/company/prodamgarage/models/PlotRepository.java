@@ -1,21 +1,18 @@
 package com.company.prodamgarage.models;
 
-import com.company.prodamgarage.models.eventModels.PlotEvent;
-import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.eventModels.NotificationEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class PlotRepository {
-    private List<PlotEvent> plotEvents;
+    private List<NotificationEvent> plotEvents;
 
 
-    public List<PlotEvent> getPlotEvents() {
+    public List<NotificationEvent> getPlotEvents() {
         return plotEvents;
     }
 
-    public void setPlotEvents(List<PlotEvent> plotEvents) {
+    public void setPlotEvents(List<NotificationEvent> plotEvents) {
         this.plotEvents = plotEvents;
     }
 }

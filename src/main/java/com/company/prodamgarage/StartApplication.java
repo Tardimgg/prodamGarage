@@ -30,7 +30,7 @@ public class StartApplication extends Application {
     }
 
     private final static Mode mode = Mode.CONSOLE;
-    
+
     public static void main(String[] args) {
         DialogFactory dialogFactory;
 
@@ -39,8 +39,7 @@ public class StartApplication extends Application {
             case GUI -> new JavaFXDialogFactory();
         };
         new Game(dialogFactory);
-
-
+        
 
     }
 }

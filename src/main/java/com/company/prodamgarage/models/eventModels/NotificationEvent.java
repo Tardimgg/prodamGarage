@@ -5,23 +5,18 @@ import com.company.prodamgarage.models.dialog.dialogBuilders.NotificationDialogB
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.user.UserChanges;
 
-public class NotificationEvent extends Event {
-    
-
+public class NotificationEvent extends Event{
     public String title;
     public String mainText;
     public UserChanges userChanges;
-
+    @Override
+    public DialogBuilder dialogBuilder(){
+        return new NotificationDialogBuilder(dialogFactory)
+                .setTitle(title)
+                .setMainText(mainText);
+    }
 
     public NotificationEvent(DialogFactory dialogFactory) {
         super(dialogFactory);
-    }
-
-    @Override
-    public DialogBuilder dialogBuilder() {
-        return new NotificationDialogBuilder(dialogFactory)
-                .setTitle(title)
-                .setMainText(mainText)
-                .setChanges(userChanges);
     }
 }
