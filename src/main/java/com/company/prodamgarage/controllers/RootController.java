@@ -1,9 +1,6 @@
 package com.company.prodamgarage.controllers;
 
-import com.company.prodamgarage.DefaultObserver;
-import com.company.prodamgarage.Pair;
-import com.company.prodamgarage.Resources;
-import com.company.prodamgarage.SceneType;
+import com.company.prodamgarage.*;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiConsumer;

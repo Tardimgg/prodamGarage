@@ -1,9 +1,6 @@
 package com.company.prodamgarage.controllers;
 
-import com.company.prodamgarage.DefaultObserver;
-import com.company.prodamgarage.Pair;
-import com.company.prodamgarage.Resources;
-import com.company.prodamgarage.SceneType;
+import com.company.prodamgarage.*;
 import com.company.prodamgarage.models.Game;
 import com.company.prodamgarage.models.GameOver;
 import com.company.prodamgarage.models.dialog.Dialog;

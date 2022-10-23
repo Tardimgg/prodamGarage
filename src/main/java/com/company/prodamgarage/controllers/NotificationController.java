@@ -1,5 +1,6 @@
 package com.company.prodamgarage.controllers;
 
+import com.company.prodamgarage.RequestTransition;
 import com.company.prodamgarage.SceneType;
 import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.Observer;
