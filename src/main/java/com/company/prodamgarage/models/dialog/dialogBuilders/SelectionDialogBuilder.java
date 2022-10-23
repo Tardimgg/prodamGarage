@@ -19,6 +19,7 @@ public class SelectionDialogBuilder implements DialogBuilder {
     private String mainText;
     private List<Pair<String, UserChanges>> changes;
 
+    @Override
     public SelectionDialogBuilder setTitle(String title) {
         this.title = title;
         return this;

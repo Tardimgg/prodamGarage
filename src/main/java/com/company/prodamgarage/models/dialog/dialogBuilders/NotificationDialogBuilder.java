@@ -16,6 +16,7 @@ public class NotificationDialogBuilder implements DialogBuilder {
     private String mainText;
     private UserChanges changes;
 
+    @Override
     public NotificationDialogBuilder setTitle(String title) {
         this.title = title;
         return this;
