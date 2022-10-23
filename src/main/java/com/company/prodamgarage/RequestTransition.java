@@ -1,4 +1,4 @@
-package com.company.prodamgarage.controllers;
+package com.company.prodamgarage;
 
 import com.company.prodamgarage.SceneType;
 import io.reactivex.Observer;

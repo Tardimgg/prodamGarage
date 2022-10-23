@@ -1,4 +1,6 @@
-package com.company.prodamgarage;
+package com.company.prodamgarage.models.conditions;
+
+import com.company.prodamgarage.Pair;
 
 public class Conditions {
     public Pair<ConditionsTypes, Integer> age;

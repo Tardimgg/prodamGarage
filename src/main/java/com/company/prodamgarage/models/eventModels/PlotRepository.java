@@ -1,4 +1,4 @@
-package com.company.prodamgarage.models;
+package com.company.prodamgarage.models.eventModels;
 
 import com.company.prodamgarage.models.eventModels.NotificationEvent;
 

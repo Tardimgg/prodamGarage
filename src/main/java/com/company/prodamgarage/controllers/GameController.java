@@ -1,17 +1,12 @@
 package com.company.prodamgarage.controllers;
 
-import com.company.prodamgarage.DefaultObserver;
-import com.company.prodamgarage.Pair;
-import com.company.prodamgarage.Resources;
-import com.company.prodamgarage.SceneType;
+import com.company.prodamgarage.*;
 import com.company.prodamgarage.models.Game;
 import com.company.prodamgarage.models.GameOver;
 import com.company.prodamgarage.models.dialog.Dialog;
 import io.reactivex.*;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -19,9 +14,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subscribers.DisposableSubscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
 import java.util.*;

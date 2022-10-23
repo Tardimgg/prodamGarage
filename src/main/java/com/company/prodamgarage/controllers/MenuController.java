@@ -1,26 +1,14 @@
 package com.company.prodamgarage.controllers;
 
-import com.company.prodamgarage.Resources;
+import com.company.prodamgarage.RequestTransition;
 import com.company.prodamgarage.SceneType;
 import io.reactivex.Observer;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.subjects.PublishSubject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
 
 public class MenuController implements RequestTransition {
 
