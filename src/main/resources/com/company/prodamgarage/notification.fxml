@@ -8,18 +8,22 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.DropShadow?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.company.prodamgarage.controllers.NotificationController"
            maxHeight="200" maxWidth="300"
            prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+    <effect>
+        <DropShadow radius="20"/>
+    </effect>
 
     <HBox>
         <ImageView>
             <Image requestedHeight="130" requestedWidth="100" url="@../../../images/image1.png"/>
         </ImageView>
         <VBox>
-            <Label>
+            <Label fx:id="title">
                 Тема
             </Label>
 <!--            <ScrollPane VBox.vgrow="ALWAYS">-->
