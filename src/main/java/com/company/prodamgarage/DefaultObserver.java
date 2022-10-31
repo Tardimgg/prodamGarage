@@ -19,4 +19,9 @@ public abstract class DefaultObserver<T> implements Observer<T> {
     public void onComplete() {
 
     }
+
+    @Override
+    public void onNext(T t) {
+
+    }
 }

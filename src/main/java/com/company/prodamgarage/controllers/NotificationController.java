@@ -7,29 +7,34 @@ import io.reactivex.Observer;
 import io.reactivex.subjects.PublishSubject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 public class NotificationController implements RequestTransition {
 
-    private PublishSubject<SceneType> reqTransition = PublishSubject.create();
 
+//    private PublishSubject<SceneType> reqTransition = PublishSubject.create();
+    private PublishSubject<SceneType> reqTransition;
 
     @Override
     public void subscribe(Observer<SceneType> obs) {
         reqTransition.subscribe(obs);
     }
 
+
+    public Label title;
     public TextArea main_text;
-    private String title;
+
+    private String titleSource;
     private String mainText;
     private UserChanges changes;
 
     public String getTitle() {
-        return title;
+        return titleSource;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.titleSource = title;
     }
 
     public String getMainText() {
@@ -50,7 +55,8 @@ public class NotificationController implements RequestTransition {
 
     @FXML
     public void initialize() {
-        main_text.setText(title);
+        main_text.setText(mainText);
+        title.setText(titleSource);
         reqTransition = PublishSubject.create();
     }
 

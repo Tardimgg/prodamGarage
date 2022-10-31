@@ -1,5 +1,6 @@
 package com.company.prodamgarage.models.user;
 
+import com.company.prodamgarage.models.eventModels.Event;
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableOnSubscribe;
@@ -7,9 +8,13 @@ import io.reactivex.Single;
 
 import javax.annotation.Nonnull;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -22,12 +27,15 @@ public class User implements Serializable {
     private int moneyFlow;
     private int mapPosition;
     private int currentTime;
+    private int currentPlotTime = 0;
     private HashMap<PropertyType, List<String>> properties = new HashMap<>();
     private static String imagePath = "src/main/resources/images/image1.png";
 
     private String customImagePath = null;
 
     private static volatile User instance;
+
+    private volatile List<Event> deferredEvents = new ArrayList<>();
 
     @Nonnull
     public static Single<User> getInstance() {
@@ -132,7 +140,7 @@ public class User implements Serializable {
     }
 
     public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+        User.imagePath = imagePath;
     }
 
     public int getMapPosition() {
@@ -146,4 +154,19 @@ public class User implements Serializable {
     public void setCurrentTime(int time){currentTime = time;}
     public int getCurrentTime(){ return currentTime;}
     public void increaseCurrentTime(){currentTime += 1;}
-}
+
+    public int getCurrentPlotTime(){ return currentPlotTime;}
+    public void increaseCurrentPlotTime(){currentPlotTime += 1;}
+
+    public void addDeferredEvents(List<Event> events) {
+        deferredEvents.addAll(events);
+    }
+
+    public void addDeferredEvent(Event event) {
+        deferredEvents.add(event);
+    }
+
+    public List<Event> getDeferredEvents(Predicate<Event> predicate) {
+        return deferredEvents.stream().filter(predicate).collect(Collectors.toList());
+    }
+ }

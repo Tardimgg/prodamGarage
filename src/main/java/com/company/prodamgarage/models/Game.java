@@ -1,18 +1,33 @@
 package com.company.prodamgarage.models;
 
+import com.company.prodamgarage.DefaultObserver;
 import com.company.prodamgarage.models.dialog.Dialog;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
+import com.company.prodamgarage.models.eventModels.EducationEvent;
 import com.company.prodamgarage.models.eventModels.Event;
+import com.company.prodamgarage.models.eventModels.PossibilitiesEvent;
 import com.company.prodamgarage.models.loaders.EventReader;
+import com.company.prodamgarage.models.loaders.MapReader;
+import com.company.prodamgarage.models.loaders.PlotLoader;
+import com.company.prodamgarage.models.loaders.PossibilitiesLoader;
+import com.company.prodamgarage.models.mapModels.MapElement;
+import com.company.prodamgarage.models.mapModels.MapRepository;
 import com.company.prodamgarage.models.user.User;
 import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.functions.Consumer;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.ReplaySubject;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class Game {
 
@@ -25,50 +40,111 @@ public class Game {
 
     private final DialogFactory dialogFactory;
 
+    private volatile MapRepository map = null;
+    private final PublishSubject<Object> mapReadiness = PublishSubject.create();
+
+
     private User user;
 
     public Game(DialogFactory eventFactory) {
         this.dialogFactory = eventFactory;
         instance = this;
 
-        try {
-            user = User.getInstance().blockingGet();
-
-            EventReader.getEventsRepository(eventFactory)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(new BiConsumerSingleObserver<>((eventsRepository, throwable) -> {
-
-                        for (Event goodEvent : eventsRepository.getGoodEventList()) {
-//                           System.out.println(goodEvent. + " " + goodEvent.moneyBonus);
-                        }
-
-                    }));
-
-        } catch (RuntimeException e) {
-            System.out.println("Error. " + e);
-        }
+        MapReader.getMapRepository()
+                .subscribeOn(Schedulers.computation())
+                .subscribe(new BiConsumerSingleObserver<>((mapRepository, throwable) -> {
+                    try {
+                        user = User.getInstance().blockingGet();
+                    } catch (RuntimeException e) {
+                        mapReadiness.onError(e);
+                        return;
+                    }
+                    map = mapRepository;
+                    mapReadiness.onComplete();
+                }));
     }
 
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
 
-    public Flowable<Dialog> getNext() {
-        user.increaseCurrentTime();
+    private void getNextRealization(FlowableEmitter<Dialog> flowableEmitter) {
+        Event event;
+        MapElement mapElement = map.getMapList().get(user.getCurrentTime() % map.getMapList().size());
 
-        return Flowable.create(singleSubscriber -> {
-            Event event = EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
-
-            if (!event.isFullyLoaded()) {
-                Throwable res = event.load().blockingGet();
-                if (res != null) {
-                    singleSubscriber.onError(res);
-                }
+        int count = 0;
+        int MAX_COUNT = 10;
+        do {
+            if (count >= MAX_COUNT) {
+                user.increaseCurrentTime();
+                flowableEmitter.onComplete();
+                return;
             }
+            count += 1;
 
-            singleSubscriber.onNext(event.dialogBuilder().build());
+            event = switch (mapElement.eventType) {
+                case GOOD -> EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
+                case BAD -> EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomBadEvent();
+                case PLOT -> {
+                    int pos = user.getCurrentPlotTime();
+                    user.increaseCurrentPlotTime();
+                    var repository = PlotLoader.getPlotRepository(dialogFactory).blockingGet();
+                    if (pos >= repository.getPlotEvents().size()) {
+                        yield null;
+                    }
+                    yield repository.getPlotEvents().get(pos);
+                }
+                case BUY_CHOICE -> new PossibilitiesEvent(dialogFactory);
+                case EDUCATION_CHOICE -> new PossibilitiesEvent(dialogFactory); // TEMP CODE !!!!!!!!!!
+            };
+        } while (event == null || !event.conditions.check(user, mapElement.seasonType).blockingGet());
 
-            singleSubscriber.onNext(event.dialogBuilder().setTitle("ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ").build());
+        if (event.deferredEvents != null) {
+            user.addDeferredEvents(event.deferredEvents);
+        }
 
-            singleSubscriber.onComplete();
+        if (!event.isFullyLoaded()) {
+            Throwable res = event.load().blockingGet();
+            if (res != null) {
+                flowableEmitter.onError(res);
+            }
+        }
+
+        flowableEmitter.onNext(event.dialogBuilder().build());
+
+        for (Event deferredEvent : user.getDeferredEvents((v) -> v.conditions.check(user, mapElement.seasonType).blockingGet())) {
+            if (deferredEvent.deferredEvents != null) {
+                user.addDeferredEvents(deferredEvent.deferredEvents);
+            }
+            flowableEmitter.onNext(deferredEvent.dialogBuilder().build());
+        }
+
+//        flowableEmitter.onNext(event.dialogBuilder().setTitle("ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ").build());
+        user.increaseCurrentTime();
+        flowableEmitter.onComplete();
+    }
+
+    public Flowable<Dialog> getNext() {
+
+        return Flowable.create(flowableEmitter -> {
+            synchronized (Game.this) {
+                mapReadiness.subscribe(new DefaultObserver<>() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        throwable.printStackTrace();
+                        flowableEmitter.onComplete();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        try {
+                            getNextRealization(flowableEmitter);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            flowableEmitter.onComplete();
+                        }
+                    }
+                });
+            }
         }, BackpressureStrategy.BUFFER);
+
     } // Получение следующего события
 }

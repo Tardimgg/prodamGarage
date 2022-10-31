@@ -15,7 +15,9 @@ import io.reactivex.subscribers.DisposableSubscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -52,6 +54,7 @@ public class GameController implements RequestTransition {
 
                 parentPair.key.maxHeight(100);
                 parentPair.key.maxWidth(100);
+//                parentPair.key.setEffect(new DropShadow(20d, 0d, +2d, Color.BLACK));
 
                 rootPane.getChildren().addAll(parentPair.key);
 
@@ -84,8 +87,7 @@ public class GameController implements RequestTransition {
             Dialog dialog;
             while ((dialog = deferredDialogs.poll()) != null) {
 
-                showDialog(dialog)
-                        .subscribeOn(JavaFxScheduler.platform()).blockingGet();
+                showDialog(dialog).subscribeOn(JavaFxScheduler.platform()).blockingGet();
 
             }
             completableEmitter.onComplete();
