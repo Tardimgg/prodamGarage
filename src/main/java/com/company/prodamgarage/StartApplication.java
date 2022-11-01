@@ -17,6 +17,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -33,9 +35,8 @@ public class StartApplication extends Application {
                 .subscribe(new BiConsumerSingleObserver<>((parentPair, throwable) -> {
 
                     Scene scene = new Scene(parentPair.key);
-//                    scene.getStylesheets().add("/styles/style.css");
+                    scene.getStylesheets().addAll(this.getClass().getResource("menu.css").toExternalForm());
                     ((RootController) parentPair.getValue()).setView(SceneType.MENU);
-
                     stage.setScene(scene);
                     stage.show();
                 }));
