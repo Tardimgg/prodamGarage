@@ -10,16 +10,16 @@
 
 
 <?import javafx.scene.image.Image?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane styleClass="body" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.company.prodamgarage.controllers.MenuController">
 
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="prodamGarage" BorderPane.alignment="CENTER">
+            <Text styleClass = "title" strokeType="OUTSIDE" strokeWidth="0.0" text="PRODAM GARAGE" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets top="30.0" />
+                  <Insets top="70.0" />
                </BorderPane.margin>
             </Text>
          </top>
@@ -27,7 +27,7 @@
             <Button fx:id="settings_btn"  mnemonicParsing="false"  BorderPane.alignment="BOTTOM_RIGHT">
                <graphic>
                   <ImageView>
-                     <Image requestedHeight="50" requestedWidth="50" url="@../../../images/settings.png"/>
+                     <Image requestedHeight="50" requestedWidth="50" url="@images/settings.png"/>
                   </ImageView>
                </graphic>
                <BorderPane.margin>
@@ -36,12 +36,12 @@
             </Button>
          </bottom>
          <center>
-            <VBox maxWidth="300" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
+            <VBox maxWidth="500" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button onAction="#showGame" maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="Продолжить" />
-                  <Button maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="Новая игра" />
-                  <Button maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="История" />
-                  <Button maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="Выход" />
+                  <Button styleClass = "button" onAction="#showGame" maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="ПРОДОЛЖИТЬ" />
+                  <Button styleClass = "button" maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="НОВАЯ ИГРА" />
+                  <Button styleClass = "button" maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="ИСТОРИЯ" />
+                  <Button styleClass = "button" maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="ВЫХОД" />
                </children>
             </VBox>
          </center>
