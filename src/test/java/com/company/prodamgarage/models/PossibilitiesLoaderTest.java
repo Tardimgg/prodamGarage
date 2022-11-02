@@ -17,7 +17,9 @@ class PossibilitiesLoaderTest {
 
         assertNotNull(rep);
         List<Possibility> listOfPossibilities = rep.getApartmentPossibilities();
+        List<Possibility> listOfEdPossibilities = rep.getEducationPossibilities();
         assertNotNull(listOfPossibilities);
+        assertNotNull(listOfEdPossibilities);
 
         assertEquals(listOfPossibilities.size(), 2);
 
@@ -31,5 +33,11 @@ class PossibilitiesLoaderTest {
         assertEquals(((Possibility) listOfPossibilities.get(1)).userChanges.deltaAge, 1);
         assertEquals(((Possibility) listOfPossibilities.get(1)).userChanges.deltaMoneyFlow, 5);
         assertEquals(((Possibility) listOfPossibilities.get(1)).userChanges.deltaCredit, -21);
+
+
+        assertEquals(((Possibility) listOfEdPossibilities.get(0)).userChanges.deltaMoneyFlow, 3);
+        assertEquals(((Possibility) listOfEdPossibilities.get(1)).userChanges.deltaMoneyFlow, 33);
+        assertEquals(((Possibility) listOfEdPossibilities.get(2)).userChanges.deltaMoneyFlow, 333);
+
     }
 }
