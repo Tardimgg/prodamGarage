@@ -8,6 +8,8 @@ import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 
+import java.lang.reflect.Field;
+
 public class Conditions {
 
     public Pair<ConditionsTypes, Integer> age;
@@ -19,11 +21,58 @@ public class Conditions {
     public Pair<ConditionsTypes, Integer> currentTime;
     public Pair<ConditionsTypes, SeasonType> seasonType;
 
-    public Single<Boolean> check(User user, SeasonType seasonType) {
+//    public Single<Boolean> check(User user, SeasonType seasonType) {
+//        return Single.create(singleEmitter -> {
+//            Field[] fields = this.getClass().getDeclaredFields();
+//            for(Field f : fields){
+//                String name = f.getName();
+//                Object obj = f.get(this);
+//                System.out.println(name);
+//                System.out.println(obj);
+//                System.out.println("\n");
+//                switch(name){
+//                    case("age"):
+//                        switch(((Pair)obj).getKey()){}
+//
+//                }
+//            }
+//            singleEmitter.onSuccess(true);
+//        });
+//    }
+    public Single<Boolean> check(User user, SeasonType st) throws IllegalAccessException {
         return Single.create(singleEmitter -> {
-
+            Field[] fields = this.getClass().getDeclaredFields();
+            for (Field f : fields) {
+                String name = f.getName();
+                Object obj = f.get(this);
+                if (obj == null) continue;
+                switch (name) {
+                    case ("name"):
+                        if (((Pair<ConditionsTypes, String>) obj).getValue() != user.getName()) singleEmitter.onSuccess(false);
+                        break;
+                    case ("seasonType"):
+                        if (((Pair<ConditionsTypes, SeasonType>) obj).getValue() != st) singleEmitter.onSuccess(false);
+                        break;
+                    default:
+                        switch (((Pair<ConditionsTypes, Integer>) obj).getKey()) {
+                            case EQUALS:
+                                if (((Pair<ConditionsTypes, Integer>) obj).getValue() != user.getRequiredParameter(name))
+                                    singleEmitter.onSuccess(false);
+                                break;
+                            case LESS:
+                                if (((Pair<ConditionsTypes, Integer>) obj).getValue() <= (Integer) user.getRequiredParameter(name))
+                                    singleEmitter.onSuccess(false);
+                                break;
+                            case MORE:
+                                if (((Pair<ConditionsTypes, Integer>) obj).getValue() >= (Integer) user.getRequiredParameter(name))
+                                    singleEmitter.onSuccess(false);
+                                break;
+                        }
+                        break;
+                }
+            }
             singleEmitter.onSuccess(true);
         });
-    }
+    };
 
 }

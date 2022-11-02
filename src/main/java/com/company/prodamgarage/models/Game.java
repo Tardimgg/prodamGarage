@@ -66,7 +66,7 @@ public class Game {
 
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
 
-    private void getNextRealization(FlowableEmitter<Dialog> flowableEmitter) {
+    private void getNextRealization(FlowableEmitter<Dialog> flowableEmitter) throws IllegalAccessException {
         Event event;
         MapElement mapElement = map.getMapList().get(user.getCurrentTime() % map.getMapList().size());
 
@@ -110,7 +110,13 @@ public class Game {
 
         flowableEmitter.onNext(event.dialogBuilder().build());
 
-        for (Event deferredEvent : user.getDeferredEvents((v) -> v.conditions.check(user, mapElement.seasonType).blockingGet())) {
+        for (Event deferredEvent : user.getDeferredEvents((v) -> {
+            try {
+                return v.conditions.check(user, mapElement.seasonType).blockingGet();
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        })) {
             if (deferredEvent.deferredEvents != null) {
                 user.addDeferredEvents(deferredEvent.deferredEvents);
             }

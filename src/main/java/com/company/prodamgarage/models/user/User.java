@@ -56,7 +56,7 @@ public class User implements Serializable {
         });
     }
 
-    private User() {}
+    public User() {} //для теста сделал публичным екарный бабай
 
     public static Completable reload(String filePath, String imagePath) {
         return Completable.create(completableEmitter -> {
@@ -168,5 +168,18 @@ public class User implements Serializable {
 
     public List<Event> getDeferredEvents(Predicate<Event> predicate) {
         return deferredEvents.stream().filter(predicate).collect(Collectors.toList());
+    }
+
+    public Object getRequiredParameter(String param){
+        switch(param){
+            case("age"):return this.age;
+            case("name"):return this.name;
+            case("cash"):return this.cash;
+            case("credit"):return this.credit;
+            case("moneyFlow"):return this.moneyFlow;
+            case("mapPosition"):return this.mapPosition;
+            case("currentTime"):return this.currentTime;
+        }
+        return null;
     }
  }
