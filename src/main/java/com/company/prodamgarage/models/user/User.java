@@ -56,7 +56,7 @@ public class User implements Serializable {
         });
     }
 
-    public User() {} //для теста сделал публичным екарный бабай
+    private User() {}
 
     public static Completable reload(String filePath, String imagePath) {
         return Completable.create(completableEmitter -> {

@@ -20,25 +20,6 @@ public class Conditions {
     public Pair<ConditionsTypes, Integer> mapPosition;
     public Pair<ConditionsTypes, Integer> currentTime;
     public Pair<ConditionsTypes, SeasonType> seasonType;
-
-//    public Single<Boolean> check(User user, SeasonType seasonType) {
-//        return Single.create(singleEmitter -> {
-//            Field[] fields = this.getClass().getDeclaredFields();
-//            for(Field f : fields){
-//                String name = f.getName();
-//                Object obj = f.get(this);
-//                System.out.println(name);
-//                System.out.println(obj);
-//                System.out.println("\n");
-//                switch(name){
-//                    case("age"):
-//                        switch(((Pair)obj).getKey()){}
-//
-//                }
-//            }
-//            singleEmitter.onSuccess(true);
-//        });
-//    }
     public Single<Boolean> check(User user, SeasonType st) throws IllegalAccessException {
         return Single.create(singleEmitter -> {
             Field[] fields = this.getClass().getDeclaredFields();
