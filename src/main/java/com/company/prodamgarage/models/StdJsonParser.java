@@ -101,7 +101,7 @@ public class StdJsonParser {
 
                     for (int i = 0; i < elemArr.size(); ++i) {
                         ((JsonObject) elemArr.get(i)).addProperty("className", getClassName(type.getTypeName()));
-                    }
+                    } // problems with array of primitives !!
 
                     field.set(ans.get(), parseListJson(elemArr, allTypes, field.getType()));
 
