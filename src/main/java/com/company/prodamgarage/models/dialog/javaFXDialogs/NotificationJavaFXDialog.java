@@ -22,7 +22,7 @@ public class NotificationJavaFXDialog implements Dialog {
 
 
     @Override
-    public Pair<Parent, ?> show() {
+    public Pair<Parent, ?> create() {
         Pair<Parent, ?> parentPair =  Resources.getParent(SceneType.NOTIFICATION).blockingGet();
         ((NotificationController) parentPair.getValue()).setTitle(title);
         ((NotificationController) parentPair.getValue()).setMainText(mainText);

@@ -4,6 +4,7 @@ import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.StdJsonParser;
 import com.company.prodamgarage.models.possibilityModels.PossibilitiesRepository;
 import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.possibilityModels.PossibilityType;
 import com.company.prodamgarage.models.user.UserChanges;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -43,9 +44,9 @@ public class PossibilitiesLoader {
                     List<Possibility> targetBisRepository = StdJsonParser.parseListJson(bisPossibility_arr, allTypesObj, Possibility.class);
                     List<Possibility> targetEdRepository = StdJsonParser.parseListJson(edPossibility_arr, allTypesObj, Possibility.class);
 
-                    possibilitiesRepository.setApartmentPossibilities(targetApRepository);
-                    possibilitiesRepository.setBusinessPossibilities(targetBisRepository);
-                    possibilitiesRepository.setEducationPossibilities(targetEdRepository);
+                    possibilitiesRepository.setPossibilities(PossibilityType.APARTMENT, targetApRepository);
+                    possibilitiesRepository.setPossibilities(PossibilityType.BUSINESS, targetBisRepository);
+                    possibilitiesRepository.setPossibilities(PossibilityType.EDUCATION, targetEdRepository);
 
                     data.put(path, possibilitiesRepository);
                     singleSubscriber.onSuccess(possibilitiesRepository);

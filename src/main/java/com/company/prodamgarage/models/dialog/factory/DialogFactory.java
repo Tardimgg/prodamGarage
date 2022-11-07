@@ -4,6 +4,7 @@ import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.dialog.Dialog;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.possibilityModels.PossibilityType;
 import com.company.prodamgarage.models.user.UserChanges;
 
 import java.util.List;
@@ -14,6 +15,6 @@ public interface DialogFactory {
 
     Dialog createSelectionDialog(String title, String mainText, List<Pair<String, UserChanges>> changes);
 
-    Dialog createPossibilitiesDialog(String title, List<Possibility> apartmentPossibilities,
-                                     List<Possibility> businessPossibilities);
+    Dialog createPossibilitiesDialog(String title,
+                                     List<Pair<PossibilityType, List<Possibility>>> possibilities);
 }

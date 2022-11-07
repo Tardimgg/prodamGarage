@@ -1,0 +1,41 @@
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.DropShadow?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.company.prodamgarage.controllers.possibilities.business.BusinessPossibilitiesUnitController"
+           maxHeight="400" maxWidth="600"
+           prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+
+    <HBox>
+        <ImageView>
+            <Image requestedHeight="130" requestedWidth="100" url="@images/image1.png"/>
+        </ImageView>
+        <VBox>
+            <Label fx:id="title">
+                Тема
+            </Label>
+            <!--            <ScrollPane VBox.vgrow="ALWAYS">-->
+            <TextArea fx:id="main_text" wrapText="true">
+                очень приольное аписание, ахуеть проста
+            </TextArea>
+            <!--            </ScrollPane>-->
+            <HBox>
+                <Button>
+                    Прикол
+                </Button>
+                <Button>
+                    Прикол
+                </Button>
+                <Button onAction="#apply">
+                    Прикол
+                </Button>
+            </HBox>
+        </VBox>
+    </HBox>
+
+</StackPane>

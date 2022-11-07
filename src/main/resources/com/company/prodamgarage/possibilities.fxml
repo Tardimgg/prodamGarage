@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.geometry.Insets?>
+<StackPane fx:id="rootPossibilities" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.company.prodamgarage.controllers.possibilities.PossibilitiesController"
+           prefHeight="0" maxHeight="0" prefWidth="0" maxWidth="0" style="-fx-background-color: #000000;">
+
+    <effect>
+        <DropShadow radius="20"/>
+    </effect>
+
+    <!--    <fx:include fx:id="parentView" source="menu.fxml">-->
+    <!---->
+    <!--    </fx:include>-->
+
+</StackPane>

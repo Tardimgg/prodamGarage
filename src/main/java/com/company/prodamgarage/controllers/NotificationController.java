@@ -1,6 +1,7 @@
 package com.company.prodamgarage.controllers;
 
-import com.company.prodamgarage.RequestTransition;
+import com.company.prodamgarage.Pair;
+import com.company.prodamgarage.RequiringTransition;
 import com.company.prodamgarage.SceneType;
 import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.Observer;
@@ -10,19 +11,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-public class NotificationController implements RequestTransition {
+public class NotificationController implements RequiringTransition {
 
 
 //    private PublishSubject<SceneType> reqTransition = PublishSubject.create();
-    private PublishSubject<SceneType> reqTransition;
+    private PublishSubject<Pair<SceneType, Object>> reqTransition;
 
     @Override
-    public void subscribe(Observer<SceneType> obs) {
+    public void subscribe(Observer<Pair<SceneType, Object>> obs) {
         reqTransition.subscribe(obs);
     }
 
-
+    @FXML
     public Label title;
+
+    @FXML
     public TextArea main_text;
 
     private String titleSource;
@@ -62,7 +65,7 @@ public class NotificationController implements RequestTransition {
 
 
     public void back(ActionEvent actionEvent) {
-        reqTransition.onNext(SceneType.BACK);
+        reqTransition.onNext(Pair.create(SceneType.BACK, null));
         reqTransition.onComplete();
     }
 }
