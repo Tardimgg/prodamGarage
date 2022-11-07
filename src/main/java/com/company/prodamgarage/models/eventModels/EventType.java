@@ -5,6 +5,7 @@ public enum EventType {
     GOOD,
     PLOT,
 //  for business, hata and stocks
-    BUY_CHOICE,
-    EDUCATION_CHOICE,
+//    BUY_CHOICE,
+//    EDUCATION_CHOICE,
+    POSSIBILITIES
 }

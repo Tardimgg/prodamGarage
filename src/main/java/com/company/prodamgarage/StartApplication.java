@@ -5,22 +5,12 @@ import com.company.prodamgarage.models.*;
 import com.company.prodamgarage.models.dialog.factory.ConsoleDialogFactory;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.dialog.factory.JavaFXDialogFactory;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.functions.Consumer;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
-import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.stage.Stage;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
-import java.io.IOException;
 
 public class StartApplication extends Application {
 
@@ -36,7 +26,7 @@ public class StartApplication extends Application {
 
                     Scene scene = new Scene(parentPair.key);
                     scene.getStylesheets().addAll(this.getClass().getResource("menu.css").toExternalForm());
-                    ((RootController) parentPair.getValue()).setView(SceneType.MENU);
+                    ((RootController) parentPair.getValue()).setView(Pair.create(SceneType.MENU, null));
                     stage.setScene(scene);
                     stage.show();
                 }));
@@ -64,7 +54,7 @@ public class StartApplication extends Application {
                 while (true) {
                     Game.getInstance().getNext().blockingIterable().forEach((v) -> {
                         try {
-                            v.show();
+                            v.create();
                         } catch (GameOver e) {
                             e.printStackTrace();
                             System.exit(0);

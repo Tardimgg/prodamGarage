@@ -5,8 +5,10 @@ import com.company.prodamgarage.models.dialog.Dialog;
 import com.company.prodamgarage.models.dialog.consoleDialogs.NotificationConsoleDialog;
 import com.company.prodamgarage.models.dialog.consoleDialogs.PossibilitiesConsoleDialog;
 import com.company.prodamgarage.models.dialog.consoleDialogs.SelectionConsoleDialog;
+import com.company.prodamgarage.models.dialog.javaFXDialogs.PossibilitiesJavaFXDialog;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.possibilityModels.PossibilityType;
 import com.company.prodamgarage.models.user.UserChanges;
 
 import java.util.List;
@@ -24,9 +26,8 @@ public class ConsoleDialogFactory implements DialogFactory{
     }
 
     @Override
-    public Dialog createPossibilitiesDialog(String title, List<Possibility> apartmentPossibilities,
-                                            List<Possibility> businessPossibilities) {
-        return new PossibilitiesConsoleDialog(title, apartmentPossibilities, businessPossibilities);
+    public Dialog createPossibilitiesDialog(String title, List<Pair<PossibilityType, List<Possibility>>> possibilities) {
+        return new PossibilitiesJavaFXDialog(title, possibilities);
     }
 
 }

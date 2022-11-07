@@ -9,6 +9,7 @@ import com.company.prodamgarage.models.dialog.javaFXDialogs.NotificationJavaFXDi
 import com.company.prodamgarage.models.dialog.javaFXDialogs.PossibilitiesJavaFXDialog;
 import com.company.prodamgarage.models.dialog.javaFXDialogs.SelectionJavaFXDialog;
 import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.possibilityModels.PossibilityType;
 import com.company.prodamgarage.models.user.UserChanges;
 
 import java.util.List;
@@ -26,9 +27,8 @@ public class JavaFXDialogFactory implements DialogFactory {
     }
 
     @Override
-    public Dialog createPossibilitiesDialog(String title, List<Possibility> apartmentPossibilities,
-                                            List<Possibility> businessPossibilities) {
-        return new PossibilitiesJavaFXDialog(title, apartmentPossibilities, businessPossibilities);
+    public Dialog createPossibilitiesDialog(String title, List<Pair<PossibilityType, List<Possibility>>> possibilities) {
+        return new PossibilitiesJavaFXDialog(title, possibilities);
     }
 
 }

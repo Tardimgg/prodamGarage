@@ -10,7 +10,7 @@ import io.reactivex.Completable;
 
 import java.util.List;
 
-public class EducationEvent extends Event {
+public class EducationEvent extends Event { // not used
 
     private volatile boolean isFullyLoaded = false;
 

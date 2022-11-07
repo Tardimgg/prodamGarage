@@ -7,7 +7,6 @@ import com.company.prodamgarage.models.dialog.Dialog;
 import io.reactivex.*;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
@@ -15,23 +14,21 @@ import io.reactivex.subscribers.DisposableSubscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class GameController implements RequestTransition {
+public class GameController implements RequiringTransition {
 
-    private final PublishSubject<SceneType> reqTransition = PublishSubject.create();
+    private final PublishSubject<Pair<SceneType, Object>> reqTransition = PublishSubject.create();
     public StackPane rootPane;
     private final Queue<Dialog> deferredDialogs = new ConcurrentLinkedQueue<>();
 
 
     @Override
-    public void subscribe(Observer<SceneType> obs) {
+    public void subscribe(Observer<Pair<SceneType, Object>> obs) {
         reqTransition.subscribe(obs);
 
     }
@@ -45,7 +42,7 @@ public class GameController implements RequestTransition {
         return Completable.create(completableEmitter -> {
             Pair<Parent, ?> parentPair = null;
             try {
-                parentPair = (Pair<Parent, ?>) dialog.show();
+                parentPair = (Pair<Parent, ?>) dialog.create();
             } catch (GameOver ex) {
                 ex.printStackTrace();
             }
@@ -58,14 +55,14 @@ public class GameController implements RequestTransition {
 
                 rootPane.getChildren().addAll(parentPair.key);
 
-                if (parentPair.value instanceof RequestTransition controller) {
+                if (parentPair.value instanceof RequiringTransition controller) {
 
                     Pair<Parent, ?> finalParentPair = parentPair;
 
                     controller.subscribe(new DefaultObserver<>() {
                         @Override
-                        public void onNext(SceneType sceneType) {
-                            if (sceneType == SceneType.BACK) {
+                        public void onNext(Pair<SceneType, Object> sceneInfo) {
+                            if (sceneInfo.key == SceneType.BACK) {
 
                                 rootPane.getChildren().remove(finalParentPair.key);
                                 completableEmitter.onComplete();
@@ -126,17 +123,7 @@ public class GameController implements RequestTransition {
                                                 if (allDialogsLoaded.get()) {
                                                     startShowingDialogs()
                                                             .subscribeOn(Schedulers.computation())
-                                                            .subscribe(new DisposableCompletableObserver() {
-                                                                @Override
-                                                                public void onComplete() {
-
-                                                                }
-
-                                                                @Override
-                                                                public void onError(Throwable throwable) {
-
-                                                                }
-                                                            });
+                                                            .subscribe();
                                                 }
                                                 displayDialogComplete.set(true);
                                             }
@@ -160,18 +147,8 @@ public class GameController implements RequestTransition {
                         synchronized (displayDialogComplete) {
                             if (displayDialogComplete.get()) {
                                 startShowingDialogs()
-                                        .subscribeOn(JavaFxScheduler.platform())
-                                        .subscribe(new DisposableCompletableObserver() {
-                                            @Override
-                                            public void onComplete() {
-
-                                            }
-
-                                            @Override
-                                            public void onError(Throwable throwable) {
-
-                                            }
-                                        });
+                                        .subscribeOn(Schedulers.computation())
+                                        .subscribe();
                             }
                             allDialogsLoaded.set(true);
                         }

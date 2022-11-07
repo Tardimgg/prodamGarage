@@ -3,6 +3,7 @@ package com.company.prodamgarage.models;
 import com.company.prodamgarage.models.loaders.PossibilitiesLoader;
 import com.company.prodamgarage.models.possibilityModels.PossibilitiesRepository;
 import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.possibilityModels.PossibilityType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,7 +17,7 @@ class PossibilitiesLoaderTest {
         PossibilitiesRepository rep = PossibilitiesLoader.getPossibilitiesRepository( "src/test/resources/possibilities_json.json").blockingGet();
 
         assertNotNull(rep);
-        List<Possibility> listOfPossibilities = rep.getApartmentPossibilities();
+        List<Possibility> listOfPossibilities = rep.getPossibilities(PossibilityType.APARTMENT);
         assertNotNull(listOfPossibilities);
 
         assertEquals(listOfPossibilities.size(), 2);
