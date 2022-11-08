@@ -13,14 +13,14 @@ import java.lang.reflect.Field;
 
 public class Conditions {
 
-    public Pair<ConditionsTypesWrapper, Int> age;
-    public Pair<ConditionsTypesWrapper, String> name;
-    public Pair<ConditionsTypesWrapper, Int> cash;
-    public Pair<ConditionsTypesWrapper, Int> credit;
-    public Pair<ConditionsTypesWrapper, Int> moneyFlow;
-    public Pair<ConditionsTypesWrapper, Int> mapPosition;
-    public Pair<ConditionsTypesWrapper, Int> currentTime;
-    public Pair<ConditionsTypesWrapper, SeasonType> seasonType;
+    public Pair<ConditionsTypes, Int> age;
+    public Pair<ConditionsTypes, String> name;
+    public Pair<ConditionsTypes, Int> cash;
+    public Pair<ConditionsTypes, Int> credit;
+    public Pair<ConditionsTypes, Int> moneyFlow;
+    public Pair<ConditionsTypes, Int> mapPosition;
+    public Pair<ConditionsTypes, Int> currentTime;
+    public Pair<ConditionsTypes, SeasonType> seasonType;
     public Single<Boolean> check(User user, SeasonType st) throws IllegalAccessException {
         return Single.create(singleEmitter -> {
             Field[] fields = this.getClass().getDeclaredFields();
@@ -30,23 +30,23 @@ public class Conditions {
                 if (obj == null) continue;
                 switch (name) {
                     case ("name"):
-                        if (((Pair<ConditionsTypesWrapper, String>) obj).getValue() != user.getName()) singleEmitter.onSuccess(false);
+                        if (!((Pair<ConditionsTypes, String>) obj).getValue().equals(user.getName())) singleEmitter.onSuccess(false);
                         break;
                     case ("seasonType"):
-                        if (((Pair<ConditionsTypesWrapper, SeasonType>) obj).getValue() != st) singleEmitter.onSuccess(false);
+                        if (((Pair<ConditionsTypes, SeasonType>) obj).getValue() != st) singleEmitter.onSuccess(false);
                         break;
                     default:
-                        switch (((Pair<ConditionsTypesWrapper, Int>) obj).getKey().value) {
+                        switch (((Pair<ConditionsTypes, Int>) obj).getKey()) {
                             case EQUALS:
-                                if (((Pair<ConditionsTypesWrapper, Int>) obj).getValue() != user.getRequiredParameter(name))
+                                if (((Pair<ConditionsTypes, Int>) obj).getValue() != user.getRequiredParameter(name))
                                     singleEmitter.onSuccess(false);
                                 break;
                             case LESS:
-                                if (((Pair<ConditionsTypesWrapper, Int>) obj).getValue().value <= (Integer) user.getRequiredParameter(name))
+                                if (((Pair<ConditionsTypes, Int>) obj).getValue().value <= (Integer) user.getRequiredParameter(name))
                                     singleEmitter.onSuccess(false);
                                 break;
                             case MORE:
-                                if (((Pair<ConditionsTypesWrapper, Int>) obj).getValue().value >= (Integer) user.getRequiredParameter(name))
+                                if (((Pair<ConditionsTypes, Int>) obj).getValue().value >= (Integer) user.getRequiredParameter(name))
                                     singleEmitter.onSuccess(false);
                                 break;
                         }

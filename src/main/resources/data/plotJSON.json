@@ -7,7 +7,7 @@
         "age": {
           "key": {
               "value": "LESS",
-              "className": "ConditionsTypesWrapper"
+              "className": "ConditionsTypes"
           },
           "value": {
             "value": 22,
@@ -17,7 +17,7 @@
         "name": {
           "key": {
             "value": "EQUALS",
-            "className": "ConditionsTypesWrapper"
+            "className": "ConditionsTypes"
           },
           "value": "mama"
         },

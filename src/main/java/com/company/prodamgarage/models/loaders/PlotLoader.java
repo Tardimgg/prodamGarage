@@ -4,7 +4,6 @@ import com.company.prodamgarage.Int;
 import com.company.prodamgarage.models.conditions.Conditions;
 import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.conditions.ConditionsTypes;
-import com.company.prodamgarage.models.conditions.ConditionsTypesWrapper;
 import com.company.prodamgarage.models.eventModels.PlotRepository;
 import com.company.prodamgarage.models.StdJsonParser;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
@@ -40,7 +39,7 @@ public class PlotLoader {
                             Pair.create(Conditions.class, Optional.empty()),
                             Pair.create(Pair.class, Optional.empty()),
                             Pair.create(Int.class, Optional.empty()),
-                            Pair.create(ConditionsTypesWrapper.class, Optional.empty())
+                            Pair.create(ConditionsTypes.class, Optional.empty())
                     );
 
                     List<NotificationEvent> targetPlotRepository = StdJsonParser.parseListJson(plot_arr, allTypesObj, NotificationEvent.class);
