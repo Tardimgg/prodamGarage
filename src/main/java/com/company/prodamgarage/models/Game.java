@@ -97,9 +97,9 @@ public class Game {
             };
         } while (event == null || !event.conditions.check(user, mapElement.seasonType).blockingGet());
 
-        if (event.deferredEvents != null) {
-            user.addDeferredEvents(event.deferredEvents);
-        }
+//        if (event.deferredEvents != null) {
+//            user.addDeferredEvents(event.deferredEvents);
+//        }
 
         if (!event.isFullyLoaded()) {
             Throwable res = event.load().blockingGet();
