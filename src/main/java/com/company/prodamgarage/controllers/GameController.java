@@ -13,8 +13,11 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subscribers.DisposableSubscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -26,7 +29,6 @@ public class GameController implements RequiringTransition {
     public StackPane rootPane;
     private final Queue<Dialog> deferredDialogs = new ConcurrentLinkedQueue<>();
 
-
     @Override
     public void subscribe(Observer<Pair<SceneType, Object>> obs) {
         reqTransition.subscribe(obs);
@@ -34,9 +36,7 @@ public class GameController implements RequiringTransition {
     }
 
     @FXML
-    public void initialize() {
-
-    }
+    public void initialize() {}
 
     private Completable showDialog(Dialog dialog) {
         return Completable.create(completableEmitter -> {

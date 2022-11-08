@@ -25,6 +25,7 @@ public class Resources {
        paths.put(SceneType.GAME, "game.fxml");
        paths.put(SceneType.MESSAGE, "message.fxml");
        paths.put(SceneType.NOTIFICATION, "notification.fxml");
+       paths.put(SceneType.PLAYER_INFO, "player_info.fxml");
        paths.put(SceneType.POSSIBILITIES, "possibilities.fxml");
        paths.put(SceneType.POSSIBILITIES_MENU, "possibilities_menu.fxml");
        paths.put(SceneType.BUSINESS_POSSIBILITIES, "business_possibilities.fxml");
@@ -56,12 +57,15 @@ public class Resources {
                 Pair.create(SceneType.BUSINESS_POSSIBILITIES_UNIT, "business_possibilities_unit.fxml")
         );
 
-        for (var val : views) {
+
+        for (var val : paths.keySet()) {
+//        for (var val : views) {
 //            FXMLLoader loader = new FXMLLoader(Resources.class.getResource(val.value));
 //            Parent parent = loader.load();
 //            Object controller = loader.getController();
 //            parents.put(val.key, Pair.create(parent, controller));
-            parents.put(val.key, create(val.key));
+            parents.put(val, create(val));
+//            parents.put(val.key, create(val.key));
         }
     }
 

@@ -8,6 +8,7 @@ public enum SceneType {
     GAME,
     MESSAGE,
     NOTIFICATION,
+    PLAYER_INFO,
     BACK,
     POSSIBILITIES,
     POSSIBILITIES_MENU,
