@@ -96,7 +96,7 @@ public class Game {
                 case EDUCATION_CHOICE -> new PossibilitiesEvent(dialogFactory); // TEMP CODE !!!!!!!!!!
             };
         } while (event == null || !event.conditions.check(user, mapElement.seasonType).blockingGet());
-
+        
         if (event.deferredEvents != null) {
             user.addDeferredEvents(event.deferredEvents);
         }

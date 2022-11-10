@@ -31,24 +31,23 @@ public class Conditions {
                 switch (name) {
                     case ("name"):
                         if (!((Pair<ConditionsTypes, String>) obj).getValue().equals(user.getName())) singleEmitter.onSuccess(false);
-                        break;
+                        return;
                     case ("seasonType"):
                         if (((Pair<ConditionsTypes, SeasonType>) obj).getValue() != st) singleEmitter.onSuccess(false);
-                        break;
+                        return;
                     default:
                         switch (((Pair<ConditionsTypes, Int>) obj).getKey()) {
                             case EQUALS:
                                 if (((Pair<ConditionsTypes, Int>) obj).getValue() != user.getRequiredParameter(name))
-                                    singleEmitter.onSuccess(false);
-                                break;
+                                    singleEmitter.onSuccess(false);return;
                             case LESS:
                                 if (((Pair<ConditionsTypes, Int>) obj).getValue().value <= (Integer) user.getRequiredParameter(name))
                                     singleEmitter.onSuccess(false);
-                                break;
+                                return;
                             case MORE:
                                 if (((Pair<ConditionsTypes, Int>) obj).getValue().value >= (Integer) user.getRequiredParameter(name))
                                     singleEmitter.onSuccess(false);
-                                break;
+                                return;
                         }
                         break;
                 }
