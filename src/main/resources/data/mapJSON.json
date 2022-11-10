@@ -1,7 +1,7 @@
 {
   "mapCellList": [
     {
-      "eventType" : "BUY_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "SUMMER"
     },
     {
@@ -13,11 +13,11 @@
       "seasonType": "SUMMER"
     },
     {
-      "eventType" : "EDUCATION_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "SUMMER"
     },
     {
-      "eventType" : "BUY_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "SUMMER"
     },
     {
@@ -33,7 +33,7 @@
       "seasonType": "AUTUMN"
     },
     {
-      "eventType" : "BUY_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "AUTUMN"
     },
     {
@@ -45,11 +45,11 @@
       "seasonType": "AUTUMN"
     },
     {
-      "eventType" : "EDUCATION_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "AUTUMN"
     },
     {
-      "eventType" : "BUY_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "WINTER"
     },
     {
@@ -65,7 +65,7 @@
       "seasonType": "WINTER"
     },
     {
-      "eventType" : "BUY_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "WINTER"
     },
     {
@@ -77,11 +77,11 @@
       "seasonType": "SPRING"
     },
     {
-      "eventType" : "EDUCATION_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "SPRING"
     },
     {
-      "eventType" : "BUY_CHOICE",
+      "eventType" : "POSSIBILITIES",
       "seasonType": "SPRING"
     },
     {

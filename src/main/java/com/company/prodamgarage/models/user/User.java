@@ -1,15 +1,14 @@
 package com.company.prodamgarage.models.user;
 
+import com.company.prodamgarage.observable.SimpleObservable;
 import com.company.prodamgarage.models.eventModels.Event;
-import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
-import io.reactivex.Single;
+import com.company.prodamgarage.observable.SubscribeBuilder;
+import io.reactivex.*;
 
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -20,15 +19,15 @@ public class User implements Serializable {
 
     private static final String serializationPath = "src/main/resources/data/testSave.ser";
 
-    private int age;
-    private String name;
-    private int cash;
-    private int credit;
-    private int moneyFlow;
-    private int mapPosition;
-    private int currentTime;
-    private int currentPlotTime = 0;
-    private HashMap<PropertyType, List<String>> properties = new HashMap<>();
+    private final SimpleObservable<Integer> age = new SimpleObservable<>(0);
+    private final SimpleObservable<String> name = new SimpleObservable<>("");
+    private final SimpleObservable<Integer> cash = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> credit = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> moneyFlow = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> mapPosition = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> currentTime = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> currentPlotTime = new SimpleObservable<>(0);
+    private final HashMap<PropertyType, List<String>> properties = new HashMap<>();
     private static String imagePath = "src/main/resources/images/image1.png";
 
     private String customImagePath = null;
@@ -36,6 +35,7 @@ public class User implements Serializable {
     private static volatile User instance;
 
     private volatile List<Event> deferredEvents = new ArrayList<>();
+
 
     @Nonnull
     public static Single<User> getInstance() {
@@ -96,43 +96,43 @@ public class User implements Serializable {
     }
 
     public int getCash() {
-        return cash;
+        return cash.get();
     }
 
     public void setCash(int cash) {
-        this.cash = cash;
+        this.cash.set(cash);
     }
 
     public int getAge() {
-        return age;
+        return age.get();
     }
 
     public void setAge(int age) {
-        this.age = age;
+        this.age.set(age);
     }
 
     public int getCredit() {
-        return credit;
+        return credit.get();
     }
 
     public void setCredit(int credit) {
-        this.credit = credit;
+        this.credit.set(credit);
     }
 
     public int getMoneyFlow() {
-        return moneyFlow;
+        return moneyFlow.get();
     }
 
     public void setMoneyFlow(int moneyFlow) {
-        this.moneyFlow = moneyFlow;
+        this.moneyFlow.set(moneyFlow);
     }
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public String getImagePath() {
@@ -144,19 +144,32 @@ public class User implements Serializable {
     }
 
     public int getMapPosition() {
-        return mapPosition;
+        return mapPosition.get();
     }
 
     public void setMapPosition(int mapPosition) {
-        this.mapPosition = mapPosition;
+        this.mapPosition.set(mapPosition);
     }
     
-    public void setCurrentTime(int time){currentTime = time;}
-    public int getCurrentTime(){ return currentTime;}
-    public void increaseCurrentTime(){currentTime += 1;}
+    public void setCurrentTime(int time){
+        currentTime.set(time);
+    }
 
-    public int getCurrentPlotTime(){ return currentPlotTime;}
-    public void increaseCurrentPlotTime(){currentPlotTime += 1;}
+    public int getCurrentTime(){
+        return currentTime.get();
+    }
+
+    public void increaseCurrentTime(){
+        currentTime.set(currentTime.get() + 1);
+    }
+
+    public int getCurrentPlotTime(){
+        return currentPlotTime.get();
+    }
+
+    public void increaseCurrentPlotTime(){
+        currentPlotTime.set(currentPlotTime.get() + 1);
+    }
 
     public void addDeferredEvents(List<Event> events) {
         deferredEvents.addAll(events);
@@ -181,5 +194,29 @@ public class User implements Serializable {
             case("currentTime"):return this.currentTime;
         }
         return null;
+    public void addProperties(PropertyType propertyType, String value) {
+        properties.merge(propertyType, new ArrayList<>(List.of(value)), (f, s) -> {
+            f.addAll(s);
+            return f;
+        });
+    }
+
+
+
+    public SubscribeBuilder<Integer> subscribeAge() {
+        return age.subscribe();
+    }
+
+    public SubscribeBuilder<Integer> subscribeCash() {
+        return cash.subscribe();
+    }
+
+    public SubscribeBuilder<Integer> subscribeMoneyFlow() {
+        return moneyFlow.subscribe();
+    }
+
+    public SubscribeBuilder<Integer> subscribeCurrentTime() {
+        return currentTime.subscribe();
+
     }
  }

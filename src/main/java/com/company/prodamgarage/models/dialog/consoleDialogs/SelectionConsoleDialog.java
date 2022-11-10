@@ -21,7 +21,7 @@ public class SelectionConsoleDialog implements Dialog {
     }
 
     @Override
-    public Object show() throws GameOver {
+    public Object create() throws GameOver {
         ConsoleIOSystem io = ConsoleIOSystem.getInstance();
 
         io.println(title);

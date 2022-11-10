@@ -21,7 +21,7 @@ public class SelectionJavaFXDialog implements Dialog {
     }
 
     @Override
-    public Object show() throws GameOver {
+    public Object create() throws GameOver {
         return null;
     }
 }

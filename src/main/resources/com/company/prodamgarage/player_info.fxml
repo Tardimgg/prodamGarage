@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.company.prodamgarage.controllers.PlayerInfoController"
+      prefHeight="300.0" prefWidth="100.0" maxWidth="300" style="-fx-background-color: #ffffff;" >
+
+    <effect>
+        <DropShadow radius="20"/>
+    </effect>
+
+
+    <BorderPane>
+        <VBox.margin>
+            <Insets left="10.0" />
+        </VBox.margin>
+        <left>
+            <Label>Деньги: </Label>
+        </left>
+        <right>
+            <Label fx:id="money">
+                <BorderPane.margin>
+                    <Insets right="10.0" />
+                </BorderPane.margin>
+            </Label>
+        </right>
+    </BorderPane>
+
+    <BorderPane>
+        <VBox.margin>
+            <Insets left="10.0" />
+        </VBox.margin>
+        <left>
+            <Label>Игровое время: </Label>
+        </left>
+        <right>
+            <Label fx:id="time">
+                <BorderPane.margin>
+                    <Insets right="10.0" />
+                </BorderPane.margin>
+            </Label>
+        </right>
+    </BorderPane>
+
+    <BorderPane>
+        <VBox.margin>
+            <Insets left="10.0" />
+        </VBox.margin>
+        <left>
+            <Label>Денежный поток: </Label>
+        </left>
+        <right>
+            <Label fx:id="moneyFlow">
+                <BorderPane.margin>
+                    <Insets right="10.0" />
+                </BorderPane.margin>
+            </Label>
+        </right>
+    </BorderPane>
+
+</VBox>

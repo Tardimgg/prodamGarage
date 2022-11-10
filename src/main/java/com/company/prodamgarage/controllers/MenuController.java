@@ -1,6 +1,7 @@
 package com.company.prodamgarage.controllers;
 
-import com.company.prodamgarage.RequestTransition;
+import com.company.prodamgarage.Pair;
+import com.company.prodamgarage.RequiringTransition;
 import com.company.prodamgarage.SceneType;
 import io.reactivex.Observer;
 import io.reactivex.subjects.PublishSubject;
@@ -9,14 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import java.io.File;
 
-public class MenuController implements RequestTransition {
+public class MenuController implements RequiringTransition {
 
-    private final PublishSubject<SceneType> reqTransition = PublishSubject.create();
+    private final PublishSubject<Pair<SceneType, Object>> reqTransition = PublishSubject.create();
 
     @Override
-    public void subscribe(Observer<SceneType> obs) {
+    public void subscribe(Observer<Pair<SceneType, Object>> obs) {
         reqTransition.subscribe(obs);
 
     }
@@ -29,7 +29,8 @@ public class MenuController implements RequestTransition {
 
     @FXML
     protected void showGame(ActionEvent e) {
-        reqTransition.onNext(SceneType.GAME);
+        reqTransition.onNext(Pair.create(SceneType.GAME, null));
+        reqTransition.onComplete();
         /*
         Resources.getParent(SceneType.GAME).subscribe(new BiConsumerSingleObserver<>((parentPair, throwable) -> {
             //            home_page_parent = FXMLLoader.load(getClass().getResource("game.fxml"));

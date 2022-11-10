@@ -37,4 +37,10 @@ module com.company.prodamgarage {
     opens com.company.prodamgarage.models.possibilityModels to javafx.fxml;
     exports com.company.prodamgarage.models.conditions;
     opens com.company.prodamgarage.models.conditions to javafx.fxml;
+    exports com.company.prodamgarage.controllers.possibilities;
+    opens com.company.prodamgarage.controllers.possibilities to javafx.fxml;
+    exports com.company.prodamgarage.controllers.possibilities.business;
+    opens com.company.prodamgarage.controllers.possibilities.business to javafx.fxml;
+    exports com.company.prodamgarage.observable;
+    opens com.company.prodamgarage.observable to javafx.fxml;
 }

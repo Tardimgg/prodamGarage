@@ -17,8 +17,8 @@ public class RootController {
 
     }
 
-    public void setView(SceneType sceneType) {
-        Resources.getParent(sceneType)
+    public void setView(Pair<SceneType, Object> sceneInfo) {
+        Resources.getParent(sceneInfo.key)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(new BiConsumerSingleObserver<>((parentPair, throwable) -> {
@@ -26,11 +26,15 @@ public class RootController {
                     rootView.getChildren().clear();
                     rootView.getChildren().setAll(parentPair.key);
 
-                    if (parentPair.getValue() instanceof RequestTransition controller) {
+                    if (parentPair.getValue() instanceof RequiringData infoController) {
+                        infoController.setData(sceneInfo.getValue());
+                    }
+
+                    if (parentPair.getValue() instanceof RequiringTransition controller) {
                         controller.subscribe(new DefaultObserver<>() {
                             @Override
-                            public void onNext(SceneType sceneType) {
-                                setView(sceneType); // !!! рекурсия !!! (не факт)
+                            public void onNext(Pair<SceneType, Object> sceneInfo) {
+                                setView(sceneInfo); // !!! рекурсия !!! (не факт)
                             }
                         });
                     } else {

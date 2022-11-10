@@ -10,8 +10,13 @@
 
 
 <?import javafx.scene.image.Image?>
-<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.Group?>
+<StackPane fx:id="rootPane"
+           minHeight="-Infinity" maxHeight="Infinity"
+           minWidth="-Infinity" maxWidth="Infinity"
+           xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.company.prodamgarage.controllers.GameController">
+
 
     <children>
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
@@ -27,13 +32,16 @@
                 <Button fx:id="settings_btn"  mnemonicParsing="false"  BorderPane.alignment="BOTTOM_RIGHT">
                     <graphic>
                         <ImageView>
-                            <Image requestedHeight="50" requestedWidth="50" url="@../../../images/settings.png"/>
+                            <Image requestedHeight="50" requestedWidth="50" url="@images/settings.png"/>
                         </ImageView>
                     </graphic>
                     <BorderPane.margin>
                         <Insets bottom="20.0" right="20.0" />
                     </BorderPane.margin>
                 </Button>
+
+                <fx:include minWidth="200" BorderPane.alignment="BOTTOM_LEFT" source="player_info.fxml" />
+
             </bottom>
             <center>
                 <VBox maxWidth="300" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
@@ -43,6 +51,8 @@
                     </children>
                 </VBox>
             </center>
+
         </BorderPane>
+
     </children>
 </StackPane>

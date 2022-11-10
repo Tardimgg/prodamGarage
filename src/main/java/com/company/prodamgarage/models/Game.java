@@ -3,7 +3,6 @@ package com.company.prodamgarage.models;
 import com.company.prodamgarage.DefaultObserver;
 import com.company.prodamgarage.models.dialog.Dialog;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
-import com.company.prodamgarage.models.eventModels.EducationEvent;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.eventModels.PossibilitiesEvent;
 import com.company.prodamgarage.models.loaders.EventReader;
@@ -92,14 +91,17 @@ public class Game {
                     }
                     yield repository.getPlotEvents().get(pos);
                 }
-                case BUY_CHOICE -> new PossibilitiesEvent(dialogFactory);
-                case EDUCATION_CHOICE -> new PossibilitiesEvent(dialogFactory); // TEMP CODE !!!!!!!!!!
+//                case BUY_CHOICE -> new PossibilitiesEvent(dialogFactory);
+//                case EDUCATION_CHOICE -> new PossibilitiesEvent(dialogFactory); // TEMP CODE !!!!!!!!!!
+                case POSSIBILITIES -> new PossibilitiesEvent(dialogFactory);
             };
         } while (event == null || !event.conditions.check(user, mapElement.seasonType).blockingGet());
-        
-        if (event.deferredEvents != null) {
-            user.addDeferredEvents(event.deferredEvents);
-        }
+
+
+//        if (event.deferredEvents != null) {
+//            user.addDeferredEvents(event.deferredEvents);
+//        }
+
 
         if (!event.isFullyLoaded()) {
             Throwable res = event.load().blockingGet();
