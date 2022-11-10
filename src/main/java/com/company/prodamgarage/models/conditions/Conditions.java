@@ -30,24 +30,32 @@ public class Conditions {
                 if (obj == null) continue;
                 switch (name) {
                     case ("name"):
-                        if (!((Pair<ConditionsTypes, String>) obj).getValue().equals(user.getName())) singleEmitter.onSuccess(false);
-                        return;
+                        if (!((Pair<ConditionsTypes, String>) obj).getValue().equals(user.getName())) {
+                            singleEmitter.onSuccess(false);
+                            return;
+                        }
                     case ("seasonType"):
-                        if (((Pair<ConditionsTypes, SeasonType>) obj).getValue() != st) singleEmitter.onSuccess(false);
-                        return;
+                        if (((Pair<ConditionsTypes, SeasonType>) obj).getValue() != st) {
+                            singleEmitter.onSuccess(false);
+                            return;
+                        }
                     default:
                         switch (((Pair<ConditionsTypes, Int>) obj).getKey()) {
                             case EQUALS:
-                                if (((Pair<ConditionsTypes, Int>) obj).getValue() != user.getRequiredParameter(name))
-                                    singleEmitter.onSuccess(false);return;
+                                if (((Pair<ConditionsTypes, Int>) obj).getValue() != user.getRequiredParameter(name)) {
+                                    singleEmitter.onSuccess(false);
+                                    return;
+                                }
                             case LESS:
-                                if (((Pair<ConditionsTypes, Int>) obj).getValue().value <= (Integer) user.getRequiredParameter(name))
+                                if (((Pair<ConditionsTypes, Int>) obj).getValue().value <= (Integer) user.getRequiredParameter(name)) {
                                     singleEmitter.onSuccess(false);
-                                return;
+                                    return;
+                                }
                             case MORE:
-                                if (((Pair<ConditionsTypes, Int>) obj).getValue().value >= (Integer) user.getRequiredParameter(name))
+                                if (((Pair<ConditionsTypes, Int>) obj).getValue().value >= (Integer) user.getRequiredParameter(name)) {
                                     singleEmitter.onSuccess(false);
-                                return;
+                                    return;
+                                }
                         }
                         break;
                 }
