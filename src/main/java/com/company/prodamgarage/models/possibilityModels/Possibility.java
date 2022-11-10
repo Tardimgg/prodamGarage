@@ -10,5 +10,5 @@ public class Possibility {
     public String name;
     public String description;
     public UserChanges userChanges = new DefaultUserChanges();
-    public List<Event> deferredEvents;
+    public String propertyName;
 }

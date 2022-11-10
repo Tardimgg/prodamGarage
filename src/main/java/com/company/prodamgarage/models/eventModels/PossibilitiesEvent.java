@@ -9,14 +9,15 @@ import com.company.prodamgarage.models.possibilityModels.PossibilityType;
 import io.reactivex.Completable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PossibilitiesEvent extends Event {
 
     private volatile boolean isFullyLoaded = false;
 
-    List<Possibility> apartmentPossibilities;
-    List<Possibility> businessPossibilities;
-    List<Possibility> educationPossibilities;
+    private List<Possibility> apartmentPossibilities;
+    private List<Possibility> businessPossibilities;
+    private List<Possibility> educationPossibilities;
 
     public PossibilitiesEvent(DialogFactory dialogFactory) {
         super(dialogFactory);
@@ -39,20 +40,32 @@ public class PossibilitiesEvent extends Event {
     public Completable load() {
         return Completable.create(completableEmitter -> {
 
-            apartmentPossibilities = PossibilitiesLoader.getPossibilitiesRepository()
+            apartmentPossibilities = PossibilitiesLoader.getPossibilitiesRepository(dialogFactory)
                     .blockingGet()
                     .getPossibilities(PossibilityType.APARTMENT);
 
-            businessPossibilities = PossibilitiesLoader.getPossibilitiesRepository()
+            businessPossibilities = PossibilitiesLoader.getPossibilitiesRepository(dialogFactory)
                     .blockingGet()
                     .getPossibilities(PossibilityType.BUSINESS);
 
-            educationPossibilities = PossibilitiesLoader.getPossibilitiesRepository()
+            educationPossibilities = PossibilitiesLoader.getPossibilitiesRepository(dialogFactory)
                     .blockingGet()
                     .getPossibilities(PossibilityType.EDUCATION);
             
             isFullyLoaded = true;
             completableEmitter.onComplete();
         });
+    }
+
+    public Optional<List<Possibility>> getApartmentPossibilities() {
+        return Optional.ofNullable(apartmentPossibilities);
+    }
+
+    public Optional<List<Possibility>> getBusinessPossibilities() {
+        return Optional.ofNullable(businessPossibilities);
+    }
+
+    public Optional<List<Possibility>> getEducationPossibilities() {
+        return Optional.ofNullable(educationPossibilities);
     }
 }

@@ -4,15 +4,13 @@ import com.company.prodamgarage.Pair;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -25,7 +23,8 @@ public class StdJsonParser {
     //          key: type of the constructor parameter of the current event
     //          value: the value of this parameter of the current event
     public static <T> List<T> parseListJson(JsonArray source, List<Pair<Class<?>,
-            Optional<List<Pair<Class<?>, ?>>>>> allTypes, Class<T> target) throws NoSuchFieldException, NoSuchMethodException {
+            Optional<List<Pair<Class<?>, ?>>>>> allTypes, Class<T> target)
+            throws NoSuchFieldException, NoSuchMethodException {
 
         List<T> ans = new ArrayList<>();
         for (int i = 0; i < source.size(); ++i) {
@@ -42,20 +41,25 @@ public class StdJsonParser {
     //          key: type of the constructor parameter of the current event
     //          value: the value of this parameter of the current event
     public static <T> T parseJson(JsonObject source, List<Pair<Class<?>,
-            Optional<List<Pair<Class<?>, ?>>>>> allTypes, Class<T> castTarget) throws NoSuchFieldException, NoSuchMethodException {
+            Optional<List<Pair<Class<?>, ?>>>>> allTypes, Class<T> castTarget)
+            throws NoSuchFieldException, NoSuchMethodException {
 
         if (!source.has("className")) {
             throw new NoSuchFieldException("className field is required");
         }
 
         String objName = source.get("className").getAsString();
+
+        if (parsableClassesNames.contains(objName)) {
+            return (T) parseEnumAndSome(objName, source);
+        }
+
         var targetPair = allTypes.stream().filter((v) -> {
             return getClassName(v.getKey().getName()).equals(getClassName(objName));
         }).findFirst().orElseThrow(() -> new NoSuchFieldException("the required class (" + objName + ") was not found"));
 
-        if (targetPair.getKey().isEnum()) {
-//            return (T) Enum.valueOf((Class<Enum>) targetPair.getKey(), source.get("value").getAsString());
-            return (T) parseEnum((Class<Enum>) targetPair.getKey(), source);
+        if (targetPair.getKey().isEnum() || parsableClasses.contains(targetPair.getKey())) {
+            return (T) parseEnumAndSome(targetPair.getKey(), source);
         }
 
         AtomicReference<T> ans = new AtomicReference<>();
@@ -89,7 +93,10 @@ public class StdJsonParser {
                 continue;
             }
 
-            if (Arrays.stream(targetPair.getKey().getFields()).filter((v) -> v.getName().equals(key)).findFirst().isEmpty()) {
+            if (Arrays.stream(targetPair.getKey().getFields())
+                    .filter((v) -> v.getName().equals(key))
+                    .findFirst()
+                    .isEmpty()) {
                 throw new NoSuchFieldException(targetPair.getKey().toString() + " does not contain the " + key +" field");
             }
 
@@ -104,8 +111,15 @@ public class StdJsonParser {
                     Type type = parameterizedType.getActualTypeArguments()[0];
 
 
-                    for (int i = 0; i < elemArr.size(); ++i) {
-                        ((JsonObject) elemArr.get(i)).addProperty("className", getClassName(type.getTypeName()));
+                    for (JsonElement jsonElem: elemArr) {
+                        if (jsonElem.isJsonObject()) {
+                            JsonObject jsonObj = (JsonObject) jsonElem;
+                            if (!jsonObj.has("className")) {
+                                jsonObj.addProperty("className", getClassName(type.getTypeName()));
+                            }
+                        } else if (jsonElem.isJsonPrimitive()) {
+
+                        }
                     } // problems with array of primitives !!
 
                     field.set(ans.get(), parseListJson(elemArr, allTypes, field.getType()));
@@ -141,9 +155,35 @@ public class StdJsonParser {
         return ans.get();
     }
 
+
+    private static final Set<Class> parsableClasses = Set.of(Integer.class, String.class, Enum.class);
+    private static final Set<String> parsableClassesNames = Set.of("Integer", "String", "Enum");
+
+    private static Object parseEnumAndSome(Class clazz, JsonObject jsonObject) {
+        if (clazz.equals(String.class)) {
+            return jsonObject.get("value").getAsString();
+
+        } else if (clazz.equals(Integer.class)) {
+            return jsonObject.get("value").getAsInt();
+
+        } else if (clazz.isEnum()) {
+            return parseEnum(clazz, jsonObject);
+        } else {
+            return clazz.cast(jsonObject.get("value").getAsString());
+        }
+    }
+
+    private static Object parseEnumAndSome(String clazz, JsonObject jsonObject) {
+        return switch (clazz) {
+            case "String" -> parseEnumAndSome(String.class, jsonObject);
+            case "Integer" -> parseEnumAndSome(Integer.class, jsonObject);
+            case "Enum" -> parseEnumAndSome(Enum.class, jsonObject);
+            default -> null;
+        };
+    }
+
     private static Enum parseEnum(Class<Enum> enumClass, JsonObject jsonObject) {
         return Enum.valueOf(enumClass, jsonObject.get("value").getAsString());
-
     }
 
     private static String getClassName(String fullName) {

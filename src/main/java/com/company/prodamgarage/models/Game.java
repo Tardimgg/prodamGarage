@@ -11,6 +11,8 @@ import com.company.prodamgarage.models.loaders.PlotLoader;
 import com.company.prodamgarage.models.loaders.PossibilitiesLoader;
 import com.company.prodamgarage.models.mapModels.MapElement;
 import com.company.prodamgarage.models.mapModels.MapRepository;
+import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.user.PropertyType;
 import com.company.prodamgarage.models.user.User;
 import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.BackpressureStrategy;
@@ -19,7 +21,6 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiConsumer;
-import io.reactivex.functions.Consumer;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
@@ -27,6 +28,7 @@ import io.reactivex.subjects.ReplaySubject;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Game {
 
@@ -93,7 +95,31 @@ public class Game {
                 }
 //                case BUY_CHOICE -> new PossibilitiesEvent(dialogFactory);
 //                case EDUCATION_CHOICE -> new PossibilitiesEvent(dialogFactory); // TEMP CODE !!!!!!!!!!
-                case POSSIBILITIES -> new PossibilitiesEvent(dialogFactory);
+                case POSSIBILITIES -> {
+                    PossibilitiesEvent possibilitiesEvent = new PossibilitiesEvent(dialogFactory);
+
+                    if (!possibilitiesEvent.isFullyLoaded()) {
+                        Throwable res = possibilitiesEvent.load().blockingGet();
+                        if (res != null) {
+                            flowableEmitter.onError(res);
+                            throw new RuntimeException(res.getMessage());
+                        }
+                    }
+
+                    possibilitiesEvent.getBusinessPossibilities().ifPresent(possibilities -> {
+                        possibilities.removeIf((v) -> user.checkProperties(PropertyType.BUSINESS, v.propertyName));
+                    });
+
+                    possibilitiesEvent.getEducationPossibilities().ifPresent(possibilities -> {
+                        possibilities.removeIf((v) -> user.checkProperties(PropertyType.EDUCATION, v.propertyName));
+                    });
+
+                    possibilitiesEvent.getApartmentPossibilities().ifPresent(possibilities -> {
+                        possibilities.removeIf((v) -> user.checkProperties(PropertyType.HOUSE, v.propertyName));
+                    });
+
+                    yield possibilitiesEvent;
+                }
             };
         } while (event == null || !event.conditions.check(user, mapElement.seasonType).blockingGet());
 
@@ -119,10 +145,11 @@ public class Game {
                 throw new RuntimeException(e);
             }
         })) {
-            if (deferredEvent.deferredEvents != null) {
-                user.addDeferredEvents(deferredEvent.deferredEvents);
-            }
+//            if (deferredEvent.deferredEvents != null) {
+//                user.addDeferredEvents(deferredEvent.deferredEvents);
+//            }
             flowableEmitter.onNext(deferredEvent.dialogBuilder().build());
+            user.removeDeferredEvent(deferredEvent);
         }
 
 //        flowableEmitter.onNext(event.dialogBuilder().setTitle("ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ").build());
