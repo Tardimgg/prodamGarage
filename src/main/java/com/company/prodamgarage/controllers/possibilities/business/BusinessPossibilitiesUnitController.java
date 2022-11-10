@@ -5,6 +5,7 @@ import com.company.prodamgarage.RequiringTransition;
 import com.company.prodamgarage.SceneType;
 import com.company.prodamgarage.models.possibilityModels.Possibility;
 import io.reactivex.Observer;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class BusinessPossibilitiesUnitController implements RequiringTransition 
 
 
     public void apply(ActionEvent actionEvent) {
-        possibility.userChanges.apply().subscribe();
+        possibility.userChanges.apply().subscribeOn(Schedulers.computation()).subscribe();
         reqTransition.onNext(Pair.create(SceneType.BACK, null));
         reqTransition.onComplete();
     }

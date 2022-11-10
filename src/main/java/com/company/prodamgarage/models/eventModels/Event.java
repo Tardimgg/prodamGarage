@@ -12,7 +12,6 @@ public abstract class Event {
 
     protected DialogFactory dialogFactory;
     public Conditions conditions = new DefaultConditions();
-    public List<Event> deferredEvents;
 
     public Event(DialogFactory dialogFactory) {
         this.dialogFactory = dialogFactory;

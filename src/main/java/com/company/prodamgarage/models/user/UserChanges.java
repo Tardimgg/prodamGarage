@@ -1,5 +1,6 @@
 package com.company.prodamgarage.models.user;
 
+import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.user.User;
 import io.reactivex.Completable;
@@ -12,11 +13,12 @@ import java.util.List;
 
 public class UserChanges {
 
-    public int deltaAge;
-    public int deltaCash;
-    public int deltaCredit;
-    public int deltaMoneyFlow;
+    public int deltaAge = 0;
+    public int deltaCash = 0;
+    public int deltaCredit = 0;
+    public int deltaMoneyFlow = 0;
     public List<Event> deferredEvents;
+    public Pair<PropertyType, String> addedProperty;
 
     public Completable apply() {
         return Completable.create(completableEmitter -> {
@@ -29,6 +31,9 @@ public class UserChanges {
 
                 if (deferredEvents != null) {
                     user.addDeferredEvents(deferredEvents);
+                }
+                if (addedProperty != null) {
+                    user.addProperties(addedProperty.key, addedProperty.value, this);
                 }
 
                 completableEmitter.onComplete();

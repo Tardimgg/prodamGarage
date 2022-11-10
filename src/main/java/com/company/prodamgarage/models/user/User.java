@@ -1,5 +1,6 @@
 package com.company.prodamgarage.models.user;
 
+import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.observable.SimpleObservable;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.observable.SubscribeBuilder;
@@ -27,7 +28,7 @@ public class User implements Serializable {
     private final SimpleObservable<Integer> mapPosition = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> currentTime = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> currentPlotTime = new SimpleObservable<>(0);
-    private final HashMap<PropertyType, List<String>> properties = new HashMap<>();
+    private final HashMap<PropertyType, List<Pair<String, UserChanges>>> properties = new HashMap<>();
     private static String imagePath = "src/main/resources/images/image1.png";
 
     private String customImagePath = null;
@@ -179,6 +180,10 @@ public class User implements Serializable {
         deferredEvents.add(event);
     }
 
+    public void removeDeferredEvent(Event event) {
+        deferredEvents.remove(event);
+    }
+
     public List<Event> getDeferredEvents(Predicate<Event> predicate) {
         return deferredEvents.stream().filter(predicate).collect(Collectors.toList());
     }
@@ -202,13 +207,20 @@ public class User implements Serializable {
         }
         return null;
     }
-    public void addProperties(PropertyType propertyType, String value) {
-        properties.merge(propertyType, new ArrayList<>(List.of(value)), (f, s) -> {
+
+    public void addProperties(PropertyType propertyType, String value, UserChanges userChanges) {
+        properties.merge(propertyType, new ArrayList<>(List.of(Pair.create(value, userChanges))), (f, s) -> {
             f.addAll(s);
             return f;
         });
     }
 
+    public boolean checkProperties(PropertyType propertyType, String value) {
+        if (properties.containsKey(propertyType)) {
+            return properties.get(propertyType).parallelStream().anyMatch((v) -> v.getKey().equals(value));
+        }
+        return false;
+    }
 
 
     public SubscribeBuilder<Integer> subscribeAge() {
