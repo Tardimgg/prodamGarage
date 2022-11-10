@@ -186,19 +186,19 @@ public class User implements Serializable {
     public Object getRequiredParameter(String param) {
         switch (param) {
             case ("age"):
-                return this.age;
+                return this.age.get();
             case ("name"):
-                return this.name;
+                return this.name.get();
             case ("cash"):
-                return this.cash;
+                return this.cash.get();
             case ("credit"):
-                return this.credit;
+                return this.credit.get();
             case ("moneyFlow"):
-                return this.moneyFlow;
+                return this.moneyFlow.get();
             case ("mapPosition"):
-                return this.mapPosition;
+                return this.mapPosition.get();
             case ("currentTime"):
-                return this.currentTime;
+                return this.currentTime.get();
         }
         return null;
     }
