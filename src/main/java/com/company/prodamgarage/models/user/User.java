@@ -183,17 +183,25 @@ public class User implements Serializable {
         return deferredEvents.stream().filter(predicate).collect(Collectors.toList());
     }
 
-    public Object getRequiredParameter(String param){
-        switch(param){
-            case("age"):return this.age;
-            case("name"):return this.name;
-            case("cash"):return this.cash;
-            case("credit"):return this.credit;
-            case("moneyFlow"):return this.moneyFlow;
-            case("mapPosition"):return this.mapPosition;
-            case("currentTime"):return this.currentTime;
+    public Object getRequiredParameter(String param) {
+        switch (param) {
+            case ("age"):
+                return this.age;
+            case ("name"):
+                return this.name;
+            case ("cash"):
+                return this.cash;
+            case ("credit"):
+                return this.credit;
+            case ("moneyFlow"):
+                return this.moneyFlow;
+            case ("mapPosition"):
+                return this.mapPosition;
+            case ("currentTime"):
+                return this.currentTime;
         }
         return null;
+    }
     public void addProperties(PropertyType propertyType, String value) {
         properties.merge(propertyType, new ArrayList<>(List.of(value)), (f, s) -> {
             f.addAll(s);
