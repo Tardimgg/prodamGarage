@@ -54,7 +54,7 @@
       "userChanges":
       {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
+        "deltaMoneyFlow": 3,
         "deltaAge": 1
       }
     },{
@@ -64,7 +64,7 @@
       "userChanges":
       {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
+        "deltaMoneyFlow": 33,
         "deltaAge": 1
       }
     },
@@ -75,7 +75,7 @@
       "userChanges":
       {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
+        "deltaMoneyFlow": 333,
         "deltaAge": 1
       }
     }

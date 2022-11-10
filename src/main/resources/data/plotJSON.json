@@ -5,11 +5,20 @@
       "mainText": "Ваша мама, предварительно успешно отбросив коньки, оставила вам в наследство лишь записку, почерк в которой разобрать не легче, чем переводить санскрит, так что с этого дня вы ютуб-блогер...ой, нет, крипто-трейдер...фу-ты...как его...предприниматель вот! Удачи бленб<3",
       "conditions": {
         "age": {
-          "key": "LESS",
-          "value": 22
+          "key": {
+              "value": "LESS",
+              "className": "ConditionsTypes"
+          },
+          "value": {
+            "value": 22,
+            "className": "Int"
+          }
         },
         "name": {
-          "key": "EQUALS",
+          "key": {
+            "value": "EQUALS",
+            "className": "ConditionsTypes"
+          },
           "value": "mama"
         },
         "className": "Conditions"

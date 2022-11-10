@@ -53,6 +53,11 @@ public class StdJsonParser {
             return getClassName(v.getKey().getName()).equals(getClassName(objName));
         }).findFirst().orElseThrow(() -> new NoSuchFieldException("the required class (" + objName + ") was not found"));
 
+        if (targetPair.getKey().isEnum()) {
+//            return (T) Enum.valueOf((Class<Enum>) targetPair.getKey(), source.get("value").getAsString());
+            return (T) parseEnum((Class<Enum>) targetPair.getKey(), source);
+        }
+
         AtomicReference<T> ans = new AtomicReference<>();
         targetPair.getValue().ifPresentOrElse(pairs -> {
             List<Class<?>> constructParams = pairs.stream().map(Pair::getKey).collect(Collectors.toList());
@@ -101,7 +106,7 @@ public class StdJsonParser {
 
                     for (int i = 0; i < elemArr.size(); ++i) {
                         ((JsonObject) elemArr.get(i)).addProperty("className", getClassName(type.getTypeName()));
-                    }
+                    } // problems with array of primitives !!
 
                     field.set(ans.get(), parseListJson(elemArr, allTypes, field.getType()));
 
@@ -134,6 +139,11 @@ public class StdJsonParser {
         }
 
         return ans.get();
+    }
+
+    private static Enum parseEnum(Class<Enum> enumClass, JsonObject jsonObject) {
+        return Enum.valueOf(enumClass, jsonObject.get("value").getAsString());
+
     }
 
     private static String getClassName(String fullName) {
