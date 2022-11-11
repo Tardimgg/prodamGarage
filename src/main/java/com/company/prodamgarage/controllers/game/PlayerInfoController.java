@@ -72,13 +72,15 @@ public class PlayerInfoController {
                         bind(money, user.subscribeAge());
                         bind(moneyFlow, user.subscribeMoneyFlow());
                         bind(expenses, user.subscribeExpenses());
+                        bind(assets, user.subscribeAssets());
+                        bind(passive, user.subscribePassive());
                         bind(freeTime, user.subscribeFreeTime());
                         bind(time, user.subscribeCurrentTime());
 
                         bind(user.subscribeMoneyFlow(), new DefaultObserver<>() {
                             @Override
                             public void onNext(Integer integer) {
-                                costPerHour.setText(Float.toString(integer / 24.0f));
+                                costPerHour.setText(Float.toString(integer / (30.0f * 24)));
                             }
                         });
 

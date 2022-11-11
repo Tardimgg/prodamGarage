@@ -135,8 +135,11 @@ public class StdJsonParser {
                     if (field.getType().equals(String.class)) {
                         value = elem.getAsString();
 
-                    } else if (field.getType().equals(Integer.TYPE)) {
+                    } else if (field.getType().equals(Integer.TYPE) || field.getType().equals(Integer.class)) {
                         value = elem.getAsInt();
+
+                    } else if (field.getType().equals(Float.TYPE) || field.getType().equals(Float.class)) {
+                        value = elem.getAsFloat();
 
                     } else if (field.getType().isEnum()) {
                         // it is necessary to test // TESTED ^-^
@@ -163,8 +166,11 @@ public class StdJsonParser {
         if (clazz.equals(String.class)) {
             return jsonObject.get("value").getAsString();
 
-        } else if (clazz.equals(Integer.class)) {
+        } else if (clazz.equals(Integer.class) || clazz.equals(Integer.TYPE)) {
             return jsonObject.get("value").getAsInt();
+
+        } else if (clazz.equals(Float.class) || clazz.equals(Float.TYPE)) {
+            return jsonObject.get("value").getAsFloat();
 
         } else if (clazz.isEnum()) {
             return parseEnum(clazz, jsonObject);

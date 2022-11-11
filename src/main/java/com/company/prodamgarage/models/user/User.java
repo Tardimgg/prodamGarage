@@ -1,10 +1,12 @@
 package com.company.prodamgarage.models.user;
 
 import com.company.prodamgarage.Pair;
+import com.company.prodamgarage.models.conditions.ConditionsTypes;
 import com.company.prodamgarage.observable.SimpleObservable;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.observable.SubscribeBuilder;
 import io.reactivex.*;
+import javafx.scene.control.Label;
 
 import javax.annotation.Nonnull;
 import java.io.*;
@@ -26,6 +28,8 @@ public class User implements Serializable {
     private final SimpleObservable<Integer> credit = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> moneyFlow = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> expenses = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> assets = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> passive = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> freeTime = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> mapPosition = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> currentTime = new SimpleObservable<>(0);
@@ -162,6 +166,39 @@ public class User implements Serializable {
         return currentTime.get();
     }
 
+
+    public int getExpenses() {
+        return expenses.get();
+    }
+
+    public int getAssets() {
+        return assets.get();
+    }
+
+    public int getPassive() {
+        return passive.get();
+    }
+
+    public int getFreeTime() {
+        return freeTime.get();
+    }
+
+    public void setExpenses(int expenses) {
+        this.expenses.set(expenses);
+    }
+
+    public void setAssets(int assets) {
+        this.assets.set(assets);
+    }
+
+    public void setPassive(int passive) {
+        this.passive.set(passive);
+    }
+
+    public void setFreeTime(int freeTime) {
+        this.freeTime.set(freeTime);
+    }
+
     public void increaseCurrentTime(){
         currentTime.set(currentTime.get() + 1);
     }
@@ -206,6 +243,14 @@ public class User implements Serializable {
                 return this.mapPosition.get();
             case ("currentTime"):
                 return this.currentTime.get();
+            case ("expenses"):
+                return this.expenses.get();
+            case ("assets"):
+                return this.assets.get();
+            case ("passive"):
+                return this.passive.get();
+            case ("freeTime"):
+                return this.freeTime.get();
         }
         return null;
     }
@@ -243,11 +288,17 @@ public class User implements Serializable {
 
     public SubscribeBuilder<Integer> subscribeFreeTime() {
         return freeTime.subscribe();
-
     }
 
     public SubscribeBuilder<Integer> subscribeExpenses() {
         return expenses.subscribe();
+    }
 
+    public SubscribeBuilder<Integer> subscribeAssets() {
+        return assets.subscribe();
+    }
+
+    public SubscribeBuilder<Integer> subscribePassive() {
+        return passive.subscribe();
     }
  }

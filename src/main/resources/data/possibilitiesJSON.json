@@ -1,8 +1,8 @@
 {
   "apartmentPossibilitiesList": [
     {
-      "name": "Buy Garage",
-      "description": "Покупка гаража -- отличный способ войтив бизнес самогоноваренья!",
+      "name": "Топ хата",
+      "description": "Топ хата -- лучший вариант за свои деньги!",
       "className": "Possibility",
       "userChanges": {
         "className": "UserChanges",
@@ -56,7 +56,8 @@
                   "value": 5,
                   "className": "Integer"
                 }
-              }
+              },
+              "afterWhile": 5
             },
             "userChanges": {
               "className": "UserChanges",
