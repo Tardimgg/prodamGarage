@@ -18,6 +18,8 @@ public class StartApplication extends Application {
     @Override
     public void start(Stage stage) {
 
+        stage.setFullScreen(true);
+
         stage.setTitle("Hello!");
         Resources.getParent(SceneType.ROOT)
                 .subscribeOn(Schedulers.computation())
@@ -25,7 +27,7 @@ public class StartApplication extends Application {
                 .subscribe(new BiConsumerSingleObserver<>((parentPair, throwable) -> {
 
                     Scene scene = new Scene(parentPair.key);
-                    scene.getStylesheets().addAll(this.getClass().getResource("menu.css").toExternalForm());
+//                    scene.getStylesheets().addAll(this.getClass().getResource("menu.css").toExternalForm());
                     ((RootController) parentPair.getValue()).setView(Pair.create(SceneType.MENU, null));
                     stage.setScene(scene);
                     stage.show();

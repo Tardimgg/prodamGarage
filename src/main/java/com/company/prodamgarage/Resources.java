@@ -25,7 +25,7 @@ public class Resources {
        paths.put(SceneType.GAME, "game.fxml");
        paths.put(SceneType.MESSAGE, "message.fxml");
        paths.put(SceneType.NOTIFICATION, "notification.fxml");
-       paths.put(SceneType.PLAYER_INFO, "player_info.fxml");
+//       paths.put(SceneType.PLAYER_INFO, "player_info.fxml");
        paths.put(SceneType.POSSIBILITIES, "possibilities.fxml");
        paths.put(SceneType.POSSIBILITIES_MENU, "possibilities_menu.fxml");
        paths.put(SceneType.BUSINESS_POSSIBILITIES, "business_possibilities.fxml");
@@ -38,26 +38,25 @@ public class Resources {
         }
         FXMLLoader loader = new FXMLLoader(Resources.class.getResource(paths.get(sceneType)));
         Parent parent = loader.load();
+
+        switch (sceneType) {
+            case MENU -> {
+                parent.getStylesheets().add(Resources.class.getResource("menu.css").toExternalForm());
+            }
+            case GAME -> {
+                parent.getStylesheets().add(Resources.class.getResource("game.css").toExternalForm());
+            }
+//            case PLAYER_INFO -> {
+//                parent.getStylesheets().add(Resources.class.getResource("player_info.css").toExternalForm());
+//            }
+        }
+
         Object controller = loader.getController();
         return Pair.create(parent, controller);
     }
 
 
     private static void init() throws IOException {
-        List<Pair<SceneType, String>> views = Arrays.asList(
-                Pair.create(SceneType.ROOT, "root-view.fxml"),
-                Pair.create(SceneType.SPLASH, "splash.fxml"),
-                Pair.create(SceneType.MENU, "menu.fxml"),
-                Pair.create(SceneType.GAME, "game.fxml"),
-                Pair.create(SceneType.MESSAGE, "message.fxml"),
-                Pair.create(SceneType.NOTIFICATION, "notification.fxml"),
-                Pair.create(SceneType.POSSIBILITIES, "possibilities.fxml"),
-                Pair.create(SceneType.POSSIBILITIES_MENU, "possibilities_menu.fxml"),
-                Pair.create(SceneType.BUSINESS_POSSIBILITIES, "business_possibilities.fxml"),
-                Pair.create(SceneType.BUSINESS_POSSIBILITIES_UNIT, "business_possibilities_unit.fxml")
-        );
-
-
         for (var val : paths.keySet()) {
 //        for (var val : views) {
 //            FXMLLoader loader = new FXMLLoader(Resources.class.getResource(val.value));

@@ -8,62 +8,335 @@
 
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.geometry.Insets?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.company.prodamgarage.controllers.PlayerInfoController"
-      prefHeight="300.0" prefWidth="100.0" maxWidth="300" style="-fx-background-color: #ffffff;" >
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<StackPane fx:id="rootPlayerInfo" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.company.prodamgarage.controllers.game.PlayerInfoController"
+           prefHeight="300.0" prefWidth="100.0" maxWidth="400">
 
-    <effect>
-        <DropShadow radius="20"/>
-    </effect>
+        <effect>
+            <DropShadow radius="20"/>
+        </effect>
+
+    <AnchorPane StackPane.alignment="TOP_RIGHT" >
+
+        <ScrollPane vbarPolicy="NEVER" fitToHeight="true" fitToWidth="true" fx:id="mainInfo"
+                    styleClass="panel"
+                    AnchorPane.topAnchor="10"
+                    AnchorPane.leftAnchor="10"
+                    AnchorPane.rightAnchor="60"
+                    AnchorPane.bottomAnchor="8">
+
+            <VBox maxHeight="0" spacing="5"  alignment="CENTER">
+
+                <padding>
+                    <Insets left="5" right="5" top="10"/>
+                </padding>
+
+                <Label styleClass="pageName" VBox.vgrow="NEVER" textAlignment="CENTER">Имя</Label>
+                <Label styleClass="smallDescription" VBox.vgrow="NEVER" textAlignment="CENTER">Общая сводка</Label>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Деньги:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="money">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Денежный поток:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="moneyFlow">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Расходы:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="expenses">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Активы:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="assets">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Пасивы:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="passive">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Свободное время:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="freeTime">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Стоимость часа:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="costPerHour">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
+
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Настроение:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="mood">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
 
 
-    <BorderPane>
-        <VBox.margin>
-            <Insets left="10.0" />
-        </VBox.margin>
-        <left>
-            <Label>Деньги: </Label>
-        </left>
-        <right>
-            <Label fx:id="money">
-                <BorderPane.margin>
-                    <Insets right="10.0" />
-                </BorderPane.margin>
-            </Label>
-        </right>
-    </BorderPane>
+                <BorderPane VBox.vgrow="NEVER">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <left>
+                        <Label styleClass="property">Игровое время:</Label>
+                    </left>
+                    <right>
+                        <Label styleClass="property" fx:id="time">
+                            <BorderPane.margin>
+                                <Insets right="10.0"/>
+                            </BorderPane.margin>
+                        </Label>
+                    </right>
+                </BorderPane>
 
-    <BorderPane>
-        <VBox.margin>
-            <Insets left="10.0" />
-        </VBox.margin>
-        <left>
-            <Label>Игровое время: </Label>
-        </left>
-        <right>
-            <Label fx:id="time">
-                <BorderPane.margin>
-                    <Insets right="10.0" />
-                </BorderPane.margin>
-            </Label>
-        </right>
-    </BorderPane>
+            </VBox>
+        </ScrollPane>
 
-    <BorderPane>
-        <VBox.margin>
-            <Insets left="10.0" />
-        </VBox.margin>
-        <left>
-            <Label>Денежный поток: </Label>
-        </left>
-        <right>
-            <Label fx:id="moneyFlow">
-                <BorderPane.margin>
-                    <Insets right="10.0" />
-                </BorderPane.margin>
-            </Label>
-        </right>
-    </BorderPane>
+        <Rectangle fx:id="mainInfoRec" arcHeight="30" arcWidth="30" fill="whitesmoke" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="30" width="60" height="50" />
 
-</VBox>
+        <Button fx:id="mainInfoBtn" onAction="#gotoMainInfo" styleClass="panelButton" mnemonicParsing="false" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="10">
+            <graphic>
+                <ImageView>
+                    <Image requestedHeight="50" requestedWidth="50" url="@images/settings.png"/>
+                </ImageView>
+            </graphic>
+            <BorderPane.margin>
+                <Insets bottom="20.0" />
+            </BorderPane.margin>
+        </Button>
+
+
+        <!--        <TextArea>-->
+        <!---->
+        <!--        </TextArea>-->
+
+
+<!--    </AnchorPane>-->
+
+
+<!--    <AnchorPane StackPane.alignment="TOP_RIGHT">-->
+
+        <VBox fx:id="assetInfo" styleClass="panel"
+              AnchorPane.topAnchor="8"
+              AnchorPane.leftAnchor="10"
+              AnchorPane.rightAnchor="58"
+              alignment="CENTER">
+
+            <Label VBox.vgrow="ALWAYS" textAlignment="CENTER">Имя</Label>
+            <spacing>20</spacing>
+            <Label VBox.vgrow="ALWAYS" textAlignment="CENTER">Активы</Label>
+
+            <BorderPane>
+                <VBox.margin>
+                    <Insets left="10.0"/>
+                </VBox.margin>
+                <left>
+                    <Label>хата:</Label>
+                </left>
+                <right>
+                    <Label>
+                        <BorderPane.margin>
+                            <Insets right="10.0"/>
+                        </BorderPane.margin>
+                    </Label>
+                </right>
+            </BorderPane>
+
+            <BorderPane>
+                <VBox.margin>
+                    <Insets left="10.0"/>
+                </VBox.margin>
+                <left>
+                    <Label>не хата:</Label>
+                </left>
+                <right>
+                    <Label >
+                        <BorderPane.margin>
+                            <Insets right="10.0"/>
+                        </BorderPane.margin>
+                    </Label>
+                </right>
+            </BorderPane>
+
+            <BorderPane>
+                <VBox.margin>
+                    <Insets left="10.0"/>
+                </VBox.margin>
+                <left>
+                    <Label>Денежный поток:</Label>
+                </left>
+                <right>
+                    <Label>
+                        <BorderPane.margin>
+                            <Insets right="10.0"/>
+                        </BorderPane.margin>
+                    </Label>
+                </right>
+            </BorderPane>
+        </VBox>
+
+        <Rectangle fx:id="assetInfoRec" arcHeight="30" arcWidth="30" fill="whitesmoke" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="100" width="60" height="50" />
+
+        <Button fx:id="assetInfoBtn" onAction="#gotoAssetInfo" styleClass="panelButton" mnemonicParsing="false" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="80">
+            <graphic>
+                <ImageView>
+                    <Image requestedHeight="50" requestedWidth="50" url="@images/settings.png"/>
+                </ImageView>
+            </graphic>
+            <BorderPane.margin>
+                <Insets bottom="20.0" />
+            </BorderPane.margin>
+        </Button>
+
+
+        <!--        <TextArea>-->
+        <!---->
+        <!--        </TextArea>-->
+
+
+    </AnchorPane>
+
+
+    <!--    <BorderPane>-->
+    <!--        <VBox.margin>-->
+    <!--            <Insets left="10.0" />-->
+    <!--        </VBox.margin>-->
+    <!--        <left>-->
+    <!--            <Label>Деньги: </Label>-->
+    <!--        </left>-->
+    <!--        <right>-->
+    <!--            <Label fx:id="money">-->
+    <!--                <BorderPane.margin>-->
+    <!--                    <Insets right="10.0" />-->
+    <!--                </BorderPane.margin>-->
+    <!--            </Label>-->
+    <!--        </right>-->
+    <!--    </BorderPane>-->
+    <!---->
+    <!--    <BorderPane>-->
+    <!--        <VBox.margin>-->
+    <!--            <Insets left="10.0" />-->
+    <!--        </VBox.margin>-->
+    <!--        <left>-->
+    <!--            <Label>Игровое время: </Label>-->
+    <!--        </left>-->
+    <!--        <right>-->
+    <!--            <Label fx:id="time">-->
+    <!--                <BorderPane.margin>-->
+    <!--                    <Insets right="10.0" />-->
+    <!--                </BorderPane.margin>-->
+    <!--            </Label>-->
+    <!--        </right>-->
+    <!--    </BorderPane>-->
+    <!---->
+    <!--    <BorderPane>-->
+    <!--        <VBox.margin>-->
+    <!--            <Insets left="10.0" />-->
+    <!--        </VBox.margin>-->
+    <!--        <left>-->
+    <!--            <Label>Денежный поток: </Label>-->
+    <!--        </left>-->
+    <!--        <right>-->
+    <!--            <Label fx:id="moneyFlow">-->
+    <!--                <BorderPane.margin>-->
+    <!--                    <Insets right="10.0" />-->
+    <!--                </BorderPane.margin>-->
+    <!--            </Label>-->
+    <!--        </right>-->
+    <!--    </BorderPane>-->
+
+</StackPane>

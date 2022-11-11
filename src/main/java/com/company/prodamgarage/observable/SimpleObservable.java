@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class SimpleObservable<T> implements Serializable {
     private T value;
-    private transient volatile BehaviorSubject<T> subject = BehaviorSubject.create();
+    private transient volatile BehaviorSubject<T> subject = null;
 
     private void checkAndInitPublisher() {
         if (subject == null) {

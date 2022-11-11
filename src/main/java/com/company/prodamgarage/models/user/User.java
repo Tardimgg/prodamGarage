@@ -25,6 +25,8 @@ public class User implements Serializable {
     private final SimpleObservable<Integer> cash = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> credit = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> moneyFlow = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> expenses = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> freeTime = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> mapPosition = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> currentTime = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> currentPlotTime = new SimpleObservable<>(0);
@@ -237,6 +239,15 @@ public class User implements Serializable {
 
     public SubscribeBuilder<Integer> subscribeCurrentTime() {
         return currentTime.subscribe();
+    }
+
+    public SubscribeBuilder<Integer> subscribeFreeTime() {
+        return freeTime.subscribe();
+
+    }
+
+    public SubscribeBuilder<Integer> subscribeExpenses() {
+        return expenses.subscribe();
 
     }
  }

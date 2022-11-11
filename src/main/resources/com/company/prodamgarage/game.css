@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('fonts/RobotoFlex-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('fonts/Oswald-Light.ttf');
+}
+
+#rootPane {
+    -fx-background-image: url("images/monopoly.jpg");
+    -fx-background-size: stretch;
+    -fx-min-width: 100%;
+    -fx-min-height: 100%;
+}
+
+.button{
+    -fx-font-family: 'Oswald';
+    -fx-background-color: transparent;
+    -fx-underline: true;
+    -fx-font-size: 50px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 1, 0, 0, 0);
+    -fx-padding: 10px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+.button:hover{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 1.5, 3);
+}
+
+.title{
+    -fx-font-family: 'Roboto Flex';
+    -fx-font-size: 60px;
+    -fx-underline: true;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 3, 0, 0, 0);
+}

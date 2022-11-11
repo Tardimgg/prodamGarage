@@ -148,8 +148,8 @@ public class Game {
 //            if (deferredEvent.deferredEvents != null) {
 //                user.addDeferredEvents(deferredEvent.deferredEvents);
 //            }
-            flowableEmitter.onNext(deferredEvent.dialogBuilder().build());
             user.removeDeferredEvent(deferredEvent);
+            flowableEmitter.onNext(deferredEvent.dialogBuilder().build());
         }
 
 //        flowableEmitter.onNext(event.dialogBuilder().setTitle("ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ").build());

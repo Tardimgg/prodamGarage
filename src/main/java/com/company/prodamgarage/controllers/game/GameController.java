@@ -1,4 +1,4 @@
-package com.company.prodamgarage.controllers;
+package com.company.prodamgarage.controllers.game;
 
 import com.company.prodamgarage.*;
 import com.company.prodamgarage.models.Game;
@@ -7,17 +7,26 @@ import com.company.prodamgarage.models.dialog.Dialog;
 import io.reactivex.*;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subscribers.DisposableSubscriber;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -29,14 +38,37 @@ public class GameController implements RequiringTransition {
     public StackPane rootPane;
     private final Queue<Dialog> deferredDialogs = new ConcurrentLinkedQueue<>();
 
+
+    @FXML
+    public BorderPane additional_info;
+    public ImageView player;
+
     @Override
     public void subscribe(Observer<Pair<SceneType, Object>> obs) {
         reqTransition.subscribe(obs);
-
     }
 
+    Button nextStep;
+
+    private Map map;
+
     @FXML
-    public void initialize() {}
+    public void initialize() {
+
+        nextStep = (Button) additional_info.lookup("#nextStepBtn");
+        nextStep.setOnAction(this::nextStep);
+
+        map = new Map();
+        movePlayer();
+    }
+
+    private void movePlayer() {
+        Pair<Integer, Integer> pos = map.getNextPos(rootPane.heightProperty().doubleValue(), rootPane.widthProperty().doubleValue());
+        TranslateTransition transition = new TranslateTransition(Duration.millis(500), player);
+        transition.setToX(pos.key);
+        transition.setToY(pos.value);
+        transition.play();
+    }
 
     private Completable showDialog(Dialog dialog) {
         return Completable.create(completableEmitter -> {
@@ -98,6 +130,13 @@ public class GameController implements RequiringTransition {
 
     @FXML
     protected void nextStep(ActionEvent e) {
+        synchronized (GameController.class) {
+            if (nextStep.isDisabled()) {
+                return;
+            }
+            nextStep.setDisable(true);
+        }
+        movePlayer();
         allDialogsLoaded.set(false);
 
         Game.getInstance().getNext()
@@ -123,7 +162,18 @@ public class GameController implements RequiringTransition {
                                                 if (allDialogsLoaded.get()) {
                                                     startShowingDialogs()
                                                             .subscribeOn(Schedulers.computation())
-                                                            .subscribe();
+                                                            .subscribe(new DisposableCompletableObserver() {
+                                                                @Override
+                                                                public void onComplete() {
+                                                                    nextStep.setDisable(false);
+
+                                                                }
+
+                                                                @Override
+                                                                public void onError(Throwable throwable) {
+
+                                                                }
+                                                            });
                                                 }
                                                 displayDialogComplete.set(true);
                                             }
@@ -148,7 +198,18 @@ public class GameController implements RequiringTransition {
                             if (displayDialogComplete.get()) {
                                 startShowingDialogs()
                                         .subscribeOn(Schedulers.computation())
-                                        .subscribe();
+                                        .subscribe(new DisposableCompletableObserver() {
+                                            @Override
+                                            public void onComplete() {
+                                                nextStep.setDisable(false);
+
+                                            }
+
+                                            @Override
+                                            public void onError(Throwable throwable) {
+
+                                            }
+                                        });
                             }
                             allDialogsLoaded.set(true);
                         }

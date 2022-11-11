@@ -41,4 +41,9 @@ public class Pair<K, V> {
     public void setValue(V value) {
         this.value = value;
     }
+
+    @Override
+    public Pair<K, V> clone() {
+        return Pair.create(key, value);
+    }
 }
