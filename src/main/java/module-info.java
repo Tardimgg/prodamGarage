@@ -43,4 +43,6 @@ module com.company.prodamgarage {
     opens com.company.prodamgarage.controllers.possibilities.business to javafx.fxml;
     exports com.company.prodamgarage.observable;
     opens com.company.prodamgarage.observable to javafx.fxml;
+    exports com.company.prodamgarage.controllers.game;
+    opens com.company.prodamgarage.controllers.game to javafx.fxml;
 }

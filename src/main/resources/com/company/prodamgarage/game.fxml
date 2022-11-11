@@ -11,48 +11,49 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.layout.HBox?>
 <StackPane fx:id="rootPane"
            minHeight="-Infinity" maxHeight="Infinity"
            minWidth="-Infinity" maxWidth="Infinity"
            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.company.prodamgarage.controllers.GameController">
+           fx:controller="com.company.prodamgarage.controllers.game.GameController">
 
 
     <children>
-        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+<!--        <ImageView pickOnBounds="true" preserveRatio="true">-->
+<!--            <Image requestedHeight="300" url="@images/monopoly.jpg"/>-->
+<!--        </ImageView>-->
         <BorderPane prefHeight="200.0" prefWidth="200.0">
-            <top>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="prodamGarage" BorderPane.alignment="CENTER">
-                    <BorderPane.margin>
-                        <Insets top="30.0" />
-                    </BorderPane.margin>
-                </Text>
-            </top>
             <bottom>
-                <Button fx:id="settings_btn"  mnemonicParsing="false"  BorderPane.alignment="BOTTOM_RIGHT">
-                    <graphic>
-                        <ImageView>
-                            <Image requestedHeight="50" requestedWidth="50" url="@images/settings.png"/>
-                        </ImageView>
-                    </graphic>
-                    <BorderPane.margin>
-                        <Insets bottom="20.0" right="20.0" />
-                    </BorderPane.margin>
-                </Button>
 
-                <fx:include minWidth="200" BorderPane.alignment="BOTTOM_LEFT" source="player_info.fxml" />
+                <BorderPane maxWidth="Infinity">
+                    <left>
+                        <fx:include BorderPane.alignment="BOTTOM_LEFT" minWidth="200" prefWidth="350" prefHeight="400" source="player_info.fxml" />
+                    </left>
+
+                    <right>
+                        <fx:include BorderPane.alignment="BOTTOM_RIGHT" fx:id="additional_info" minWidth="200" prefWidth="300" maxHeight="300"
+                                    source="additional_player_information.fxml" />
+                    </right>
+
+                </BorderPane>
+
 
             </bottom>
-            <center>
-                <VBox maxWidth="300" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Button onAction="#nextStep" maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="Получить событие" />
-                        <Button maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="Новая игра" />
-                    </children>
-                </VBox>
-            </center>
+
+<!--            <center>-->
+<!--                <VBox maxWidth="300" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">-->
+<!--                    <children>-->
+<!--                        <Button onAction="#nextStep" maxWidth="Infinity" VBox.vgrow="SOMETIMES" alignment="CENTER" mnemonicParsing="false" text="Получить событие" />-->
+<!--                    </children>-->
+<!--                </VBox>-->
+<!--            </center>-->
 
         </BorderPane>
+
+        <ImageView fx:id="player">
+            <Image requestedHeight="100" requestedWidth="100" url="@images/techies.png"/>
+        </ImageView>
 
     </children>
 </StackPane>

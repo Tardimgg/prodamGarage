@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('fonts/RobotoFlex-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('fonts/Oswald-Light.ttf');
+}
+
+#rootPlayerInfo {
+    -fx-background-image: url("images/small_back.jpg");
+}
+
+.panel {
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-background-color: whitesmoke;
+
+}
+
+.panelButton {
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-border-color: none;
+}
+
+.smallDescription {
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #9E9E9E;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.pageName {
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.property {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+Rectangle {
+    -fx-background-radius: 10 10 0 10
+}
