@@ -83,9 +83,9 @@ public class PossibilitiesMenuController implements RequiringTransition {
 
     private SceneType getSceneType(PossibilityType possibilityType) {
         return switch (possibilityType) {
-            case APARTMENT -> null;
+            case APARTMENT -> SceneType.BUSINESS_POSSIBILITIES;
             case BUSINESS -> SceneType.BUSINESS_POSSIBILITIES;
-            case EDUCATION -> null;
+            case EDUCATION -> SceneType.EDUCATION_POSSIBILITIES;
         };
     }
 

@@ -78,11 +78,15 @@ public class GameController implements RequiringTransition {
             } catch (GameOver ex) {
                 ex.printStackTrace();
             }
+            if (parentPair == null) {
+                completableEmitter.onError(new NullPointerException("dialog is null"));
+                return;
+            }
 
-            if (parentPair != null) { // TEMP CODE!!!!!!!!!!!!!!!
+//            if (parentPair != null) { // TEMP CODE!!!!!!!!!!!!!!!
 
-                parentPair.key.maxHeight(100);
-                parentPair.key.maxWidth(100);
+//                parentPair.key.maxHeight(100);
+//                parentPair.key.maxWidth(100);
 //                parentPair.key.setEffect(new DropShadow(20d, 0d, +2d, Color.BLACK));
 
                 rootPane.getChildren().addAll(parentPair.key);
@@ -104,9 +108,9 @@ public class GameController implements RequiringTransition {
                         }
                     });
                 }
-            } else {
-                completableEmitter.onComplete();
-            }
+//            } else {
+//                completableEmitter.onComplete();
+//            }
         });
     }
 

@@ -14,13 +14,7 @@
             "className": "Integer"
           }
         },
-        "name": {
-          "key": {
-            "value": "EQUALS",
-            "className": "ConditionsTypes"
-          },
-          "value": "mama"
-        },
+        "probability": 0.8,
         "className": "Conditions"
       },
       "className": "NotificationEvent"

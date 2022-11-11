@@ -71,26 +71,37 @@ public class Game {
         Event event;
         MapElement mapElement = map.getMapList().get(user.getCurrentTime() % map.getMapList().size());
 
-        int count = 0;
-        int MAX_COUNT = 10;
+//        int count = 0;
+//        int MAX_COUNT = 10;
+
+        boolean conditionsChecked;
+        boolean firstIteration = true;
+
         do {
-            if (count >= MAX_COUNT) {
+            if (!firstIteration) {
                 user.increaseCurrentTime();
-                flowableEmitter.onComplete();
-                return;
+                mapElement = map.getMapList().get(user.getCurrentTime() % map.getMapList().size());
             }
-            count += 1;
+            firstIteration = false;
+//            count += 1;
+
+            conditionsChecked = false;
 
             event = switch (mapElement.eventType) {
                 case GOOD -> EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomGoodEvent();
                 case BAD -> EventReader.getEventsRepository(dialogFactory).blockingGet().getRandomBadEvent();
                 case PLOT -> {
-                    int pos = user.getCurrentPlotTime();
-                    user.increaseCurrentPlotTime();
                     var repository = PlotLoader.getPlotRepository(dialogFactory).blockingGet();
-                    if (pos >= repository.getPlotEvents().size()) {
+
+                    int pos = user.getCurrentPlotTime();
+                    if (pos >= repository.getPlotEvents().size() ||
+                            !repository.getPlotEvents().get(pos).conditions.check(user, mapElement.seasonType).blockingGet()) {
+
                         yield null;
                     }
+                    conditionsChecked = true;
+
+                    user.increaseCurrentPlotTime();
                     yield repository.getPlotEvents().get(pos);
                 }
 //                case BUY_CHOICE -> new PossibilitiesEvent(dialogFactory);
@@ -121,7 +132,7 @@ public class Game {
                     yield possibilitiesEvent;
                 }
             };
-        } while (event == null || !event.conditions.check(user, mapElement.seasonType).blockingGet());
+        } while (event == null || !(conditionsChecked || event.conditions.check(user, mapElement.seasonType).blockingGet()));
 
 
 //        if (event.deferredEvents != null) {
@@ -138,9 +149,10 @@ public class Game {
 
         flowableEmitter.onNext(event.dialogBuilder().build());
 
+        MapElement finalMapElement = mapElement;
         for (Event deferredEvent : user.getDeferredEvents((v) -> {
             try {
-                return v.conditions.check(user, mapElement.seasonType).blockingGet();
+                return v.conditions.check(user, finalMapElement.seasonType).blockingGet();
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

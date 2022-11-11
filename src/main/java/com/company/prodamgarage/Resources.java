@@ -17,7 +17,7 @@ public class Resources {
     private static final HashMap<SceneType, Pair<Parent, ?>> parents = new HashMap<>();
     private static final AtomicBoolean initialized = new AtomicBoolean(false);
 
-    private static Map<SceneType, String> paths = new HashMap<>();
+    private static final Map<SceneType, String> paths = new HashMap<>();
     static {
        paths.put(SceneType.ROOT, "root-view.fxml");
        paths.put(SceneType.SPLASH, "splash.fxml");
@@ -25,11 +25,13 @@ public class Resources {
        paths.put(SceneType.GAME, "game.fxml");
        paths.put(SceneType.MESSAGE, "message.fxml");
        paths.put(SceneType.NOTIFICATION, "notification.fxml");
+       paths.put(SceneType.SELECTION, "selection.fxml");
 //       paths.put(SceneType.PLAYER_INFO, "player_info.fxml");
        paths.put(SceneType.POSSIBILITIES, "possibilities.fxml");
        paths.put(SceneType.POSSIBILITIES_MENU, "possibilities_menu.fxml");
        paths.put(SceneType.BUSINESS_POSSIBILITIES, "business_possibilities.fxml");
        paths.put(SceneType.BUSINESS_POSSIBILITIES_UNIT, "business_possibilities_unit.fxml");
+       paths.put(SceneType.EDUCATION_POSSIBILITIES, "education_possibilities.fxml");
     }
 
     public static Pair<Parent, ?> create(SceneType sceneType) throws IOException {

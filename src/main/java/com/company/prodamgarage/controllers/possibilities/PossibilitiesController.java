@@ -98,6 +98,7 @@ public class PossibilitiesController implements RequiringTransition {
                 .subscribe(new BiConsumerSingleObserver<>((parentPair, throwable) -> {
                     if (parentPair == null || throwable != null) {
                         back(null);
+                        return;
                     }
 
                     rootPossibilities.getChildren().clear();

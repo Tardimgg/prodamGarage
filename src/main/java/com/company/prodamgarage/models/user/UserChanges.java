@@ -1,6 +1,7 @@
 package com.company.prodamgarage.models.user;
 
 import com.company.prodamgarage.Pair;
+import com.company.prodamgarage.models.conditions.ConditionsTypes;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.user.User;
 import io.reactivex.Completable;
@@ -17,6 +18,10 @@ public class UserChanges {
     public int deltaCash = 0;
     public int deltaCredit = 0;
     public int deltaMoneyFlow = 0;
+    public int deltaExpenses = 0;
+    public int deltaAssets = 0;
+    public int deltaPassive = 0;
+    public int deltaFreeTime = 0;
     public List<Event> deferredEvents;
     public Pair<PropertyType, String> addedProperty;
 
@@ -28,8 +33,19 @@ public class UserChanges {
                 user.setCash(user.getCash() + deltaCash);
                 user.setCredit(user.getCredit() + deltaCredit);
                 user.setMoneyFlow(user.getMoneyFlow() + deltaMoneyFlow);
+                user.setExpenses(user.getExpenses() + deltaExpenses);
+                user.setAssets(user.getAssets() + deltaAssets);
+                user.setPassive(user.getPassive() + deltaPassive);
+                user.setFreeTime(user.getFreeTime() + deltaFreeTime);
 
                 if (deferredEvents != null) {
+                    for (var val: deferredEvents) {
+                        if (val.conditions.afterWhile != null) {
+                            val.conditions.currentTime = Pair.create(
+                                    ConditionsTypes.MORE,
+                                    user.getCurrentTime() + val.conditions.afterWhile);
+                        }
+                    }
                     user.addDeferredEvents(deferredEvents);
                 }
                 if (addedProperty != null) {

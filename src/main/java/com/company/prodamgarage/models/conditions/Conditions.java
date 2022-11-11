@@ -14,16 +14,25 @@ public class Conditions {
     public Pair<ConditionsTypes, Integer> cash;
     public Pair<ConditionsTypes, Integer> credit;
     public Pair<ConditionsTypes, Integer> moneyFlow;
+    public Pair<ConditionsTypes, Integer> expenses;
+    public Pair<ConditionsTypes, Integer> assets;
+    public Pair<ConditionsTypes, Integer> passive;
+    public Pair<ConditionsTypes, Integer> freeTime;
     public Pair<ConditionsTypes, Integer> mapPosition;
     public Pair<ConditionsTypes, Integer> currentTime;
     public Pair<ConditionsTypes, SeasonType> seasonType;
+
+    public Integer afterWhile;
+    public float probability = 1;
+
+
     public Single<Boolean> check(User user, SeasonType st) throws IllegalAccessException {
         return Single.create(singleEmitter -> {
             Field[] fields = this.getClass().getDeclaredFields();
             for (Field f : fields) {
                 String name = f.getName();
                 Object obj = f.get(this);
-                if (obj == null) continue;
+                if (obj == null || name.equals("afterWhile") || name.equals("probability")) continue;
                 switch (name) {
                     case ("name"):
                         if (!((Pair<ConditionsTypes, String>) obj).getValue().equals(user.getName())) {
@@ -60,7 +69,12 @@ public class Conditions {
                         }
                 }
             }
-            singleEmitter.onSuccess(true);
+
+            if (probability == 1) {
+                singleEmitter.onSuccess(true);
+            } else {
+                singleEmitter.onSuccess(Math.random() < probability);
+            }
         });
     };
 

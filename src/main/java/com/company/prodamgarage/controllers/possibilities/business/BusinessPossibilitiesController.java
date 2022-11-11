@@ -72,7 +72,6 @@ public class BusinessPossibilitiesController implements RequiringTransition, Req
     @FXML
     public void initialize() {
         reqTransition = PublishSubject.create();
-
     }
 
     public void back(ActionEvent actionEvent) {
