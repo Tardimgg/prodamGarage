@@ -5,6 +5,9 @@ import com.company.prodamgarage.RequiringTransition;
 import com.company.prodamgarage.SceneType;
 import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.Observer;
+import io.reactivex.observers.DisposableCompletableObserver;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,7 +83,20 @@ public class NotificationController implements RequiringTransition {
 
 
     public void back(ActionEvent actionEvent) {
-        reqTransition.onNext(Pair.create(SceneType.BACK, null));
-        reqTransition.onComplete();
+        changes.apply()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(new DisposableCompletableObserver() {
+            @Override
+            public void onComplete() {
+                reqTransition.onNext(Pair.create(SceneType.BACK, null));
+                reqTransition.onComplete();
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        });
     }
 }

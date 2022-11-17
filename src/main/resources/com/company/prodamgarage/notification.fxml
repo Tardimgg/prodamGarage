@@ -40,7 +40,7 @@
                     <tooltip><Tooltip fx:id="tooltip2" text="Сдаться" /></tooltip>
                 </Button>
                 <Button styleClass = "button3" onAction="#back">
-                    <tooltip><Tooltip fx:id="tooltip3" text="Назад" /></tooltip>
+                    <tooltip><Tooltip fx:id="tooltip3" text="Принять" /></tooltip>
                 </Button>
             </HBox>
         </VBox>

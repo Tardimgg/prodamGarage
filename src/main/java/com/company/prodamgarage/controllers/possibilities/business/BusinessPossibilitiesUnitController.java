@@ -54,6 +54,10 @@ public class BusinessPossibilitiesUnitController implements RequiringTransition 
 
     public void apply(ActionEvent actionEvent) {
         possibility.userChanges.apply().subscribeOn(Schedulers.computation()).subscribe();
+        back(actionEvent);
+    }
+
+    public void back(ActionEvent actionEvent) {
         reqTransition.onNext(Pair.create(SceneType.BACK, null));
         reqTransition.onComplete();
     }

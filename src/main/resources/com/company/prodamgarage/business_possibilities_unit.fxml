@@ -29,10 +29,10 @@
                 <Button styleClass = "button1" fx:id="button">
                     <tooltip ><Tooltip  fx:id="tooltip1" text="Взять кредит" /></tooltip>
                 </Button>
-                <Button styleClass = "button2">
+                <Button styleClass = "button2" onAction="#apply">
                     <tooltip><Tooltip fx:id="tooltip2" text="Купить" /></tooltip>
                 </Button>
-                <Button styleClass = "button3" onAction="#apply">
+                <Button styleClass = "button3" onAction="#back" >
                     <tooltip><Tooltip fx:id="tooltip3" text="Отказаться" /></tooltip>
                 </Button>
             </HBox>

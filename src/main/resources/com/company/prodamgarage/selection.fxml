@@ -37,9 +37,9 @@
                 <Button fx:id="secondBtn" styleClass = "button2">
                     <tooltip ><Tooltip  fx:id="tooltip2" text="Нет" /></tooltip>
                 </Button>
-                <Button onAction="#back" styleClass = "button3">
-                    <tooltip ><Tooltip  fx:id="tooltip3" text="Назад" /></tooltip>
-                </Button>
+<!--                <Button  styleClass = "button3">-->
+<!--                    <tooltip ><Tooltip  fx:id="tooltip3" text="Назад" /></tooltip>-->
+<!--                </Button>-->
             </HBox>
         </VBox>
     </HBox>

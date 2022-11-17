@@ -39,12 +39,12 @@ public class EducationPossibilitiesController implements RequiringTransition, Re
 
         reqTransition = PublishSubject.create();
 
-        /*ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.schedule(() -> {
             Platform.runLater(() -> {
                 back(null);
             });
-        }, 2, TimeUnit.SECONDS);*/
+        }, 5, TimeUnit.SECONDS);
     }
 
 
