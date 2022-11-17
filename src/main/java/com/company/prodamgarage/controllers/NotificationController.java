@@ -5,11 +5,16 @@ import com.company.prodamgarage.RequiringTransition;
 import com.company.prodamgarage.SceneType;
 import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.Observer;
+import io.reactivex.observers.DisposableCompletableObserver;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 public class NotificationController implements RequiringTransition {
 
@@ -27,6 +32,15 @@ public class NotificationController implements RequiringTransition {
 
     @FXML
     public TextArea main_text;
+
+    @FXML
+    Tooltip tooltip1;
+
+    @FXML
+    Tooltip tooltip2;
+
+    @FXML
+    Tooltip tooltip3;
 
     private String titleSource;
     private String mainText;
@@ -61,11 +75,28 @@ public class NotificationController implements RequiringTransition {
         main_text.setText(mainText);
         title.setText(titleSource);
         reqTransition = PublishSubject.create();
+
+        tooltip1.setShowDelay(Duration.seconds(0.1));
+        tooltip2.setShowDelay(Duration.seconds(0.1));
+        tooltip3.setShowDelay(Duration.seconds(0.1));
     }
 
 
     public void back(ActionEvent actionEvent) {
-        reqTransition.onNext(Pair.create(SceneType.BACK, null));
-        reqTransition.onComplete();
+        changes.apply()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(new DisposableCompletableObserver() {
+            @Override
+            public void onComplete() {
+                reqTransition.onNext(Pair.create(SceneType.BACK, null));
+                reqTransition.onComplete();
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        });
     }
 }

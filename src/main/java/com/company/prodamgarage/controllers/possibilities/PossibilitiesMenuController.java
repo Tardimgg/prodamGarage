@@ -62,7 +62,19 @@ public class PossibilitiesMenuController implements RequiringTransition {
 
             ImageView imageView = new ImageView();
 
-            InputStream url = getClass().getResourceAsStream("/com/company/prodamgarage/images/settings.png");
+            InputStream url = getClass().getResourceAsStream("/com/company/prodamgarage/images/business.png");
+
+            switch(i){
+                case 0 -> {
+                    url = getClass().getResourceAsStream("/com/company/prodamgarage/images/apartment.png");
+                }
+                case 1 -> {
+                    url = getClass().getResourceAsStream("/com/company/prodamgarage/images/business.png");
+                }
+                case 2 -> {
+                    url = getClass().getResourceAsStream("/com/company/prodamgarage/images/education.png");
+                }
+            }
 
             imageView.setImage(new Image(url));
             imageView.setFitHeight(size);

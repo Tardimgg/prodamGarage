@@ -44,7 +44,7 @@ public class EducationPossibilitiesController implements RequiringTransition, Re
             Platform.runLater(() -> {
                 back(null);
             });
-        }, 2, TimeUnit.SECONDS);
+        }, 5, TimeUnit.SECONDS);
     }
 
 

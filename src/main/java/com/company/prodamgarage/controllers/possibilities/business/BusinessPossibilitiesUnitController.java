@@ -11,7 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 public class BusinessPossibilitiesUnitController implements RequiringTransition {
 
     private PublishSubject<Pair<SceneType, Object>> reqTransition;
@@ -24,6 +25,17 @@ public class BusinessPossibilitiesUnitController implements RequiringTransition 
     @FXML
     TextArea main_text;
 
+    @FXML
+    Tooltip tooltip1;
+
+    @FXML
+    Tooltip tooltip2;
+
+    @FXML
+    Tooltip tooltip3;
+
+//    Tooltip tooltip = new Tooltip("A tooltip");
+//    tooltip.setShowDelay(Duration.seconds(3));
     Possibility possibility;
 
     public void setDate(Possibility possibility) {
@@ -34,11 +46,18 @@ public class BusinessPossibilitiesUnitController implements RequiringTransition 
     @FXML
     public void initialize() {
         reqTransition = PublishSubject.create();
+        tooltip1.setShowDelay(Duration.seconds(0.1));
+        tooltip2.setShowDelay(Duration.seconds(0.1));
+        tooltip3.setShowDelay(Duration.seconds(0.1));
     }
 
 
     public void apply(ActionEvent actionEvent) {
         possibility.userChanges.apply().subscribeOn(Schedulers.computation()).subscribe();
+        back(actionEvent);
+    }
+
+    public void back(ActionEvent actionEvent) {
         reqTransition.onNext(Pair.create(SceneType.BACK, null));
         reqTransition.onComplete();
     }

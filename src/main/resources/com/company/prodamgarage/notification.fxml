@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
@@ -32,14 +33,14 @@
                 </TextArea>
 <!--            </ScrollPane>-->
             <HBox>
-                <Button>
-                    Прикол
+                <Button styleClass = "button1" fx:id="button">
+                    <tooltip ><Tooltip  fx:id="tooltip1" text="Самоубийство" /></tooltip>
                 </Button>
-                <Button>
-                    Прикол
+                <Button styleClass = "button2">
+                    <tooltip><Tooltip fx:id="tooltip2" text="Сдаться" /></tooltip>
                 </Button>
-                <Button onAction="#back">
-                    Прикол
+                <Button styleClass = "button3" onAction="#back">
+                    <tooltip><Tooltip fx:id="tooltip3" text="Принять" /></tooltip>
                 </Button>
             </HBox>
         </VBox>

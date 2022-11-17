@@ -51,6 +51,18 @@ public class Resources {
 //            case PLAYER_INFO -> {
 //                parent.getStylesheets().add(Resources.class.getResource("player_info.css").toExternalForm());
 //            }
+            case BUSINESS_POSSIBILITIES_UNIT ->{
+                parent.getStylesheets().add(Resources.class.getResource("business_possibilities_unit.css").toExternalForm());
+            }
+            case SELECTION ->{
+                parent.getStylesheets().add(Resources.class.getResource("selection.css").toExternalForm());
+            }
+            case NOTIFICATION ->{
+                parent.getStylesheets().add(Resources.class.getResource("notification.css").toExternalForm());
+            }
+            case EDUCATION_POSSIBILITIES ->{
+                parent.getStylesheets().add(Resources.class.getResource("education_possibilities.css").toExternalForm());
+            }
         }
 
         Object controller = loader.getController();
