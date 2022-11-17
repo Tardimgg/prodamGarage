@@ -1,0 +1,23 @@
+.button1{
+    -fx-background-image: url("images/yes.png");
+    -fx-background-size: 100 100;
+    -fx-background-repeat: no-repeat;
+    -fx-min-width: 150;
+    -fx-min-height: 150;
+}
+
+.button2{
+    -fx-background-image: url("images/no.png");
+    -fx-background-size: 100 100;
+    -fx-background-repeat: no-repeat;
+    -fx-min-width: 150;
+    -fx-min-height: 150;
+}
+
+.button3{
+    -fx-background-image: url("images/back.png");
+    -fx-background-size: 100 100;
+    -fx-background-repeat: no-repeat;
+    -fx-min-width: 150;
+    -fx-min-height: 150;
+}

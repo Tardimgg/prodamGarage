@@ -56,7 +56,8 @@ public class StartApplication extends Application {
                 while (true) {
                     Game.getInstance().getNext().blockingIterable().forEach((v) -> {
                         try {
-                            v.create();
+                            v.create()
+                            ;
                         } catch (GameOver e) {
                             e.printStackTrace();
                             System.exit(0);

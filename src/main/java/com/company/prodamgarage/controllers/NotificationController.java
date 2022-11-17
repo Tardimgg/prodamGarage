@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 public class NotificationController implements RequiringTransition {
 
@@ -27,6 +29,15 @@ public class NotificationController implements RequiringTransition {
 
     @FXML
     public TextArea main_text;
+
+    @FXML
+    Tooltip tooltip1;
+
+    @FXML
+    Tooltip tooltip2;
+
+    @FXML
+    Tooltip tooltip3;
 
     private String titleSource;
     private String mainText;
@@ -61,6 +72,10 @@ public class NotificationController implements RequiringTransition {
         main_text.setText(mainText);
         title.setText(titleSource);
         reqTransition = PublishSubject.create();
+
+        tooltip1.setShowDelay(Duration.seconds(0.1));
+        tooltip2.setShowDelay(Duration.seconds(0.1));
+        tooltip3.setShowDelay(Duration.seconds(0.1));
     }
 
 

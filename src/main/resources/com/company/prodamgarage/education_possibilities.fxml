@@ -6,7 +6,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.DropShadow?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<!--<AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.company.prodamgarage.controllers.possibilities.education.EducationPossibilitiesController"
             prefHeight="400.0" prefWidth="600.0" minHeight="300" minWidth="500">
@@ -17,4 +25,34 @@
 
 
 
-</AnchorPane>
+</AnchorPane>-->
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.company.prodamgarage.controllers.possibilities.education.EducationPossibilitiesController"
+           minHeight="130" minWidth="400"
+           prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+<effect>
+    <DropShadow radius="20"/>
+</effect>
+
+<HBox>
+    <VBox>
+        <HBox spacing = "40">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+            <Button styleClass = "button1" fx:id="button">
+                <tooltip ><Tooltip  fx:id="tooltip1" text="Высшее образование" /></tooltip>
+            </Button>
+            <Button styleClass = "button2">
+                <tooltip><Tooltip fx:id="tooltip2" text="Взять семинар" /></tooltip>
+            </Button>
+            <Button styleClass = "button3">
+                <tooltip><Tooltip fx:id="tooltip3" text="Управление временем" /></tooltip>
+            </Button>
+        </HBox>
+    </VBox>
+</HBox>
+
+</StackPane>

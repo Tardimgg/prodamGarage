@@ -31,14 +31,14 @@
                 очень приольное аписание, ахуеть проста
             </TextArea>
             <HBox>
-                <Button fx:id="firstBtn">
-                    Да
+                <Button fx:id="firstBtn" styleClass = "button1">
+                    <tooltip ><Tooltip  fx:id="tooltip1" text="Да" /></tooltip>
                 </Button>
-                <Button fx:id="secondBtn">
-                    Ноу
+                <Button fx:id="secondBtn" styleClass = "button2">
+                    <tooltip ><Tooltip  fx:id="tooltip2" text="Нет" /></tooltip>
                 </Button>
-                <Button onAction="#back">
-                    Ни
+                <Button onAction="#back" styleClass = "button3">
+                    <tooltip ><Tooltip  fx:id="tooltip3" text="Назад" /></tooltip>
                 </Button>
             </HBox>
         </VBox>

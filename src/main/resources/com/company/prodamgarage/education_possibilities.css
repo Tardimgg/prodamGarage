@@ -1,0 +1,26 @@
+.button1{
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-background-image: url("images/high_education.png");
+    -fx-background-size: 100 100;
+    -fx-background-repeat: no-repeat;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
+}
+
+.button2{
+    -fx-background-image: url("images/seminar.png");
+    -fx-background-size: 100 100;
+    -fx-background-repeat: no-repeat;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
+}
+
+.button3{
+    -fx-background-image: url("images/sand_clock.png");
+    -fx-background-size: 100 100;
+    -fx-background-repeat: no-repeat;
+    -fx-min-width: 100;
+    -fx-min-height: 100;
+}

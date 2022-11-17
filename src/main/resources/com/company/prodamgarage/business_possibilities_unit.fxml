@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.Tooltip?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.company.prodamgarage.controllers.possibilities.business.BusinessPossibilitiesUnitController"
@@ -25,14 +26,14 @@
             </TextArea>
             <!--            </ScrollPane>-->
             <HBox>
-                <Button>
-                    Прикол
+                <Button styleClass = "button1" fx:id="button">
+                    <tooltip ><Tooltip  fx:id="tooltip1" text="Взять кредит" /></tooltip>
                 </Button>
-                <Button>
-                    Прикол
+                <Button styleClass = "button2">
+                    <tooltip><Tooltip fx:id="tooltip2" text="Купить" /></tooltip>
                 </Button>
-                <Button onAction="#apply">
-                    Прикол
+                <Button styleClass = "button3" onAction="#apply">
+                    <tooltip><Tooltip fx:id="tooltip3" text="Отказаться" /></tooltip>
                 </Button>
             </HBox>
         </VBox>
