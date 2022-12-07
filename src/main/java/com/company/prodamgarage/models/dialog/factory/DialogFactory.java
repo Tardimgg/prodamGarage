@@ -7,9 +7,10 @@ import com.company.prodamgarage.models.possibilityModels.Possibility;
 import com.company.prodamgarage.models.possibilityModels.PossibilityType;
 import com.company.prodamgarage.models.user.UserChanges;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface DialogFactory {
+public interface DialogFactory extends Serializable {
 
     Dialog createNotificationDialog(String title, String mainText, UserChanges changes);
 

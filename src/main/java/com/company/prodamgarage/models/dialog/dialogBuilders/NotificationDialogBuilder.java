@@ -6,7 +6,7 @@ import com.company.prodamgarage.models.user.UserChanges;
 
 public class NotificationDialogBuilder implements DialogBuilder {
 
-    private DialogFactory factory;
+    private final DialogFactory factory;
 
     public NotificationDialogBuilder(DialogFactory factory) {
         this.factory = factory;

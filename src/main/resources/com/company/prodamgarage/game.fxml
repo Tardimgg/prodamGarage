@@ -51,7 +51,7 @@
 
         </BorderPane>
 
-        <ImageView fx:id="player">
+        <ImageView visible="false" fx:id="player">
             <Image requestedHeight="100" requestedWidth="100" url="@images/techies.png"/>
         </ImageView>
 

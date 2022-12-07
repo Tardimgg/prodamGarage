@@ -39,6 +39,7 @@ public class Resources {
             return null;
         }
         FXMLLoader loader = new FXMLLoader(Resources.class.getResource(paths.get(sceneType)));
+
         Parent parent = loader.load();
 
         switch (sceneType) {
@@ -51,6 +52,9 @@ public class Resources {
 //            case PLAYER_INFO -> {
 //                parent.getStylesheets().add(Resources.class.getResource("player_info.css").toExternalForm());
 //            }
+            case BUSINESS_POSSIBILITIES -> {
+                parent.getStylesheets().add(Resources.class.getResource("business_possibilities.css").toExternalForm());
+            }
             case BUSINESS_POSSIBILITIES_UNIT ->{
                 parent.getStylesheets().add(Resources.class.getResource("business_possibilities_unit.css").toExternalForm());
             }
@@ -71,14 +75,18 @@ public class Resources {
 
 
     private static void init() throws IOException {
-        for (var val : paths.keySet()) {
+        try {
+            for (var val : paths.keySet()) {
 //        for (var val : views) {
 //            FXMLLoader loader = new FXMLLoader(Resources.class.getResource(val.value));
 //            Parent parent = loader.load();
 //            Object controller = loader.getController();
 //            parents.put(val.key, Pair.create(parent, controller));
-            parents.put(val, create(val));
+                parents.put(val, create(val));
 //            parents.put(val.key, create(val.key));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -100,11 +108,15 @@ public class Resources {
 
     public static Single<Pair<Parent, ?>> getNewParent(SceneType sceneType) {
         return Single.create(singleEmitter -> {
-            var res = create(sceneType);
-            if (res != null) {
-                singleEmitter.onSuccess(res);
-            } else {
-                singleEmitter.onError(new ClassNotFoundException(sceneType.name()));
+            try {
+                var res = create(sceneType);
+                if (res != null) {
+                    singleEmitter.onSuccess(res);
+                } else {
+                    singleEmitter.onError(new ClassNotFoundException(sceneType.name()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

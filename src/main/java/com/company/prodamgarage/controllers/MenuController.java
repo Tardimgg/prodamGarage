@@ -1,19 +1,29 @@
 package com.company.prodamgarage.controllers;
 
-import com.company.prodamgarage.Pair;
-import com.company.prodamgarage.RequiringTransition;
-import com.company.prodamgarage.SceneType;
+import com.company.prodamgarage.*;
+import com.company.prodamgarage.models.GameOver;
+import com.company.prodamgarage.models.user.DefaultUserChanges;
+import com.company.prodamgarage.models.user.User;
 import io.reactivex.Observer;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.internal.observers.BiConsumerSingleObserver;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class MenuController implements RequiringTransition {
 
     private final PublishSubject<Pair<SceneType, Object>> reqTransition = PublishSubject.create();
+    public Button newGameBtn;
+    public StackPane rootPane;
 
     @Override
     public void subscribe(Observer<Pair<SceneType, Object>> obs) {
@@ -31,42 +41,55 @@ public class MenuController implements RequiringTransition {
     protected void showGame(ActionEvent e) {
         reqTransition.onNext(Pair.create(SceneType.GAME, null));
         reqTransition.onComplete();
-        /*
-        Resources.getParent(SceneType.GAME).subscribe(new BiConsumerSingleObserver<>((parentPair, throwable) -> {
-            //            home_page_parent = FXMLLoader.load(getClass().getResource("game.fxml"));
-            Stage app_stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-//                app_stage.
-//                app_stage.hide(); //optional
-
-            Scene scene = new Scene(parentPair.key);
-            app_stage.setScene(scene);
-            app_stage.show();
-        }));
-
-         */
-
-
     }
 
-    @FXML
-    public void initialize() {
-        VBox hbox = new VBox();
-        Button button1 = new Button("Add");
-        Button button2 = new Button("Remove");
-        VBox.setVgrow(button1, Priority.ALWAYS);
-        VBox.setVgrow(button2, Priority.ALWAYS);
-        button1.setMaxWidth(Double.MAX_VALUE);
-        button2.setMaxWidth(Double.MAX_VALUE);
-        hbox.getChildren().addAll(button1, button2);
-//        game_name.center
-//        URL url = getClass().getResource("resources/images/settings.png");
-//
-//        if (url != null) {
-//            ImageView imageView = new ImageView(url.toExternalForm());
-//            settings_btn.setGraphic(imageView);
-//            System.out.println("second");
-//        } else {
-//            System.out.println("image == null");
-//        }
+
+    public void newGame(ActionEvent actionEvent) {
+        newGameBtn.setDisable(true);
+        User.newInstance()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(new BiConsumerSingleObserver<>((user, throwable) -> {
+                    reqTransition.onNext(Pair.create(SceneType.GAME, null));
+                    reqTransition.onComplete();
+                    newGameBtn.setDisable(false);
+                }));
     }
+
+    public void openHistory(ActionEvent actionEvent) {
+        Resources.getParent(SceneType.NOTIFICATION)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(JavaFxScheduler.platform())
+                .subscribe(new BiConsumerSingleObserver<>((parentPair, throwable) -> {
+
+                    if (parentPair != null) {
+                        ((NotificationController) parentPair.getValue()).setTitle("История");
+                        ((NotificationController) parentPair.getValue()).setMainText("kok");
+                        ((NotificationController) parentPair.getValue()).setChanges(new DefaultUserChanges());
+                        ((NotificationController) parentPair.getValue()).initialize();
+                        rootPane.getChildren().addAll(parentPair.key);
+
+                        if (parentPair.value instanceof RequiringTransition controller) {
+
+                            controller.subscribe(new DefaultObserver<>() {
+                                @Override
+                                public void onNext(Pair<SceneType, Object> sceneInfo) {
+                                    if (sceneInfo.key == SceneType.BACK) {
+
+                                        rootPane.getChildren().remove(parentPair.key);
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                }));
+    }
+
+
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
+    }
+
+
 }

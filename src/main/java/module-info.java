@@ -47,4 +47,6 @@ module com.company.prodamgarage {
     opens com.company.prodamgarage.controllers.game to javafx.fxml;
     exports com.company.prodamgarage.controllers.possibilities.education;
     opens com.company.prodamgarage.controllers.possibilities.education to javafx.fxml;
+    opens com.company.prodamgarage.customView;
+    exports com.company.prodamgarage.customView to javafx.fxml;
 }

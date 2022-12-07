@@ -10,6 +10,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.geometry.Insets?>
+<?import com.company.prodamgarage.customView.TableOfChanges?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.company.prodamgarage.controllers.NotificationController"
@@ -19,7 +21,7 @@
         <DropShadow radius="20"/>
     </effect>
 
-    <HBox>
+    <HBox spacing="10">
         <ImageView>
             <Image requestedHeight="130" requestedWidth="100" url="@images/image1.png"/>
         </ImageView>
@@ -27,13 +29,20 @@
             <Label fx:id="title">
                 Тема
             </Label>
-<!--            <ScrollPane VBox.vgrow="ALWAYS">-->
-                <TextArea fx:id="main_text" wrapText="true">
-                    очень приольное аписание, ахуеть проста
-                </TextArea>
-<!--            </ScrollPane>-->
+            <ScrollPane prefHeight="300" maxHeight="500"  fx:id="scrollView">
+                <VBox>
+                    <TextArea fx:id="main_text" wrapText="true"/>
+
+                    <TableOfChanges style="-fx-min-width: 0; -fx-pref-width: 0; -fx-max-width: 0;" fx:id="userChangesView">
+
+                    </TableOfChanges>
+                </VBox>
+            </ScrollPane>
             <HBox>
-                <Button styleClass = "button1" fx:id="button">
+                <padding>
+                    <Insets top="10" bottom="10" left="10" right="10"/>
+                </padding>
+                <Button maxHeight="10" styleClass = "button1" fx:id="button">
                     <tooltip ><Tooltip  fx:id="tooltip1" text="Самоубийство" /></tooltip>
                 </Button>
                 <Button styleClass = "button2">

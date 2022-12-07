@@ -5,9 +5,10 @@ import com.company.prodamgarage.models.mapModels.SeasonType;
 import com.company.prodamgarage.models.user.User;
 import io.reactivex.Single;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class Conditions {
+public class Conditions implements Serializable {
 
     public Pair<ConditionsTypes, Integer> age;
     public Pair<ConditionsTypes, String> name;

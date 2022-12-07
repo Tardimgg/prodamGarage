@@ -12,7 +12,8 @@
 <?import javafx.scene.effect.DropShadow?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefHeight="200.0" prefWidth="100.0" maxWidth="300" style="-fx-background-color: #ffffff;" >
+            prefHeight="200.0" prefWidth="100.0" maxWidth="300" style="-fx-background-color: #ffffff;"
+            fx:controller="com.company.prodamgarage.controllers.game.AdditionalPlayerInformationController">
 
     <effect>
         <DropShadow radius="20"/>
@@ -33,9 +34,18 @@
 
     </top>
     <center>
-        <Label>
-            Оч важная инфа(анекдоты)
+        <Label BorderPane.alignment="BOTTOM_RIGHT" fx:id="weather">
+            <BorderPane.margin>
+                <Insets bottom="10" right="10.0" />
+            </BorderPane.margin>
         </Label>
     </center>
+    <bottom>
+        <Label BorderPane.alignment="BOTTOM_RIGHT" fx:id="clock">
+            <BorderPane.margin>
+                <Insets bottom="10" right="10.0" />
+            </BorderPane.margin>
+        </Label>
+    </bottom>
 
 </BorderPane>

@@ -1,21 +1,30 @@
 package com.company.prodamgarage.controllers.game;
 
 import com.company.prodamgarage.DefaultObserver;
+import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.Resources;
+import com.company.prodamgarage.models.user.PropertyType;
 import com.company.prodamgarage.models.user.User;
+import com.company.prodamgarage.models.user.UserChanges;
 import com.company.prodamgarage.observable.SubscribeBuilder;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class PlayerInfoController {
 
@@ -27,7 +36,7 @@ public class PlayerInfoController {
 
     public Rectangle assetInfoRec;
     public Button assetInfoBtn;
-    public VBox assetInfo;
+    public ScrollPane assetInfo;
 
     public Label money;
     public Label moneyFlow;
@@ -38,7 +47,9 @@ public class PlayerInfoController {
     public Label costPerHour;
     public Label mood;
     public Label time;
-
+    public Label name;
+    public Label name1;
+    public VBox propertiesView;
 
 
     private <T> void bind(Label label, SubscribeBuilder<T> subscribeBuilder) {
@@ -69,7 +80,9 @@ public class PlayerInfoController {
                 .subscribe(new BiConsumerSingleObserver<>((user, throwable) -> {
                     if (user != null && throwable == null) {
 
-                        bind(money, user.subscribeAge());
+                        bind(name, user.subscribeName());
+                        bind(name1, user.subscribeName());
+                        bind(money, user.subscribeCash());
                         bind(moneyFlow, user.subscribeMoneyFlow());
                         bind(expenses, user.subscribeExpenses());
                         bind(assets, user.subscribeAssets());
@@ -88,6 +101,40 @@ public class PlayerInfoController {
                             @Override
                             public void onNext(Integer integer) {
                                 mood.setText(integer > 10 ? "Норм" : "Неоч");
+                            }
+                        });
+
+                        bind(user.subscribeProperties(), new DefaultObserver<>() {
+                            @Override
+                            public void onNext(HashMap<PropertyType, List<Pair<String, UserChanges>>> propertyTypeListHashMap) {
+                                propertiesView.getChildren().filtered(node -> !Arrays.asList("name1", "panel2SmallDescription").contains(node.getId())).clear();
+
+                                for (var key: propertyTypeListHashMap.keySet()) {
+                                    var res = propertyTypeListHashMap.get(key);
+
+                                    if (res != null) {
+                                        for (var val : res) {
+                                            BorderPane pane = new BorderPane();
+                                            VBox.setVgrow(pane, Priority.NEVER);
+                                            VBox.setMargin(pane, new Insets(0, 0, 0, 10));
+
+                                            Label propertyName = new Label();
+                                            propertyName.setText(val.key);
+                                            BorderPane.setAlignment(propertyName, Pos.CENTER_LEFT);
+
+                                            Label propertyValue = new Label();
+                                            propertyValue.setText(Integer.toString(-val.value.deltaCash));
+                                            BorderPane.setAlignment(propertyValue, Pos.CENTER_RIGHT);
+                                            BorderPane.setMargin(propertyValue, new Insets(0, 10, 0, 0));
+
+                                            pane.setLeft(propertyName);
+                                            pane.setRight(propertyValue);
+
+                                            propertiesView.getChildren().add(pane);
+                                        }
+                                    }
+                                }
+
                             }
                         });
 
