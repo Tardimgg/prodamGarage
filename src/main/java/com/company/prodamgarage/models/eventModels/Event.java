@@ -6,9 +6,10 @@ import com.company.prodamgarage.models.dialog.dialogBuilders.DialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import io.reactivex.Completable;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Event {
+public abstract class Event implements Serializable {
 
     protected DialogFactory dialogFactory;
     public Conditions conditions = new DefaultConditions();

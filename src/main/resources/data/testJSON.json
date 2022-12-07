@@ -36,36 +36,58 @@
   ],
   "badEventList": [
     {
-      "title": "testName2",
-      "mainText": "testText2",
+      "title": "Дело жизни и смерти",
+      "mainText": "У вас на носу экзамены. Ну так шо? плей дотка дринк водка?",
       "className": "SelectionEvent",
       "userChanges": [
         {
-          "key": "ok",
+          "key": "Дотка",
           "value": {
             "className": "UserChanges",
-            "deltaMoneyFlow": 5,
-            "deltaAge": 1
+            "deltaCash": -5000,
+            "deltaFreeTime": -10
           }
         },
         {
-          "key": "no",
+          "key": "Экзамены",
           "value": {
             "className": "UserChanges",
-            "deltaMoneyFlow": 5,
-            "deltaAge": 1
+            "deltaFreeTime": -40,
+            "deltaCash": -300,
+            "deferredEvents": [
+              {
+                "title": "Экзамены прошли",
+                "mainText": "Ну и зачем вы готовились к экзаменам? Энивей вы теперь чистите картошку, а так хотя бы поразлекались.. ",
+                "className": "NotificationEvent",
+                "conditions": {
+                  "afterWhile": 5
+                },
+                "userChanges": {
+                  "className": "UserChanges",
+                  "deltaFreeTime": 40
+                }
+              }
+            ]
           }
         }
       ]
     },
     {
-      "title": "testName3",
-      "mainText": "testText3",
+      "title": "Элитная прогулка",
+      "mainText": "Вчера вы гуляли по элитным районам и выбирали себе элитную недвижимость. Все бы хорошо, но у вас там украли деньги.. ",
       "className": "NotificationEvent",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
-        "deltaAge": 1
+        "deltaCash": -1000
+      }
+    },
+    {
+      "title": "Развлечения у речки",
+      "mainText": "Как-то раз, со своими единомышленниками, вы жгли камыш и чуть не сожгли поле. Вам очень понравились такие приключения и вы решили повторить. Но к сожалению на второй раз камыша не осталось :(",
+      "className": "NotificationEvent",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaCash": -50
       }
     }
   ]

@@ -10,9 +10,10 @@ import io.reactivex.CompletableObserver;
 import io.reactivex.CompletableOnSubscribe;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
-public class UserChanges {
+public class UserChanges implements Serializable {
 
     public int deltaAge = 0;
     public int deltaCash = 0;

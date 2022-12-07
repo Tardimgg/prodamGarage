@@ -5,12 +5,15 @@ import com.company.prodamgarage.models.*;
 import com.company.prodamgarage.models.dialog.factory.ConsoleDialogFactory;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.dialog.factory.JavaFXDialogFactory;
+import com.company.prodamgarage.models.user.User;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class StartApplication extends Application {
 
@@ -32,6 +35,21 @@ public class StartApplication extends Application {
                     stage.setScene(scene);
                     stage.show();
                 }));
+
+        stage.setOnCloseRequest(event -> {
+            try {
+                stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void stop() throws Exception {
+        User user = User.getInstance().blockingGet();
+        user.save();
+        super.stop();
     }
 
     enum Mode {

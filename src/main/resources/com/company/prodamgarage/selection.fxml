@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
+<?import com.company.prodamgarage.customView.TableOfChanges?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.company.prodamgarage.controllers.SelectionController"
@@ -27,9 +28,21 @@
                 Тема
             </Label>
 
-            <TextArea fx:id="main_text" wrapText="true">
-                очень приольное аписание, ахуеть проста
-            </TextArea>
+            <ScrollPane prefHeight="300" maxHeight="500" prefWidth="100000" fx:id="scrollView">
+                <VBox spacing="10">
+                    <TextArea fx:id="main_text" wrapText="true"/>
+
+                    <Label fx:id="firstText"/>
+                    <TableOfChanges style="-fx-min-width: 0; -fx-pref-width: 0; -fx-max-width: 0;" fx:id="userChangesViewFirst">
+
+                    </TableOfChanges>
+
+                    <Label fx:id="secondText"/>
+                    <TableOfChanges style="-fx-min-width: 0; -fx-pref-width: 0; -fx-max-width: 0;" fx:id="userChangesViewSecond">
+
+                    </TableOfChanges>
+                </VBox>
+            </ScrollPane>
             <HBox>
                 <Button fx:id="firstBtn" styleClass = "button1">
                     <tooltip ><Tooltip  fx:id="tooltip1" text="Да" /></tooltip>

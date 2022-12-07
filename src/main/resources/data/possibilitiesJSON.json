@@ -6,8 +6,32 @@
       "className": "Possibility",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
-        "deltaAge": 1
+        "deltaCash": -100000,
+        "deltaPassive": 100000,
+        "deltaAge": 1,
+        "deltaFreeTime": -10,
+        "addedProperty": {
+          "key": {
+            "value": "HOUSE",
+            "className": "PropertyType"
+          },
+          "value": {
+            "value": "first hata",
+            "className": "String"
+          }
+        }
+      }
+    },
+    {
+      "name": "Квартира для сдачи. Стабильный доход!",
+      "description": "Топ хата -- лучший вариант за свои деньги!",
+      "className": "Possibility",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaMoneyFlow": 20000,
+        "deltaCash": -500000,
+        "deltaPassive": 500000,
+        "deltaFreeTime": -100
       }
     },
     {
@@ -16,6 +40,7 @@
       "className": "Possibility",
       "userChanges": {
         "className": "UserChanges",
+        "deltaCash": -50,
         "deltaMoneyFlow": 5,
         "deltaAge": 1
       }
@@ -29,8 +54,10 @@
       "propertyName": "first garage",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
+        "deltaMoneyFlow": -5000,
         "deltaAge": 1,
+        "deltaCash": -50000,
+        "deltaFreeTime": -10,
         "addedProperty": {
           "key": {
             "value": "BUSINESS",
@@ -53,7 +80,7 @@
                   "className": "ConditionsTypes"
                 },
                 "value": {
-                  "value": 5,
+                  "value": 50,
                   "className": "Integer"
                 }
               },
@@ -62,7 +89,9 @@
             "userChanges": {
               "className": "UserChanges",
               "deltaMoneyFlow": -5,
-              "deltaAge": 2
+              "deltaAge": 2,
+              "deltaCash": -5000,
+              "deltaFreeTime": -1
             }
           },
           {

@@ -22,20 +22,23 @@ public class User implements Serializable {
 
     private static final String serializationPath = "src/main/resources/data/testSave.ser";
 
-    private final SimpleObservable<Integer> age = new SimpleObservable<>(0);
-    private final SimpleObservable<String> name = new SimpleObservable<>("");
-    private final SimpleObservable<Integer> cash = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> age = new SimpleObservable<>(20);
+    private final SimpleObservable<String> name = new SimpleObservable<>("Пришелец");
+    private final SimpleObservable<Integer> cash = new SimpleObservable<>(50000);
     private final SimpleObservable<Integer> credit = new SimpleObservable<>(0);
-    private final SimpleObservable<Integer> moneyFlow = new SimpleObservable<>(0);
-    private final SimpleObservable<Integer> expenses = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> moneyFlow = new SimpleObservable<>(23000);
+    private final SimpleObservable<Integer> expenses = new SimpleObservable<>(18000);
     private final SimpleObservable<Integer> assets = new SimpleObservable<>(0);
-    private final SimpleObservable<Integer> passive = new SimpleObservable<>(0);
-    private final SimpleObservable<Integer> freeTime = new SimpleObservable<>(0);
+    private final SimpleObservable<Integer> passive = new SimpleObservable<>(2000000);
+    private final SimpleObservable<Integer> freeTime = new SimpleObservable<>(500);
     private final SimpleObservable<Integer> mapPosition = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> currentTime = new SimpleObservable<>(0);
     private final SimpleObservable<Integer> currentPlotTime = new SimpleObservable<>(0);
-    private final HashMap<PropertyType, List<Pair<String, UserChanges>>> properties = new HashMap<>();
+//    private final HashMap<PropertyType, List<Pair<String, UserChanges>>> properties = new HashMap<>();
+    private final SimpleObservable<HashMap<PropertyType, List<Pair<String, UserChanges>>>> properties = new SimpleObservable<>(new HashMap<>());
     private static String imagePath = "src/main/resources/images/image1.png";
+
+//    private static
 
     private String customImagePath = null;
 
@@ -43,6 +46,15 @@ public class User implements Serializable {
 
     private volatile List<Event> deferredEvents = new ArrayList<>();
 
+    public static Single<User> newInstance() {
+        instance = new User();
+        try {
+            instance.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return getInstance();
+    }
 
     @Nonnull
     public static Single<User> getInstance() {
@@ -51,11 +63,16 @@ public class User implements Serializable {
                 if (instance == null) {
                     Throwable err = reload(serializationPath, imagePath).blockingGet();
                     if (err != null) {
-                        if (!(err instanceof IOException)) {
-                            err.printStackTrace();
+                        User usr = User.newInstance().blockingGet();
+                        instance = usr;
+
+                        if (usr == null) {
+
+                            if (!(err instanceof IOException)) {
+                                err.printStackTrace();
+                            }
+                            singleSubscriber.onError(new RuntimeException("user load error. " + err));
                         }
-                        singleSubscriber.onError(new RuntimeException("user load error. " + err));
-                        return;
                     }
                 }
                 singleSubscriber.onSuccess(instance);
@@ -75,6 +92,7 @@ public class User implements Serializable {
                 instance = new User();
                 instance.save();
             } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
                 completableEmitter.onError(e);
             }
             if (!imagePath.equals(User.imagePath)) {
@@ -256,19 +274,27 @@ public class User implements Serializable {
     }
 
     public void addProperties(PropertyType propertyType, String value, UserChanges userChanges) {
-        properties.merge(propertyType, new ArrayList<>(List.of(Pair.create(value, userChanges))), (f, s) -> {
+        properties.get().merge(propertyType, new ArrayList<>(List.of(Pair.create(value, userChanges))), (f, s) -> {
             f.addAll(s);
             return f;
         });
+        properties.changed();
     }
 
     public boolean checkProperties(PropertyType propertyType, String value) {
-        if (properties.containsKey(propertyType)) {
-            return properties.get(propertyType).parallelStream().anyMatch((v) -> v.getKey().equals(value));
+        if (properties.get().containsKey(propertyType)) {
+            return properties.get().get(propertyType).parallelStream().anyMatch((v) -> v.getKey().equals(value));
         }
         return false;
     }
 
+    public SubscribeBuilder<HashMap<PropertyType, List<Pair<String, UserChanges>>>> subscribeProperties() {
+        return properties.subscribe();
+    }
+
+    public SubscribeBuilder<String> subscribeName() {
+        return name.subscribe();
+    }
 
     public SubscribeBuilder<Integer> subscribeAge() {
         return age.subscribe();
@@ -277,6 +303,7 @@ public class User implements Serializable {
     public SubscribeBuilder<Integer> subscribeCash() {
         return cash.subscribe();
     }
+
 
     public SubscribeBuilder<Integer> subscribeMoneyFlow() {
         return moneyFlow.subscribe();

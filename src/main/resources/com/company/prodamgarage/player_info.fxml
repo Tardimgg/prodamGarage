@@ -16,26 +16,25 @@
            fx:controller="com.company.prodamgarage.controllers.game.PlayerInfoController"
            prefHeight="300.0" prefWidth="100.0" maxWidth="400">
 
-        <effect>
-            <DropShadow radius="20"/>
-        </effect>
+    <effect>
+        <DropShadow radius="20"/>
+    </effect>
 
-    <AnchorPane StackPane.alignment="TOP_RIGHT" >
+    <AnchorPane StackPane.alignment="TOP_RIGHT">
 
-        <ScrollPane vbarPolicy="NEVER" fitToHeight="true" fitToWidth="true" fx:id="mainInfo"
-                    styleClass="panel"
+        <ScrollPane vbarPolicy="NEVER" fitToHeight="true" fitToWidth="true" fx:id="mainInfo" styleClass="panel"
                     AnchorPane.topAnchor="10"
                     AnchorPane.leftAnchor="10"
                     AnchorPane.rightAnchor="60"
                     AnchorPane.bottomAnchor="8">
 
-            <VBox maxHeight="0" spacing="5"  alignment="CENTER">
+            <VBox maxHeight="0" spacing="5" alignment="CENTER">
 
                 <padding>
                     <Insets left="5" right="5" top="10"/>
                 </padding>
 
-                <Label styleClass="pageName" VBox.vgrow="NEVER" textAlignment="CENTER">Имя</Label>
+                <Label fx:id="name" styleClass="pageName" VBox.vgrow="NEVER" textAlignment="CENTER">Имя</Label>
                 <Label styleClass="smallDescription" VBox.vgrow="NEVER" textAlignment="CENTER">Общая сводка</Label>
 
                 <BorderPane VBox.vgrow="NEVER">
@@ -186,16 +185,18 @@
             </VBox>
         </ScrollPane>
 
-        <Rectangle fx:id="mainInfoRec" arcHeight="30" arcWidth="30" fill="whitesmoke" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="30" width="60" height="50" />
+        <Rectangle fx:id="mainInfoRec" arcHeight="30" arcWidth="30" fill="whitesmoke" AnchorPane.rightAnchor="10"
+                   AnchorPane.topAnchor="30" width="60" height="50"/>
 
-        <Button fx:id="mainInfoBtn" onAction="#gotoMainInfo" styleClass="panelButton" mnemonicParsing="false" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="10">
+        <Button fx:id="mainInfoBtn" onAction="#gotoMainInfo" styleClass="panelButton" mnemonicParsing="false"
+                AnchorPane.rightAnchor="0" AnchorPane.topAnchor="10">
             <graphic>
                 <ImageView>
                     <Image requestedHeight="50" requestedWidth="50" url="@images/settings.png"/>
                 </ImageView>
             </graphic>
             <BorderPane.margin>
-                <Insets bottom="20.0" />
+                <Insets bottom="20.0"/>
             </BorderPane.margin>
         </Button>
 
@@ -205,80 +206,40 @@
         <!--        </TextArea>-->
 
 
-<!--    </AnchorPane>-->
+        <!--    </AnchorPane>-->
 
 
-<!--    <AnchorPane StackPane.alignment="TOP_RIGHT">-->
+        <!--    <AnchorPane StackPane.alignment="TOP_RIGHT">-->
+        <ScrollPane vbarPolicy="NEVER" fitToHeight="true" fitToWidth="true" fx:id="assetInfo" styleClass="panel"
+                    AnchorPane.topAnchor="8"
+                    AnchorPane.leftAnchor="10"
+                    AnchorPane.rightAnchor="58"
+                    AnchorPane.bottomAnchor="8">
 
-        <VBox fx:id="assetInfo" styleClass="panel"
-              AnchorPane.topAnchor="8"
-              AnchorPane.leftAnchor="10"
-              AnchorPane.rightAnchor="58"
-              alignment="CENTER">
+            <VBox fx:id="propertiesView" maxHeight="0" spacing="5" alignment="CENTER">
+                <padding>
+                    <Insets left="5" right="5" top="10"/>
+                </padding>
 
-            <Label VBox.vgrow="ALWAYS" textAlignment="CENTER">Имя</Label>
-            <spacing>20</spacing>
-            <Label VBox.vgrow="ALWAYS" textAlignment="CENTER">Активы</Label>
+                <Label fx:id="name1" styleClass="pageName" VBox.vgrow="NEVER" textAlignment="CENTER">Имя</Label>
+                <Label fx:id="panel2SmallDescription" styleClass="smallDescription" VBox.vgrow="NEVER" textAlignment="CENTER">Собственность</Label>
 
-            <BorderPane>
-                <VBox.margin>
-                    <Insets left="10.0"/>
-                </VBox.margin>
-                <left>
-                    <Label>хата:</Label>
-                </left>
-                <right>
-                    <Label>
-                        <BorderPane.margin>
-                            <Insets right="10.0"/>
-                        </BorderPane.margin>
-                    </Label>
-                </right>
-            </BorderPane>
+            </VBox>
+        </ScrollPane>
 
-            <BorderPane>
-                <VBox.margin>
-                    <Insets left="10.0"/>
-                </VBox.margin>
-                <left>
-                    <Label>не хата:</Label>
-                </left>
-                <right>
-                    <Label >
-                        <BorderPane.margin>
-                            <Insets right="10.0"/>
-                        </BorderPane.margin>
-                    </Label>
-                </right>
-            </BorderPane>
 
-            <BorderPane>
-                <VBox.margin>
-                    <Insets left="10.0"/>
-                </VBox.margin>
-                <left>
-                    <Label>Денежный поток:</Label>
-                </left>
-                <right>
-                    <Label>
-                        <BorderPane.margin>
-                            <Insets right="10.0"/>
-                        </BorderPane.margin>
-                    </Label>
-                </right>
-            </BorderPane>
-        </VBox>
+        <Rectangle fx:id="assetInfoRec" arcHeight="30" arcWidth="30" fill="whitesmoke" AnchorPane.rightAnchor="10"
+                   AnchorPane.topAnchor="100" width="60" height="50"/>
 
-        <Rectangle fx:id="assetInfoRec" arcHeight="30" arcWidth="30" fill="whitesmoke" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="100" width="60" height="50" />
-
-        <Button fx:id="assetInfoBtn" onAction="#gotoAssetInfo" styleClass="panelButton" mnemonicParsing="false" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="80">
+        <Button fx:id="assetInfoBtn" onAction="#gotoAssetInfo" styleClass="panelButton" mnemonicParsing="false"
+                AnchorPane.rightAnchor="0" AnchorPane.topAnchor="80">
             <graphic>
                 <ImageView>
                     <Image requestedHeight="50" requestedWidth="50" url="@images/settings.png"/>
                 </ImageView>
             </graphic>
             <BorderPane.margin>
-                <Insets bottom="20.0" />
+                <Insets bottom="20.0"/>
             </BorderPane.margin>
         </Button>
 

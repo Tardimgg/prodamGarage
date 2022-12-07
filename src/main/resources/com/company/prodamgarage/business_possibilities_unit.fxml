@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.control.Tooltip?>
+<?import com.company.prodamgarage.customView.TableOfChanges?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.company.prodamgarage.controllers.possibilities.business.BusinessPossibilitiesUnitController"
@@ -20,11 +21,15 @@
             <Label fx:id="title">
                 Тема
             </Label>
-            <!--            <ScrollPane VBox.vgrow="ALWAYS">-->
-            <TextArea fx:id="main_text" wrapText="true">
-                очень приольное аписание, ахуеть проста
-            </TextArea>
-            <!--            </ScrollPane>-->
+            <ScrollPane prefHeight="300" maxHeight="500" prefWidth="100000"  fx:id="scrollView">
+                <VBox>
+                    <TextArea fx:id="main_text" wrapText="true"/>
+
+                    <TableOfChanges style="-fx-min-width: 0; -fx-pref-width: 0; -fx-max-width: 0;" fx:id="userChangesView">
+
+                    </TableOfChanges>
+                </VBox>
+            </ScrollPane>
             <HBox>
                 <Button styleClass = "button1" fx:id="button">
                     <tooltip ><Tooltip  fx:id="tooltip1" text="Взять кредит" /></tooltip>
