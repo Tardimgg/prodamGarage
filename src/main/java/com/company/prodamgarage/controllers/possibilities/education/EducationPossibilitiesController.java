@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,8 +32,23 @@ public class EducationPossibilitiesController implements RequiringTransition, Re
     public ListView educationType;
 
     @FXML
+    Tooltip tooltip1;
+
+    @FXML
+    Tooltip tooltip2;
+
+    @FXML
+    Tooltip tooltip3;
+
+    @FXML
     public void initialize() {
         reqTransition = PublishSubject.create();
+        tooltip1.setShowDelay(Duration.seconds(0.1));
+        tooltip2.setShowDelay(Duration.seconds(0.1));
+        tooltip3.setShowDelay(Duration.seconds(0.1));
+        tooltip1.setStyle("-fx-font-size: 20");
+        tooltip2.setStyle("-fx-font-size: 20");
+        tooltip3.setStyle("-fx-font-size: 20");
     }
 
     @Override

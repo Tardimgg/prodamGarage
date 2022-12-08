@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.geometry.Insets?>
 <?import com.company.prodamgarage.customView.TableOfChanges?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
@@ -32,12 +33,21 @@
             </ScrollPane>
             <HBox>
                 <Button styleClass = "button1" fx:id="button">
+                    <HBox.margin>
+                        <Insets top="40.0" />
+                    </HBox.margin>
                     <tooltip ><Tooltip  fx:id="tooltip1" text="Взять кредит" /></tooltip>
                 </Button>
                 <Button styleClass = "button2" onAction="#apply">
+                    <HBox.margin>
+                        <Insets top="40.0" />
+                    </HBox.margin>
                     <tooltip><Tooltip fx:id="tooltip2" text="Купить" /></tooltip>
                 </Button>
                 <Button styleClass = "button3" onAction="#back" >
+                    <HBox.margin>
+                        <Insets top="40.0" />
+                    </HBox.margin>
                     <tooltip><Tooltip fx:id="tooltip3" text="Отказаться" /></tooltip>
                 </Button>
             </HBox>

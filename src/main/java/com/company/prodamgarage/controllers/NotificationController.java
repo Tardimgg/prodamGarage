@@ -86,6 +86,9 @@ public class NotificationController implements RequiringTransition {
         tooltip1.setShowDelay(Duration.seconds(0.1));
         tooltip2.setShowDelay(Duration.seconds(0.1));
         tooltip3.setShowDelay(Duration.seconds(0.1));
+        tooltip1.setStyle("-fx-font-size: 20");
+        tooltip2.setStyle("-fx-font-size: 20");
+        tooltip3.setStyle("-fx-font-size: 20");
 
         userChangesView.setData(changes);
 
