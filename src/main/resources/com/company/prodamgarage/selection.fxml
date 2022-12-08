@@ -5,6 +5,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
@@ -45,9 +46,15 @@
             </ScrollPane>
             <HBox>
                 <Button fx:id="firstBtn" styleClass = "button1">
+                    <HBox.margin>
+                        <Insets top="10.0" />
+                    </HBox.margin>
                     <tooltip ><Tooltip  fx:id="tooltip1" text="Да" /></tooltip>
                 </Button>
                 <Button fx:id="secondBtn" styleClass = "button2">
+                    <HBox.margin>
+                        <Insets top="10.0" />
+                    </HBox.margin>
                     <tooltip ><Tooltip  fx:id="tooltip2" text="Нет" /></tooltip>
                 </Button>
 <!--                <Button  styleClass = "button3">-->
