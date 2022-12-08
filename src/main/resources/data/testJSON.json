@@ -1,34 +1,86 @@
 {
   "goodEventList": [
     {
-      "title": "testName0",
-      "mainText": "testText0",
-      "className": "NotificationEvent",
-      "userChanges": {
-        "className": "UserChanges",
-        "deltaMoneyFlow": 5,
-        "deltaAge": 1
-      }
-    },
-    {
-      "title": "testName1",
-      "mainText": "testText1",
+      "title": "Радость всемирная",
+      "mainText": "Вам на почту написали, что вы, оказыввается, родственник умершего египетского шейха и вы получили в наследство 12345678$, и чтобы получить их, нужно всего оплатить какой-то там налог в 5 тысяч рублей по СПБ!",
       "className": "SelectionEvent",
       "userChanges": [
         {
-          "key": "ok",
+          "key": "Оплачиваем, даже не думая!",
           "value": {
             "className": "UserChanges",
-            "deltaMoneyFlow": 5,
-            "deltaAge": 1
+            "deltaCash": -5000
           }
         },
         {
-          "key": "no",
+          "key": "Ты за меня дурочка не держи:p",
+          "value": {
+            "className": "UserChanges"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Мама мия ешь долмио",
+      "mainText": "Не зря вы собирали крышки от банок этого замечательного бренда! Терпение окупилось и выиграли нереально крутую сковородку!",
+      "className": "NotificationEvent",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaCash": 2000
+      }
+    },
+    {
+      "title": "Сколько волка не корми, все равно в лес смотрит",
+      "mainText": "Покормив бездомных псов два года назад, Вы даже не рассчитывали на то, что они спасут вас от похитителей впоследстивие! Когда это произошло, вы словили гигансткую порцию благодарности и мотивации, работа пошла эффективней!",
+      "className": "NotificationEvent",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaFreeTime": 10
+      }
+    },
+    {
+      "title": "Джеки Чан",
+      "mainText": "Вы стали свидетелем, как у хорошенькой девушки вырвали сумку и грабитель уже в 50ти метрах и только набирает скорость",
+      "className": "SelectionEvent",
+      "userChanges": [
+        {
+          "key": "Пуститься в догонку",
           "value": {
             "className": "UserChanges",
-            "deltaMoneyFlow": 5,
-            "deltaAge": 1
+            "deltaFreeTime": -1,
+            "deferredEvents": [
+              {
+                "title": "Баян",
+                "mainText": "Оказалось, это просто снимали очередной сериал для Россия1 с великолепным названием 'Лучше синица в руке, чем где-либо еще'. Ну а вас похвалил оператор и отвесил нежную оплеуху режиссер)",
+                "className": "NotificationEvent",
+                "conditions": {
+                  "afterWhile": 1
+                },
+                "userChanges": {
+                  "className": "UserChanges",
+                  "deltaFreeTime": 2
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "Девушек много, а я у мамы один -- не буду лезть",
+          "value": {
+            "className": "UserChanges",
+            "deferredEvents": [
+              {
+                "title": "Ну и не очень то и хотелось",
+                "mainText": "Оказалось, это съемки нового блокбастера Марвел 'Женщина-кенгуру'. Не зря не погнались за грабителем, а то б кадр испортили...Нов  душе все равно непрятно немножко, все таки остались безучастным...",
+                "className": "NotificationEvent",
+                "conditions": {
+                  "afterWhile": 1
+                },
+                "userChanges": {
+                  "className": "UserChanges"
+                }
+              }
+            ]
           }
         }
       ]
@@ -57,7 +109,7 @@
             "deferredEvents": [
               {
                 "title": "Экзамены прошли",
-                "mainText": "Ну и зачем вы готовились к экзаменам? Энивей вы теперь чистите картошку, а так хотя бы поразлекались.. ",
+                "mainText": "Ну и зачем вы готовились к экзаменам? Энивей вы теперь чистите картошку, а так хотя бы поразлекались бы.. ",
                 "className": "NotificationEvent",
                 "conditions": {
                   "afterWhile": 5
@@ -89,6 +141,142 @@
         "className": "UserChanges",
         "deltaCash": -50
       }
+    },
+    {
+      "title": "Любовь-чертовка",
+      "mainText": "В первый раз за несколько недель выйдя из дома вы успели влюбиться. О последствиях и говорить не стоит...",
+      "className": "NotificationEvent",
+      "userChanges":
+      {
+            "className": "UserChanges",
+            "deltaCash": -500,
+            "deltaFreeTime": -20,
+            "deltaMoneyFlow": -5,
+            "deferredEvents": [
+            {
+              "title": "Последствия потребления моркови",
+              "mainText": "т̶р̶и̶ две полоски...Жесть...А как учиться и работать, об этом ты подумал?",
+              "conditions": {
+                "afterWhile": 5
+              },
+              "className": "SelectionEvent",
+              "userChanges": [
+                {
+                  "key": "Бежать до китайской границы (ну ты что? Некрасиво)",
+                  "value": {
+                    "className": "UserChanges",
+                    "deltaCash": -5000,
+                    "deferredEvents": [
+                      {
+                        "title": "ой, все",
+                        "mainText": "Сбежал, дорогой? А тревога то ложной оказалась! Вам то все по боку, только теперь весь город знает, что ты из себя представляешь",
+                        "className": "NotificationEvent",
+                        "conditions": {
+                          "afterWhile": 5
+                        },
+                        "userChanges": {
+                          "className": "UserChanges"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "key": "Прянять вызов судьбы-злодейки",
+                  "value": {
+                    "className": "UserChanges",
+                    "deltaFreeTime": -20,
+                    "deferredEvents": [
+                      {
+                        "title": "Фальшивка",
+                        "mainText": "Ложная тревога! Поздравляю! Теперь все знают, что вы -- надежный человек!",
+                        "className": "NotificationEvent",
+                        "conditions": {
+                          "afterWhile": 5
+                        },
+                        "userChanges": {
+                          "className": "UserChanges",
+                          "deltaFreeTime": 40,
+                          "deltaCash": 1500,
+                          "deltaMoneyFlow": 25
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+      }
+    },
+    {
+      "title": "Библейские мотивы",
+      "mainText": "В квартире натуральный потоп! Не везет, так не везет! Хотя, на что тут было рассчитывать, если живем под крышей из одеяла...",
+      "className": "NotificationEvent",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaCash": -500
+      }
+    },
+    {
+      "title": "Вековой юмор",
+      "mainText": "Поскользнувшись на банановой кожуре, ваше настроение окончательно приняло Кушхова: Вы неделю провели за сериалами, возле кровати скопилось 12 пустых ведер из под мороженого.",
+      "className": "NotificationEvent",
+      "userChanges": {
+        "className": "UserChanges",
+        "deltaCash": -4000,
+        "deltaFreeTime": -1
+      }
+    },
+    {
+      "title": "Русская хтонь или новая интеллегенция?",
+      "mainText": "Пятый раз завалив экзамен по вождению (Вас, безусловно завалили, а как иначе?>w<), вы встали перед сложным моральным выбором: дать вз9тку и спокойно забрать ВУ или пытаться все-таки честно сдать до упора.",
+      "className": "SelectionEvent",
+      "userChanges": [
+        {
+          "key": "У России два друга -- честность и упорство",
+          "value": {
+            "className": "UserChanges",
+            "deltaFreeTime": -10,
+            "deferredEvents": [
+              {
+                "title": "Спасибо, сынок",
+                "mainText": "Именно этим вас отблагодарила бабушка, которую вы подбросили до дома, подобрав с остановки во время первой самостоятельной поездки! Да с правами, на новом авто! Ну что за молодец, так держать!",
+                "className": "NotificationEvent",
+                "conditions": {
+                  "afterWhile": 2
+                },
+                "userChanges": {
+                  "className": "UserChanges",
+                  "deltaFreeTime": 20,
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key": "У России две проблемы -- я и место, где я скоро буду дрифтить",
+          "value": {
+            "className": "UserChanges",
+            "deltaCash": -2000,
+            "deferredEvents": [
+              {
+                "title": "Не водитель, а истребитель",
+                "mainText": "Разбив вторую машину, вы осознали, что вокруг все бараны на трассе (кроме вас, конечно). А то, что кто-то нацарапал на вашей, припаркованной на три места, машине 'водятел' - проказни завистников",
+                "className": "NotificationEvent",
+                "conditions": {
+                  "afterWhile": 2
+                },
+                "userChanges": {
+                  "className": "UserChanges",
+                  "deltaFreeTime": -5,
+                  "deltaCash": -5000
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }
