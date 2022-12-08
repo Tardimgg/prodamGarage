@@ -2,6 +2,8 @@ package com.company.prodamgarage.models.loaders;
 
 import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.StdJsonParser;
+import com.company.prodamgarage.models.conditions.Conditions;
+import com.company.prodamgarage.models.conditions.ConditionsTypes;
 import com.company.prodamgarage.models.eventModels.*;
 import com.company.prodamgarage.models.user.UserChanges;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
@@ -38,6 +40,8 @@ public class EventReader {
                             Pair.create(NotificationEvent.class, Optional.of(List.of(Pair.create(DialogFactory.class, dialogFactory)))),
                             Pair.create(SelectionEvent.class, Optional.of(List.of(Pair.create(DialogFactory.class, dialogFactory)))),
                             Pair.create(UserChanges.class, Optional.empty()),
+                            Pair.create(Conditions.class, Optional.empty()),
+                            Pair.create(ConditionsTypes.class, Optional.empty()),
 //                            Pair.create(Pair.class, Optional.of(List.of(
 //                                    Pair.create(String.class.getClass(), String.class),
 //                                    Pair.create(UserChanges.class.getClass(), UserChanges.class)

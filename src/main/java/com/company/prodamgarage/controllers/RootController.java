@@ -4,7 +4,12 @@ import com.company.prodamgarage.*;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
 public class RootController {
@@ -14,7 +19,6 @@ public class RootController {
 
     @FXML
     public void initialize() {
-
     }
 
     public void setView(Pair<SceneType, Object> sceneInfo) {
@@ -26,9 +30,16 @@ public class RootController {
                     rootView.getChildren().clear();
                     rootView.getChildren().setAll(parentPair.key);
 
+                    if (parentPair.getValue() instanceof RequiringWindowSize initController) {
+                        initController.setSize(rootView.getHeight(), rootView.getWidth());
+                    }
+
+
+
                     if (parentPair.getValue() instanceof RequiringData infoController) {
                         infoController.setData(sceneInfo.getValue());
                     }
+
 
                     if (parentPair.getValue() instanceof RequiringTransition controller) {
                         controller.subscribe(new DefaultObserver<>() {

@@ -2,6 +2,7 @@ package com.company.prodamgarage.models;
 
 import com.company.prodamgarage.DefaultObserver;
 import com.company.prodamgarage.models.dialog.Dialog;
+import com.company.prodamgarage.models.dialog.dialogBuilders.NotificationDialogBuilder;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.models.eventModels.PossibilitiesEvent;
@@ -12,6 +13,7 @@ import com.company.prodamgarage.models.loaders.PossibilitiesLoader;
 import com.company.prodamgarage.models.mapModels.MapElement;
 import com.company.prodamgarage.models.mapModels.MapRepository;
 import com.company.prodamgarage.models.possibilityModels.Possibility;
+import com.company.prodamgarage.models.user.DefaultUserChanges;
 import com.company.prodamgarage.models.user.PropertyType;
 import com.company.prodamgarage.models.user.User;
 import com.company.prodamgarage.models.user.UserChanges;
@@ -25,9 +27,17 @@ import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.ReplaySubject;
+import javafx.application.Platform;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 public class Game {
@@ -51,6 +61,19 @@ public class Game {
         this.dialogFactory = eventFactory;
         instance = this;
 
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
+            Thread t = Executors.defaultThreadFactory().newThread(r);
+            t.setDaemon(true);
+            return t;
+        });
+        executor.scheduleAtFixedRate(() -> {
+            try {
+                user.save();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }, 0, 5, TimeUnit.SECONDS);
+
         MapReader.getMapRepository()
                 .subscribeOn(Schedulers.computation())
                 .subscribe(new BiConsumerSingleObserver<>((mapRepository, throwable) -> {
@@ -68,11 +91,34 @@ public class Game {
     // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
 
     private void getNextRealization(FlowableEmitter<Dialog> flowableEmitter) throws IllegalAccessException {
+
+        user.setCash(user.getCash() + user.getMoneyFlow() - user.getExpenses());
+
+        if (user.getCash() >= 1000000) {
+            Dialog dialog = new NotificationDialogBuilder(dialogFactory)
+                    .setTitle("Конец игры")
+                    .setMainText("Вы выиграли!")
+                    .setChanges(new DefaultUserChanges())
+                    .build();
+            flowableEmitter.onNext(dialog);
+            flowableEmitter.onError(new GameOver("win"));
+            return;
+        } else if (user.getCash() < 0 || user.getFreeTime() < 0) {
+            Dialog dialog = new NotificationDialogBuilder(dialogFactory)
+                    .setTitle("Конец игры")
+                    .setMainText("Вы проиграли")
+                    .setChanges(new DefaultUserChanges())
+                    .build();
+            flowableEmitter.onNext(dialog);
+            flowableEmitter.onError(new GameOver("loses"));
+            return;
+        }
+
+
+
         Event event;
         MapElement mapElement = map.getMapList().get(user.getCurrentTime() % map.getMapList().size());
 
-//        int count = 0;
-//        int MAX_COUNT = 10;
 
         boolean conditionsChecked;
         boolean firstIteration = true;
@@ -83,7 +129,6 @@ public class Game {
                 mapElement = map.getMapList().get(user.getCurrentTime() % map.getMapList().size());
             }
             firstIteration = false;
-//            count += 1;
 
             conditionsChecked = false;
 
@@ -166,6 +211,7 @@ public class Game {
 
 //        flowableEmitter.onNext(event.dialogBuilder().setTitle("ЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ").build());
         user.increaseCurrentTime();
+
         flowableEmitter.onComplete();
     }
 
@@ -188,6 +234,7 @@ public class Game {
                             e.printStackTrace();
                             flowableEmitter.onComplete();
                         }
+                        super.onComplete();
                     }
                 });
             }

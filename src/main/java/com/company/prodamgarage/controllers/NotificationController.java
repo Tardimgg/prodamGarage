@@ -3,23 +3,30 @@ package com.company.prodamgarage.controllers;
 import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.RequiringTransition;
 import com.company.prodamgarage.SceneType;
+import com.company.prodamgarage.customView.TableOfChanges;
 import com.company.prodamgarage.models.user.UserChanges;
 import io.reactivex.Observer;
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+
+import java.lang.reflect.Field;
 
 public class NotificationController implements RequiringTransition {
 
 
-//    private PublishSubject<SceneType> reqTransition = PublishSubject.create();
+    public TableOfChanges userChangesView;
+    public ScrollPane scrollView;
+    //    private PublishSubject<SceneType> reqTransition = PublishSubject.create();
     private PublishSubject<Pair<SceneType, Object>> reqTransition;
 
     @Override
@@ -79,6 +86,17 @@ public class NotificationController implements RequiringTransition {
         tooltip1.setShowDelay(Duration.seconds(0.1));
         tooltip2.setShowDelay(Duration.seconds(0.1));
         tooltip3.setShowDelay(Duration.seconds(0.1));
+
+        userChangesView.setData(changes);
+
+        userChangesView.prefWidthProperty().bind(main_text.widthProperty());
+        userChangesView.minWidthProperty().bind(main_text.widthProperty());
+        userChangesView.maxWidthProperty().bind(main_text.widthProperty());
+
+        main_text.prefWidthProperty().bind(scrollView.widthProperty().multiply(0.96));
+        main_text.minWidthProperty().bind(scrollView.widthProperty().multiply(0.96));
+        main_text.maxWidthProperty().bind(scrollView.widthProperty().multiply(0.96));
+        main_text.prefHeightProperty().bind(scrollView.heightProperty().subtract(100));
     }
 
 
@@ -87,16 +105,16 @@ public class NotificationController implements RequiringTransition {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(JavaFxScheduler.platform())
                 .subscribe(new DisposableCompletableObserver() {
-            @Override
-            public void onComplete() {
-                reqTransition.onNext(Pair.create(SceneType.BACK, null));
-                reqTransition.onComplete();
-            }
+                    @Override
+                    public void onComplete() {
+                        reqTransition.onNext(Pair.create(SceneType.BACK, null));
+                        reqTransition.onComplete();
+                    }
 
-            @Override
-            public void onError(Throwable throwable) {
+                    @Override
+                    public void onError(Throwable throwable) {
 
-            }
-        });
+                    }
+                });
     }
 }
