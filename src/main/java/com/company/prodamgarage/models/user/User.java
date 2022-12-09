@@ -6,6 +6,7 @@ import com.company.prodamgarage.observable.SimpleObservable;
 import com.company.prodamgarage.models.eventModels.Event;
 import com.company.prodamgarage.observable.SubscribeBuilder;
 import io.reactivex.*;
+import io.reactivex.subjects.BehaviorSubject;
 import javafx.scene.control.Label;
 
 import javax.annotation.Nonnull;
@@ -40,6 +41,23 @@ public class User implements Serializable {
 
 //    private static
 
+    private void destroy() {
+        age.destroy();
+        name.destroy();
+        cash.destroy();
+        credit.destroy();
+        moneyFlow.destroy();
+        expenses.destroy();
+        assets.destroy();
+        passive.destroy();
+        freeTime.destroy();
+        mapPosition.destroy();
+        currentTime.destroy();
+        currentPlotTime.destroy();
+    }
+
+    public boolean destroyed = false;
+
     private String customImagePath = null;
 
     private static volatile User instance;
@@ -47,6 +65,10 @@ public class User implements Serializable {
     private volatile List<Event> deferredEvents = new ArrayList<>();
 
     public static Single<User> newInstance() {
+        if (instance != null) {
+            instance.destroy();
+            instance.destroyed = true;
+        }
         instance = new User();
         try {
             instance.save();
@@ -54,6 +76,23 @@ public class User implements Serializable {
             e.printStackTrace();
         }
         return getInstance();
+    }
+
+    private static transient volatile BehaviorSubject<User> subject = null;
+
+    public static Single<SubscribeBuilder<User>> getInstances() {
+        return Single.create(singleEmitter -> {
+            if (subject == null) {
+                subject = BehaviorSubject.create();
+
+                if (instance == null) {
+                    getInstance().blockingGet();
+                }
+                subject.onNext(instance);
+            }
+
+            singleEmitter.onSuccess(new SubscribeBuilder<>(subject));
+        });
     }
 
     @Nonnull
@@ -80,7 +119,9 @@ public class User implements Serializable {
         });
     }
 
-    private User() {}
+    private User() {
+        subject.onNext(this);
+    }
 
     public static Completable reload(String filePath, String imagePath) {
         return Completable.create(completableEmitter -> {

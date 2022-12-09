@@ -93,16 +93,6 @@
               "deltaCash": -5000,
               "deltaFreeTime": -1
             }
-          },
-          {
-            "title": "testName0",
-            "mainText": "testText0",
-            "className": "NotificationEvent",
-            "userChanges": {
-              "className": "UserChanges",
-              "deltaMoneyFlow": 5,
-              "deltaAge": 1
-            }
           }
         ]
       }
@@ -120,27 +110,43 @@
   ],
   "educationPossibilitiesList": [
     {
-      "name": "Buy Garage",
-      "description": "Покупка гаража -- отличный способ войтив бизнес самогоноваренья!",
+      "name": "Курсы",
+      "description": "Курс по управлению временем",
       "className": "Possibility",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
-        "deltaAge": 1
+        "deltaCash": -10000,
+        "deltaFreeTime": 50
       }
     },
     {
-      "name": "Buy pen",
-      "description": "Продай ручку. Часто ли вам приходилось слышать эту фразу? Мы будем уникальны и попросим вас купить ручку. buy pen pls",
+      "name": "Вышка",
+      "description": "Высшее образование",
       "className": "Possibility",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
-        "deltaAge": 1
+        "deltaMoneyFlow": -10000,
+        "deltaCash": -200000,
+        "deltaAge": 4,
+        "deferredEvents": [
+          {
+            "title": "Работа (подарок судьбы)",
+            "mainText": "Поздравляем, вы устроились на престижную работу",
+            "className": "NotificationEvent",
+            "conditions": {
+              "afterWhile": 2
+            },
+            "userChanges": {
+              "className": "UserChanges",
+              "deltaMoneyFlow": 10000,
+              "deltaFreeTime": -60
+            }
+          }
+        ]
       }
     },
     {
-      "name": "Buy pen",
+      "name": "Ну купиииииииииии!!!",
       "description": "Ещё раз продай ручку. Часто ли вам приходилось слышать эту фразу? Мы будем уникальны и попросим вас купить ручку. buy pen pls",
       "className": "Possibility",
       "userChanges": {

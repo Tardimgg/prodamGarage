@@ -40,11 +40,15 @@ public class SimpleObservable<T> implements Serializable {
         return new SubscribeBuilder<>(subject);
     }
 
-    @Override
-    protected void finalize() throws Throwable {
+    public void destroy() {
         if (subject != null) {
             subject.onComplete();
         }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        destroy();
         super.finalize();
     }
 }

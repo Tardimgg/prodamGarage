@@ -25,9 +25,9 @@ public class TableOfChanges extends TableView<Pair<String, String>> {
             case "deltaCash" -> "Стоимость";
             case "deltaMoneyFlow" -> "Денежный поток";
             case "deltaExpenses" -> "Ежемесячные траты";
-            case "deltaAssets" -> "Размер актива";
-            case "deltaPassive" -> "Размер пассива";
-            case "deltaFreeTime" -> "Требует времени";
+            case "deltaAssets" -> "Размер активов";
+            case "deltaPassive" -> "Размер пассивов";
+            case "deltaFreeTime" -> "Свободное время";
             default -> "Неизвестный параметр";
         };
     }
@@ -44,6 +44,9 @@ public class TableOfChanges extends TableView<Pair<String, String>> {
     }
 
     public void setData(UserChanges changes) {
+        setVisible(true);
+        boolean isEmpty = true;
+
         if (changes != null) {
             ObservableList<Pair<String, String>> listOfChanges = FXCollections.observableArrayList();
 
@@ -56,6 +59,7 @@ public class TableOfChanges extends TableView<Pair<String, String>> {
                         String val = translateVal(f.get(changes));
                         if (!val.equals("+0")){
                             listOfChanges.add(Pair.create(translateNameChanges(name), val));
+                            isEmpty = false;
                         }
                     }
                 }
@@ -80,6 +84,9 @@ public class TableOfChanges extends TableView<Pair<String, String>> {
             prefHeightProperty().bind(fixedCellSizeProperty().multiply(Bindings.size(getItems()).add(1.3)));
             minHeightProperty().bind(prefHeightProperty());
             maxHeightProperty().bind(prefHeightProperty());
+        }
+        if (isEmpty) {
+            setVisible(false);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.company.prodamgarage.models.conditions;
 
 import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.mapModels.SeasonType;
+import com.company.prodamgarage.models.user.PropertyType;
 import com.company.prodamgarage.models.user.User;
 import io.reactivex.Single;
 
@@ -22,6 +23,7 @@ public class Conditions implements Serializable {
     public Pair<ConditionsTypes, Integer> mapPosition;
     public Pair<ConditionsTypes, Integer> currentTime;
     public Pair<ConditionsTypes, SeasonType> seasonType;
+    public Pair<PropertyType, String> withoutProperty;
 
     public Integer afterWhile;
     public float probability = 1;
@@ -34,6 +36,16 @@ public class Conditions implements Serializable {
                 String name = f.getName();
                 Object obj = f.get(this);
                 if (obj == null || name.equals("afterWhile") || name.equals("probability")) continue;
+
+                if (name.equals("withoutProperty")) {
+                    Pair<PropertyType, String> param = (Pair<PropertyType, String>) obj;
+                    if (user.checkProperties(param.key, param.value)) {
+                        singleEmitter.onSuccess(false);
+                        return;
+                    }
+                    continue;
+                }
+
                 switch (name) {
                     case ("name"):
                         if (!((Pair<ConditionsTypes, String>) obj).getValue().equals(user.getName())) {

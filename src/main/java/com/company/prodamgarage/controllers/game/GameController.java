@@ -114,6 +114,7 @@ public class GameController implements RequiringTransition, RequiringWindowSize 
     private Completable showDialog(Dialog dialog) {
         return Completable.create(completableEmitter -> {
             Pair<Parent, ?> parentPair;
+
             try {
                 parentPair = (Pair<Parent, ?>) dialog.create();
             } catch (GameOver ex) {
@@ -161,6 +162,7 @@ public class GameController implements RequiringTransition, RequiringWindowSize 
     private synchronized Completable startShowingDialogs() {
         return Completable.create(completableEmitter -> {
             Dialog dialog;
+
             while ((dialog = deferredDialogs.poll()) != null) {
 
                 showDialog(dialog).subscribeOn(JavaFxScheduler.platform()).blockingGet();
@@ -185,17 +187,15 @@ public class GameController implements RequiringTransition, RequiringWindowSize 
             }
             nextStep.setDisable(true);
         }
-        System.out.println("click");
         movePlayer();
         allDialogsLoaded.set(false);
 
         Game.getInstance().getNext()
                 .subscribeOn(Schedulers.computation())
-                .observeOn(Schedulers.computation())
+                .observeOn(Schedulers.computation(), true)
                 .subscribe(new DisposableSubscriber<>() {
                     @Override
                     public void onNext(Dialog dialog) {
-                        System.out.println(dialog.getClass().toString() + " " + deferredDialogs.size());
 
                         deferredDialogs.add(dialog);
 
@@ -238,7 +238,6 @@ public class GameController implements RequiringTransition, RequiringWindowSize 
 
                                         @Override
                                         public void onError(Throwable throwable) {
-
                                         }
                                     });
                         }

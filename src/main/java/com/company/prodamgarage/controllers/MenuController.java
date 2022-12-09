@@ -64,7 +64,7 @@ public class MenuController implements RequiringTransition {
 
                     if (parentPair != null) {
                         ((NotificationController) parentPair.getValue()).setTitle("История");
-                        ((NotificationController) parentPair.getValue()).setMainText("kok");
+                        ((NotificationController) parentPair.getValue()).setMainText("Пусто");
                         ((NotificationController) parentPair.getValue()).setChanges(new DefaultUserChanges());
                         ((NotificationController) parentPair.getValue()).initialize();
                         rootPane.getChildren().addAll(parentPair.key);
