@@ -32,12 +32,12 @@
                 </VBox>
             </ScrollPane>
             <HBox>
-                <Button styleClass = "button1" fx:id="button">
-                    <HBox.margin>
-                        <Insets top="40.0" />
-                    </HBox.margin>
-                    <tooltip ><Tooltip  fx:id="tooltip1" text="Взять кредит" /></tooltip>
-                </Button>
+<!--                <Button styleClass = "button1" fx:id="button">-->
+<!--                    <HBox.margin>-->
+<!--                        <Insets top="40.0" />-->
+<!--                    </HBox.margin>-->
+<!--                    <tooltip ><Tooltip  fx:id="tooltip1" text="Взять кредит" /></tooltip>-->
+<!--                </Button>-->
                 <Button styleClass = "button2" onAction="#apply">
                     <HBox.margin>
                         <Insets top="40.0" />

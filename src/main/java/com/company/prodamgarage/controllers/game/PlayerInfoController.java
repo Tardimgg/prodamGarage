@@ -7,6 +7,7 @@ import com.company.prodamgarage.models.user.PropertyType;
 import com.company.prodamgarage.models.user.User;
 import com.company.prodamgarage.models.user.UserChanges;
 import com.company.prodamgarage.observable.SubscribeBuilder;
+import io.reactivex.functions.BiConsumer;
 import io.reactivex.internal.observers.BiConsumerSingleObserver;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -63,8 +64,74 @@ public class PlayerInfoController {
 
     private <T> void bind(SubscribeBuilder<T> subscribeBuilder, DefaultObserver<T> obs) {
         subscribeBuilder.subscribeOn(Schedulers.computation())
-                .observeOn(JavaFxScheduler.platform())
+                .observeOn(JavaFxScheduler.platform(), true)
                 .subscribe(obs);
+    }
+
+    private void initWithNewUser(User user) {
+        if (user != null) {
+
+            bind(name, user.subscribeName());
+            bind(name1, user.subscribeName());
+            bind(money, user.subscribeCash());
+            bind(moneyFlow, user.subscribeMoneyFlow());
+            bind(expenses, user.subscribeExpenses());
+            bind(assets, user.subscribeAssets());
+            bind(passive, user.subscribePassive());
+            bind(freeTime, user.subscribeFreeTime());
+            bind(time, user.subscribeCurrentTime());
+
+            bind(user.subscribeMoneyFlow(), new DefaultObserver<>() {
+                @Override
+                public void onNext(Integer integer) {
+                    costPerHour.setText(Float.toString(integer / (30.0f * 24)));
+                }
+            });
+
+            bind(user.subscribeFreeTime(), new DefaultObserver<>() {
+                @Override
+                public void onNext(Integer integer) {
+                    mood.setText(integer > 10 ? "Норм" : "Неоч");
+                }
+            });
+
+            bind(user.subscribeProperties(), new DefaultObserver<>() {
+                @Override
+                public void onNext(HashMap<PropertyType, List<Pair<String, UserChanges>>> propertyTypeListHashMap) {
+//                                propertiesView.getChildren().filtered(node -> !Arrays.asList("name1", "panel2SmallDescription").contains(node.getId())).clear();
+                    propertiesView.getChildren().removeIf(node -> !Arrays.asList("name1", "panel2SmallDescription").contains(node.getId()));
+
+                    for (var key : propertyTypeListHashMap.keySet()) {
+                        var res = propertyTypeListHashMap.get(key);
+
+                        if (res != null) {
+                            for (var val : res) {
+                                BorderPane pane = new BorderPane();
+                                VBox.setVgrow(pane, Priority.NEVER);
+                                VBox.setMargin(pane, new Insets(0, 0, 0, 10));
+
+                                Label propertyName = new Label();
+                                propertyName.getStyleClass().add("property");
+                                propertyName.setText(val.key);
+                                BorderPane.setAlignment(propertyName, Pos.CENTER_LEFT);
+
+                                Label propertyValue = new Label();
+                                propertyValue.getStyleClass().add("property");
+                                propertyValue.setText(Integer.toString(Math.abs(val.value.deltaCash)));
+                                BorderPane.setAlignment(propertyValue, Pos.CENTER_RIGHT);
+                                BorderPane.setMargin(propertyValue, new Insets(0, 10, 0, 0));
+
+                                pane.setLeft(propertyName);
+                                pane.setRight(propertyValue);
+
+                                propertiesView.getChildren().add(pane);
+                            }
+                        }
+                    }
+
+                }
+            });
+        }
     }
 
     @FXML
@@ -74,86 +141,34 @@ public class PlayerInfoController {
 
         rootPlayerInfo.getStylesheets().add(Resources.class.getResource("player_info.css").toExternalForm());
 
-        User.getInstance()
+        User.getInstances()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(Schedulers.computation())
-                .subscribe(new BiConsumerSingleObserver<>((user, throwable) -> {
-                    if (user != null && throwable == null) {
-
-                        bind(name, user.subscribeName());
-                        bind(name1, user.subscribeName());
-                        bind(money, user.subscribeCash());
-                        bind(moneyFlow, user.subscribeMoneyFlow());
-                        bind(expenses, user.subscribeExpenses());
-                        bind(assets, user.subscribeAssets());
-                        bind(passive, user.subscribePassive());
-                        bind(freeTime, user.subscribeFreeTime());
-                        bind(time, user.subscribeCurrentTime());
-
-                        bind(user.subscribeMoneyFlow(), new DefaultObserver<>() {
-                            @Override
-                            public void onNext(Integer integer) {
-                                costPerHour.setText(Float.toString(integer / (30.0f * 24)));
-                            }
-                        });
-
-                        bind(user.subscribeFreeTime(), new DefaultObserver<>() {
-                            @Override
-                            public void onNext(Integer integer) {
-                                mood.setText(integer > 10 ? "Норм" : "Неоч");
-                            }
-                        });
-
-                        bind(user.subscribeProperties(), new DefaultObserver<>() {
-                            @Override
-                            public void onNext(HashMap<PropertyType, List<Pair<String, UserChanges>>> propertyTypeListHashMap) {
-                                propertiesView.getChildren().filtered(node -> !Arrays.asList("name1", "panel2SmallDescription").contains(node.getId())).clear();
-
-                                for (var key: propertyTypeListHashMap.keySet()) {
-                                    var res = propertyTypeListHashMap.get(key);
-
-                                    if (res != null) {
-                                        for (var val : res) {
-                                            BorderPane pane = new BorderPane();
-                                            VBox.setVgrow(pane, Priority.NEVER);
-                                            VBox.setMargin(pane, new Insets(0, 0, 0, 10));
-
-                                            Label propertyName = new Label();
-                                            propertyName.setText(val.key);
-                                            BorderPane.setAlignment(propertyName, Pos.CENTER_LEFT);
-
-                                            Label propertyValue = new Label();
-                                            propertyValue.setText(Integer.toString(-val.value.deltaCash));
-                                            BorderPane.setAlignment(propertyValue, Pos.CENTER_RIGHT);
-                                            BorderPane.setMargin(propertyValue, new Insets(0, 10, 0, 0));
-
-                                            pane.setLeft(propertyName);
-                                            pane.setRight(propertyValue);
-
-                                            propertiesView.getChildren().add(pane);
-                                        }
+                .subscribe(new BiConsumerSingleObserver<>((userSubscribeBuilder, throwable) -> {
+                    if (userSubscribeBuilder != null && throwable == null) {
+                        userSubscribeBuilder
+                                .subscribeOn(Schedulers.computation())
+                                .observeOn(Schedulers.computation())
+                                .subscribe(new DefaultObserver<>() {
+                                    @Override
+                                    public void onNext(User user) {
+                                        initWithNewUser(user);
                                     }
-                                }
-
-                            }
-                        });
-
-                    } else {
-                        throwable.printStackTrace();
+                                });
                     }
                 }));
-    }
+}
 
-    public void gotoMainInfo(ActionEvent actionEvent) {
-        mainInfo.toFront();
-        mainInfoRec.toFront();
-        mainInfoBtn.toFront();
-    }
+public void gotoMainInfo(ActionEvent actionEvent) {
+    mainInfo.toFront();
+    mainInfoRec.toFront();
+    mainInfoBtn.toFront();
+}
 
 
-    public void gotoAssetInfo(ActionEvent actionEvent) {
-        assetInfo.toFront();
-        assetInfoRec.toFront();
-        assetInfoBtn.toFront();
-    }
+public void gotoAssetInfo(ActionEvent actionEvent) {
+    assetInfo.toFront();
+    assetInfoRec.toFront();
+    assetInfoBtn.toFront();
+}
 }

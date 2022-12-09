@@ -26,7 +26,17 @@
       "className": "NotificationEvent",
       "userChanges": {
         "className": "UserChanges",
-        "deltaCash": 2000
+        "deltaCash": 2000,
+        "addedProperty": {
+          "key": {
+            "value": "HOUSE",
+            "className": "PropertyType"
+          },
+          "value": {
+            "value": "Сковородка",
+            "className": "String"
+          }
+        }
       }
     },
     {
@@ -232,6 +242,18 @@
       "title": "Русская хтонь или новая интеллегенция?",
       "mainText": "Пятый раз завалив экзамен по вождению (Вас, безусловно завалили, а как иначе?>w<), вы встали перед сложным моральным выбором: дать вз9тку и спокойно забрать ВУ или пытаться все-таки честно сдать до упора.",
       "className": "SelectionEvent",
+      "conditions": {
+        "withoutProperty": {
+          "key": {
+            "value": "HOUSE",
+            "className": "PropertyType"
+          },
+          "value": {
+            "value": "Права",
+            "className": "String"
+          }
+        }
+      },
       "userChanges": [
         {
           "key": "У России два друга -- честность и упорство",
@@ -248,7 +270,7 @@
                 },
                 "userChanges": {
                   "className": "UserChanges",
-                  "deltaFreeTime": 20,
+                  "deltaFreeTime": 20
                 }
               }
             ]
@@ -258,7 +280,17 @@
           "key": "У России две проблемы -- я и место, где я скоро буду дрифтить",
           "value": {
             "className": "UserChanges",
-            "deltaCash": -2000,
+            "deltaCash": -15000,
+            "addedProperty": {
+              "key": {
+                "value": "HOUSE",
+                "className": "PropertyType"
+              },
+              "value": {
+                "value": "Права",
+                "className": "String"
+              }
+            },
             "deferredEvents": [
               {
                 "title": "Не водитель, а истребитель",

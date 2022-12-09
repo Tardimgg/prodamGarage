@@ -5,6 +5,7 @@ import com.company.prodamgarage.models.StdJsonParser;
 import com.company.prodamgarage.models.conditions.Conditions;
 import com.company.prodamgarage.models.conditions.ConditionsTypes;
 import com.company.prodamgarage.models.eventModels.*;
+import com.company.prodamgarage.models.user.PropertyType;
 import com.company.prodamgarage.models.user.UserChanges;
 import com.company.prodamgarage.models.dialog.factory.DialogFactory;
 import com.google.gson.*;
@@ -42,6 +43,7 @@ public class EventReader {
                             Pair.create(UserChanges.class, Optional.empty()),
                             Pair.create(Conditions.class, Optional.empty()),
                             Pair.create(ConditionsTypes.class, Optional.empty()),
+                            Pair.create(PropertyType.class, Optional.empty()),
 //                            Pair.create(Pair.class, Optional.of(List.of(
 //                                    Pair.create(String.class.getClass(), String.class),
 //                                    Pair.create(UserChanges.class.getClass(), UserChanges.class)

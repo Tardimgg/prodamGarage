@@ -51,22 +51,42 @@ public class EducationPossibilitiesController implements RequiringTransition, Re
         tooltip3.setStyle("-fx-font-size: 20");
     }
 
+    Object obj;
+
     @Override
     public void setData(Object obj) {
+        this.obj = obj;
 
         reqTransition = PublishSubject.create();
 
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.schedule(() -> {
-            Platform.runLater(() -> {
-                back(null);
-            });
-        }, 5, TimeUnit.SECONDS);
+//        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+//        service.schedule(() -> {
+//            Platform.runLater(() -> {
+//                back(null);
+//            });
+//        }, 5, TimeUnit.SECONDS);
+    }
+
+    public void showSimple() {
+        reqTransition.onNext(Pair.create(SceneType.BUSINESS_POSSIBILITIES, obj));
+        reqTransition.onComplete();
     }
 
 
     public void back(ActionEvent actionEvent) {
         reqTransition.onNext(Pair.create(SceneType.BACK, null));
         reqTransition.onComplete();
+    }
+
+    public void toHighEduc(ActionEvent actionEvent) {
+        showSimple();
+    }
+
+    public void toSeminar(ActionEvent actionEvent) {
+        showSimple();
+    }
+
+    public void toTimeManagement(ActionEvent actionEvent) {
+        showSimple();
     }
 }

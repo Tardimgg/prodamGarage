@@ -55,7 +55,7 @@ public class Game {
     private final PublishSubject<Object> mapReadiness = PublishSubject.create();
 
 
-    private User user;
+//    private User user;
 
     public Game(DialogFactory eventFactory) {
         this.dialogFactory = eventFactory;
@@ -68,7 +68,7 @@ public class Game {
         });
         executor.scheduleAtFixedRate(() -> {
             try {
-                user.save();
+                User.getInstance().blockingGet().save();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -77,23 +77,18 @@ public class Game {
         MapReader.getMapRepository()
                 .subscribeOn(Schedulers.computation())
                 .subscribe(new BiConsumerSingleObserver<>((mapRepository, throwable) -> {
-                    try {
-                        user = User.getInstance().blockingGet();
-                    } catch (RuntimeException e) {
-                        mapReadiness.onError(e);
-                        return;
-                    }
+//                    try {
+//                        user = User.getInstance().blockingGet();
+//                    } catch (RuntimeException e) {
+//                        mapReadiness.onError(e);
+//                        return;
+//                    }
                     map = mapRepository;
                     mapReadiness.onComplete();
                 }));
     }
 
-    // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
-
-    private void getNextRealization(FlowableEmitter<Dialog> flowableEmitter) throws IllegalAccessException {
-
-        user.setCash(user.getCash() + user.getMoneyFlow() - user.getExpenses());
-
+    private boolean gameContinues(User user, FlowableEmitter<Dialog> flowableEmitter) {
         if (user.getCash() >= 1000000) {
             Dialog dialog = new NotificationDialogBuilder(dialogFactory)
                     .setTitle("Конец игры")
@@ -102,7 +97,8 @@ public class Game {
                     .build();
             flowableEmitter.onNext(dialog);
             flowableEmitter.onError(new GameOver("win"));
-            return;
+
+            return false;
         } else if (user.getCash() < 0 || user.getFreeTime() < 0) {
             Dialog dialog = new NotificationDialogBuilder(dialogFactory)
                     .setTitle("Конец игры")
@@ -111,9 +107,27 @@ public class Game {
                     .build();
             flowableEmitter.onNext(dialog);
             flowableEmitter.onError(new GameOver("loses"));
+
+            return false;
+        }
+        return true;
+    }
+
+    // логика игры(создание событий, изменение состояний персонажа, сохранение изменений)
+
+    private void getNextRealization(FlowableEmitter<Dialog> flowableEmitter) throws IllegalAccessException {
+
+        User user = User.getInstance().blockingGet();
+
+        if (!gameContinues(user, flowableEmitter)) {
             return;
         }
 
+        user.setCash(user.getCash() + user.getMoneyFlow() - user.getExpenses());
+
+        if (!gameContinues(user, flowableEmitter)) {
+            return;
+        }
 
 
         Event event;
@@ -234,6 +248,7 @@ public class Game {
                             e.printStackTrace();
                             flowableEmitter.onComplete();
                         }
+
                         super.onComplete();
                     }
                 });

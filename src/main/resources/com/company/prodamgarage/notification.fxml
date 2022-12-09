@@ -29,7 +29,7 @@
             <Label fx:id="title">
                 Тема
             </Label>
-            <ScrollPane prefHeight="300" maxHeight="500"  fx:id="scrollView">
+            <ScrollPane prefHeight="300" maxHeight="500" prefWidth="100000"  fx:id="scrollView">
                 <VBox>
                     <TextArea fx:id="main_text" wrapText="true"/>
 
@@ -42,13 +42,7 @@
                 <padding>
                     <Insets top="10" bottom="10" left="10" right="10"/>
                 </padding>
-                <Button maxHeight="10" styleClass = "button1" fx:id="button">
-                    <tooltip ><Tooltip  fx:id="tooltip1" text="Самоубийство" /></tooltip>
-                </Button>
-                <Button styleClass = "button2">
-                    <tooltip><Tooltip fx:id="tooltip2" text="Сдаться" /></tooltip>
-                </Button>
-                <Button styleClass = "button3" onAction="#back">
+                <Button styleClass = "button1" onAction="#back">
                     <tooltip><Tooltip fx:id="tooltip3" text="Принять" /></tooltip>
                 </Button>
             </HBox>

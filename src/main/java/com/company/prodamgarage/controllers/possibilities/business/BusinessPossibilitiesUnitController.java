@@ -54,10 +54,10 @@ public class BusinessPossibilitiesUnitController implements RequiringTransition 
     @FXML
     public void initialize() {
         reqTransition = PublishSubject.create();
-        tooltip1.setShowDelay(Duration.seconds(0.1));
+//        tooltip1.setShowDelay(Duration.seconds(0.1));
         tooltip2.setShowDelay(Duration.seconds(0.1));
         tooltip3.setShowDelay(Duration.seconds(0.1));
-        tooltip1.setStyle("-fx-font-size: 20");
+//        tooltip1.setStyle("-fx-font-size: 20");
         tooltip2.setStyle("-fx-font-size: 20");
         tooltip3.setStyle("-fx-font-size: 20");
 
