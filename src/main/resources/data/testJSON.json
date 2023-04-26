@@ -195,7 +195,7 @@
                   "key": "Прянять вызов судьбы-злодейки",
                   "value": {
                     "className": "UserChanges",
-                    "deltaFreeTime": -20,
+                    "deltaFreeTime": -200,
                     "deferredEvents": [
                       {
                         "title": "Фальшивка",
@@ -206,7 +206,7 @@
                         },
                         "userChanges": {
                           "className": "UserChanges",
-                          "deltaFreeTime": 40,
+                          "deltaFreeTime": 200,
                           "deltaCash": 1500,
                           "deltaMoneyFlow": 25
                         }

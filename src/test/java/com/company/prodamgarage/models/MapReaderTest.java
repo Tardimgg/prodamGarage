@@ -15,7 +15,7 @@ class MapReaderTest {
 
     @Test
     void getMapRepositoryDefaultTest1() {
-        MapRepository rep = MapReader.getMapRepository("src/test/resources/good_map_json.json").blockingGet();
+        MapRepository rep = MapReader.getMapRepository("/good_map_json.json").blockingGet();
 
         assertNotNull(rep);
         List<MapElement> mapElementList = rep.getMapList();
@@ -32,7 +32,7 @@ class MapReaderTest {
 
     @Test
     void getMapRepositoryDefaultTest2() {
-        MapRepository rep = MapReader.getMapRepository("src/test/resources/bad_map_json.json").blockingGet();
+        MapRepository rep = MapReader.getMapRepository("/bad_map_json.json").blockingGet();
 
         assertNotNull(rep);
         List<MapElement> mapElementList = rep.getMapList();

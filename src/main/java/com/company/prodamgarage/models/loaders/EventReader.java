@@ -13,12 +13,14 @@ import io.reactivex.Single;
 
 
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class EventReader {
 
     //    private static EventsRepository eventsRepository;
-    private static String defaultPath = "src/main/resources/data/testJSON.json";
+    private static String defaultPath = "/data/testJSON.json";
     private static HashMap<String, EventsRepository> data = new HashMap<>();
 
     public static Single<EventsRepository> getEventsRepository(DialogFactory dialogFactory){
@@ -29,10 +31,10 @@ public class EventReader {
         return Single.create((singleSubscriber) -> {
             if (!data.containsKey(path)) {
                 JsonParser parser = new JsonParser();
-                try (FileReader reader = new FileReader(path)) {
+                try (InputStream reader = EventReader.class.getResourceAsStream(path)) {
 
                     EventsRepository eventsRepository = new EventsRepository();
-                    JsonObject jsonObj = (JsonObject) parser.parse(reader);
+                    JsonObject jsonObj = (JsonObject) parser.parse(new InputStreamReader(reader));
 
                     JsonArray good_arr = (JsonArray) jsonObj.get("goodEventList");
                     JsonArray bad_arr = (JsonArray) jsonObj.get("badEventList");

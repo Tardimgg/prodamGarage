@@ -10,13 +10,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.reactivex.Single;
 
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 public class MapReader {
-    private static String defaultPath = "src/main/resources/data/mapJSON.json";
+    private static String defaultPath = "/data/mapJSON.json";
+//    private static String defaultPath = MapReader.class.getResource("/data/mapJSON.json").getPath();
     private static HashMap<String, MapRepository> data = new HashMap<>();
 
     public static Single<MapRepository> getMapRepository() {
@@ -27,9 +31,9 @@ public class MapReader {
         return Single.create((singleSubscriber) -> {
             if (!data.containsKey(path)) {
                 JsonParser parser = new JsonParser();
-                try (FileReader reader = new FileReader(path)) {
+                try (InputStream reader = MapReader.class.getResourceAsStream(path)) {
                     MapRepository mapRepository = new MapRepository();
-                    JsonObject jsonObj = (JsonObject) parser.parse(reader);
+                    JsonObject jsonObj = (JsonObject) parser.parse(new InputStreamReader(reader));
                     List<MapElement> mapElementTarget = new ArrayList<>();
                     JsonArray map_arr = (JsonArray) jsonObj.get("mapCellList");
                     for (int i = 0; i < map_arr.size(); ++i) {
@@ -40,6 +44,7 @@ public class MapReader {
                     data.put(path, mapRepository);
                     singleSubscriber.onSuccess(mapRepository);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     singleSubscriber.onError(new Throwable("parsing error" + e));
                 }
             } else {

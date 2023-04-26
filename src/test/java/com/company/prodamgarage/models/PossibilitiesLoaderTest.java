@@ -14,7 +14,7 @@ class PossibilitiesLoaderTest {
 
     @Test
     void getPossibilitiesRepositoryTest() {
-        PossibilitiesRepository rep = PossibilitiesLoader.getPossibilitiesRepository(null, "src/test/resources/possibilities_json.json").blockingGet();
+        PossibilitiesRepository rep = PossibilitiesLoader.getPossibilitiesRepository(null, "/possibilities_json.json").blockingGet();
 
         assertNotNull(rep);
         List<Possibility> listOfPossibilities = rep.getPossibilities(PossibilityType.APARTMENT);

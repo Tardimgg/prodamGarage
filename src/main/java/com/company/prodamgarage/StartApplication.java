@@ -57,7 +57,14 @@ public class StartApplication extends Application {
         GUI
     }
 
+
+
     private final static Mode mode = Mode.GUI;
+
+    /**
+     * The method of choosing the interface of communication with the player.
+     * The choice is made by changing the mode variable
+     */
 
     public static void main(String[] args) {
         DialogFactory dialogFactory;

@@ -31,7 +31,17 @@
         "deltaMoneyFlow": 20000,
         "deltaCash": -500000,
         "deltaPassive": 500000,
-        "deltaFreeTime": -100
+        "deltaFreeTime": -100,
+        "addedProperty": {
+          "key": {
+            "value": "HOUSE",
+            "className": "PropertyType"
+          },
+          "value": {
+            "value": "Квартира для сдачи",
+            "className": "String"
+          }
+        }
       }
     },
     {
@@ -41,7 +51,7 @@
       "userChanges": {
         "className": "UserChanges",
         "deltaCash": -50,
-        "deltaMoneyFlow": 5,
+        "deltaMoneyFlow": 500,
         "deltaAge": 1
       }
     }
@@ -54,10 +64,10 @@
       "propertyName": "first garage",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": -5000,
+        "deltaMoneyFlow": 5000,
         "deltaAge": 1,
         "deltaCash": -50000,
-        "deltaFreeTime": -10,
+        "deltaFreeTime": -100,
         "addedProperty": {
           "key": {
             "value": "BUSINESS",
@@ -103,7 +113,7 @@
       "className": "Possibility",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
+        "deltaMoneyFlow": 500,
         "deltaAge": 1
       }
     }
@@ -138,7 +148,7 @@
             },
             "userChanges": {
               "className": "UserChanges",
-              "deltaMoneyFlow": 10000,
+              "deltaMoneyFlow": 25000,
               "deltaFreeTime": -60
             }
           }
@@ -151,7 +161,7 @@
       "className": "Possibility",
       "userChanges": {
         "className": "UserChanges",
-        "deltaMoneyFlow": 5,
+        "deltaMoneyFlow": 500,
         "deltaAge": 1
       }
     }

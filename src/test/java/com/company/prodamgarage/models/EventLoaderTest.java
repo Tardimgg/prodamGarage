@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class EventLoaderTest {
     @Test
     void getPossibilitiesRepositoryTest() {
-        EventsRepository rep = EventReader.getEventsRepository(new ConsoleDialogFactory(), "src/test/resources/event_json.json").blockingGet();
+        EventsRepository rep = EventReader.getEventsRepository(new ConsoleDialogFactory(), "/event_json.json").blockingGet();
 
         assertNotNull(rep);
         List<Event> list1 = rep.getGoodEventList();

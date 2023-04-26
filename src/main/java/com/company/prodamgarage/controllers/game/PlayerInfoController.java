@@ -91,7 +91,7 @@ public class PlayerInfoController {
             bind(user.subscribeFreeTime(), new DefaultObserver<>() {
                 @Override
                 public void onNext(Integer integer) {
-                    mood.setText(integer > 10 ? "Норм" : "Неоч");
+                    mood.setText(integer > 200 ? "Норм" : "Неоч");
                 }
             });
 
