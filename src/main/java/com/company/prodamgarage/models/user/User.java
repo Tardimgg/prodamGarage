@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 
 import javax.annotation.Nonnull;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,7 +22,22 @@ import java.util.stream.Collectors;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static final String serializationPath = "src/main/resources/data/testSave.ser";
+    private static String rootPath = null;
+    private static final String propertiesFolder = "/properties";
+
+    static {
+        try {
+            new File(
+                    new File(User.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent() + propertiesFolder
+            ).mkdirs();
+            rootPath = new File(User.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //    private static final String serializationPath = "src/main/resources/data/testSave.ser";
+    private static final String serializationPath = rootPath + propertiesFolder + "/testSave.ser";
 
     private final SimpleObservable<Integer> age = new SimpleObservable<>(20);
     private final SimpleObservable<String> name = new SimpleObservable<>("Пришелец");

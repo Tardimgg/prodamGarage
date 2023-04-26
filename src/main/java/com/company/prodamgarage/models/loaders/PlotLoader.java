@@ -13,10 +13,12 @@ import com.google.gson.JsonParser;
 import io.reactivex.Single;
 
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class PlotLoader {
-    private static String defaultPath = "src/main/resources/data/plotJSON.json";
+    private static String defaultPath = "/data/plotJSON.json";
     private static HashMap<String, PlotRepository> data = new HashMap<>();
 
     public static Single<PlotRepository> getPlotRepository(DialogFactory dialogFactory) {
@@ -26,10 +28,10 @@ public class PlotLoader {
         return Single.create((singleSubscriber) -> {
             if (!data.containsKey(path)) {
                 JsonParser parser = new JsonParser();
-                try (FileReader reader = new FileReader(path)) {
+                try (InputStream reader = PlotLoader.class.getResourceAsStream(path)) {
                     PlotRepository plotRepository = new PlotRepository();
 
-                    JsonObject jsonObj = (JsonObject) parser.parse(reader);
+                    JsonObject jsonObj = (JsonObject) parser.parse(new InputStreamReader(reader));
 
                     JsonArray plot_arr = (JsonArray) jsonObj.get("plotList");
 
