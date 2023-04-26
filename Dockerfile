@@ -15,4 +15,6 @@ RUN curl https://download.java.net/java/GA/jdk19.0.2/fdb695a9d9064ad6b064dc6df57
 
 COPY ${JAR_FILE} /app.jar
 
+EXPOSE 5900
+
 USER app
