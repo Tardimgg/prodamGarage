@@ -55,3 +55,7 @@ remote-viewer spice://127.0.0.1:5900
     
 ![alt](/images/statistics.png)
 ![alt](/images/property.png)
+
+  - Игра в docker контейнере
+![alt](/images/main_menu_spice.png)
+
