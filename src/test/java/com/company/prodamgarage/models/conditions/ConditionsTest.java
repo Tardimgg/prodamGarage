@@ -4,17 +4,23 @@ import com.company.prodamgarage.Pair;
 import com.company.prodamgarage.models.mapModels.SeasonType;
 import com.company.prodamgarage.models.user.PropertyType;
 import com.company.prodamgarage.models.user.User;
-import com.company.prodamgarage.models.user.UserChanges;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class ConditionsTest {
+
+    @Mock
+    private User user;
 
     @Test
     void checkEqAge() throws IllegalAccessException {
-        User user = User.getInstance().blockingGet();
-        user.setAge(15);
+        Mockito.when(user.getRequiredParameter("age")).thenReturn(15);
 
         Conditions c = new Conditions();
         c.age = Pair.create(ConditionsTypes.EQUALS, 15);
@@ -27,8 +33,7 @@ class ConditionsTest {
 
     @Test
     void checkCmpAge() throws IllegalAccessException {
-        User user = User.getInstance().blockingGet();
-        user.setAge(15);
+        Mockito.when(user.getRequiredParameter("age")).thenReturn(15);
 
         Conditions c = new Conditions();
         c.age = Pair.create(ConditionsTypes.MORE, 10);
@@ -41,21 +46,19 @@ class ConditionsTest {
 
     @Test
     void checkProperty() throws IllegalAccessException {
-        User user = User.getInstance().blockingGet();
+        Mockito.when(user.checkProperties(PropertyType.HOUSE, "ДОМ")).thenReturn(false);
 
         Conditions c = new Conditions();
         c.withoutProperty = Pair.create(PropertyType.HOUSE, "ДОМ");
         assertEquals(c.check(user, SeasonType.AUTUMN).blockingGet(), true);
 
-        user.addProperties(PropertyType.HOUSE, "ДОМ", null);
+        Mockito.when(user.checkProperties(PropertyType.HOUSE, "ДОМ")).thenReturn(true);
         assertEquals(c.check(user, SeasonType.AUTUMN).blockingGet(), false);
 
     }
 
     @Test
     void checkProbability() throws IllegalAccessException {
-        User user = User.getInstance().blockingGet();
-
         Conditions c = new Conditions();
         c.probability = 0;
         assertEquals(c.check(user, SeasonType.AUTUMN).blockingGet(), false);
