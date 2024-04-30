@@ -31,7 +31,7 @@
             </Label>
             <ScrollPane prefHeight="300" maxHeight="500" prefWidth="100000"  fx:id="scrollView">
                 <VBox>
-                    <TextArea fx:id="main_text" wrapText="true"/>
+                    <TextArea fx:id="main_text" minHeight="150" wrapText="true"/>
 
                     <TableOfChanges style="-fx-min-width: 0; -fx-pref-width: 0; -fx-max-width: 0;" fx:id="userChangesView">
 

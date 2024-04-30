@@ -1,6 +1,22 @@
 {
   "mapCellList": [
     {
+      "eventType" : "PLOT",
+      "seasonType": "SUMMER"
+    },
+    {
+      "eventType" : "PLOT",
+      "seasonType": "SUMMER"
+    },
+    {
+      "eventType" : "PLOT",
+      "seasonType": "SUMMER"
+    },
+    {
+      "eventType" : "PLOT",
+      "seasonType": "SUMMER"
+    },
+    {
       "eventType" : "POSSIBILITIES",
       "seasonType": "SUMMER"
     },

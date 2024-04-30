@@ -5,14 +5,14 @@ import com.company.prodamgarage.models.eventModels.NotificationEvent;
 import java.util.List;
 
 public class PlotRepository {
-    private List<NotificationEvent> plotEvents;
+    private List<Event> plotEvents;
 
 
-    public List<NotificationEvent> getPlotEvents() {
+    public List<Event> getPlotEvents() {
         return plotEvents;
     }
 
-    public void setPlotEvents(List<NotificationEvent> plotEvents) {
+    public void setPlotEvents(List<Event> plotEvents) {
         this.plotEvents = plotEvents;
     }
 }
